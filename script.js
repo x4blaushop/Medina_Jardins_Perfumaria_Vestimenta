@@ -1,102 +1,111 @@
 /**
- * NÚCLEO-0: MOTOR DE AMBIENTE VIVO
- * Arquiteto: José Patrick Castro Soares
+ * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA
+ * Engine Core: Medina OS v2.0
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const MEDINA_PHONE = "5511996369611";
+const CORE_DATABASE = {
+    phone: "5511996369611",
+    jardins: [
+        { id: 1, tag: "PODA DE PRECISÃO GEOMÉTRICA" },
+        { id: 2, tag: "ARQUITETURA DE VASOS CLÁSSICOS" },
+        { id: 3, tag: "ESCULTURA BOTÂNICA IMPERIAL" },
+        { id: 4, tag: "REVITALIZAÇÃO DE ECOSSISTEMAS" },
+        { id: 19, tag: "VALORES & CONSULTORIA TÉCNICA", file: "jardins19_valores.jpg" },
+        { id: 20, tag: "LEGADO VERDE: CONCLUSÃO" }
+    ]
+};
 
-    // DICIONÁRIO DE IDENTIDADE - Riqueza Nominal
-    const jardinsData = {
-        1: "Poda de Precisão Imperial",
-        2: "Design de Vasos Contemporâneos",
-        3: "Escultura em Verde Soberano",
-        4: "Revitalização de Ecossistemas",
-        5: "Cerca Viva de Alta Densidade",
-        6: "Manutenção com Maquinário Premium",
-        19: "Transparência: Orçamentos Técnicos",
-        20: "Finalização de Obra e Entrega de Chaves"
-    };
+class MedinaKernel {
+    constructor() {
+        this.interface = document.getElementById('sovereign-interface');
+        this.scanner = document.getElementById('dna-scanner');
+        this.init();
+    }
 
-    // --- MOTOR DE PARTÍCULAS (FOLHAS) ---
-    const canvas = document.getElementById('leaf-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
+    async init() {
+        await this.simulateScan();
+        this.materializeGallery();
+        this.setupObservers();
+        this.bindMasterActions();
+        this.initParticles();
+    }
 
-    const resize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    };
+    simulateScan() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                this.scanner.style.opacity = '0';
+                this.interface.classList.remove('hidden');
+                setTimeout(() => { this.scanner.remove(); resolve(); }, 1000);
+            }, 3000);
+        });
+    }
 
-    class Leaf {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height - canvas.height;
-            this.size = Math.random() * 15 + 5;
-            this.speed = Math.random() * 2 + 1;
-            this.angle = Math.random() * 360;
-            this.spin = Math.random() * 0.2 - 0.1;
-        }
-        update() {
-            this.y += this.speed;
-            this.angle += this.spin;
-            if (this.y > canvas.height) {
-                this.y = -20;
-                this.x = Math.random() * canvas.width;
-            }
-        }
-        draw() {
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.angle);
-            ctx.fillStyle = 'rgba(45, 106, 79, 0.2)';
-            ctx.beginPath();
-            ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
+    materializeGallery() {
+        const engine = document.getElementById('grid-engine');
+        if (!engine) return;
+
+        // Gerador de Matéria (20 Projetos)
+        for (let i = 1; i <= 20; i++) {
+            const entry = CORE_DATABASE.jardins.find(j => j.id === i) || { tag: `PROJETO TÉCNICO ${i.toString().padStart(2, '0')}` };
+            const fileName = entry.file || `jardins${i}.jpg`;
+            
+            const card = document.createElement('div');
+            card.className = 'work-item';
+            card.innerHTML = `
+                <div class="img-wrap">
+                    <img src="jardins/${fileName}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
+                </div>
+                <div class="caption">${entry.tag}</div>
+            `;
+            engine.appendChild(card);
         }
     }
 
-    const initParticles = () => {
-        particles = [];
-        for (let i = 0; i < 30; i++) particles.push(new Leaf());
-    };
+    setupObservers() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('revealed');
+            });
+        }, { threshold: 0.1 });
 
-    const animate = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    };
+        document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
+    }
 
-    // --- MATERIALIZAÇÃO ---
-    const renderGallery = () => {
-        const grid = document.querySelector('.portfolio-grid');
-        if (!grid) return;
+    initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        for (let i = 1; i <= 20; i++) {
-            const card = document.createElement('div');
-            card.className = 'work-card';
-            const desc = jardinsData[i] || `PROJETO ARQUITETÔNICO ${i.toString().padStart(2, '0')}`;
-            const file = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
+        const particles = Array.from({ length: 40 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2,
+            speed: Math.random() * 0.5 + 0.1
+        }));
 
-            card.innerHTML = `
-                <img src="jardins/${file}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
-                <div class="info">
-                    <h4>${desc.toUpperCase()}</h4>
-                </div>
-            `;
-            grid.appendChild(card);
-        }
-    };
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(45, 106, 79, 0.4)';
+            particles.forEach(p => {
+                p.y -= p.speed;
+                if (p.y < 0) p.y = canvas.height;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        };
+        animate();
+    }
 
-    window.addEventListener('resize', resize);
-    resize();
-    initParticles();
-    animate();
-    renderGallery();
+    bindMasterActions() {
+        document.getElementById('whatsapp-master')?.addEventListener('click', () => {
+            const url = `https://wa.me/${CORE_DATABASE.phone}?text=${encodeURIComponent("Olá Medina! Solicito acesso ao orçamento de jardinagem.")}`;
+            window.open(url, '_blank');
+        });
+    }
+}
 
-    // Eventos
-    document.getElementById('trigger-garden')?.addEventListener('click', () => {
-        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
-    });
-});
+// Ignição do Sistema
+window.addEventListener('load', () => new MedinaKernel());
