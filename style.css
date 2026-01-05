@@ -1,43 +1,192 @@
 :root {
     --primary: #1b4332;
+    --emerald-light: #2d6a4f;
     --accent: #d4af37;
-    --bg: #050605;
-    --glass: rgba(255, 255, 255, 0.03);
-    --transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    --accent-glow: rgba(212, 175, 55, 0.4);
+    --bg-black: #050605;
+    --glass-bg: rgba(255, 255, 255, 0.03);
 }
 
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
 body {
-    background-color: var(--bg);
+    background-color: var(--bg-black);
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     overflow-x: hidden;
-    scroll-behavior: smooth;
+    line-height: 1.6;
 }
 
-.dna-header { text-align: center; padding: 60px 20px; width: 100%; }
-.dna-header h1 { font-size: 2.2rem; letter-spacing: 15px; font-weight: 300; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+/* Camada de Gradiente Esmeralda */
+.master-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% -20%, var(--primary) 0%, transparent 60%);
+    z-index: -2;
+    pointer-events: none;
+}
 
-.wardrobe-container { display: grid; grid-template-columns: 1fr; gap: 25px; padding: 20px; width: 95%; max-width: 450px; }
+.vignette {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
 
-.hanger-item { background: var(--glass); border: 1px solid rgba(212, 175, 55, 0.15); padding: 35px 20px; border-radius: 25px; text-align: center; transition: var(--transition); }
+#leaf-canvas {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
 
-.portfolio-grid { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; /* Duas colunas como no print */
-    gap: 15px; 
+/* Header de Alta Costura */
+.dna-header {
+    padding: 100px 20px 60px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.pre-title { font-size: 0.5rem; letter-spacing: 5px; color: var(--accent); font-weight: 600; }
+
+.dna-header h1 {
+    font-size: 3.5rem;
+    font-weight: 100;
+    letter-spacing: 20px;
+    margin: 10px 0;
+    background: linear-gradient(to bottom, #fff 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+}
+
+.dna-line {
+    width: 150px; height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 20px auto;
+    position: relative;
+}
+
+.dna-pulse {
+    position: absolute;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    top: -4.5px;
+    left: 0;
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulseMove 4s infinite linear;
+}
+
+@keyframes pulseMove {
+    0% { left: 0; opacity: 0; }
+    50% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+/* Grid de Serviços Modernizada */
+.wardrobe-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; z-index: 5; position: relative; }
+
+.hanger-item {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 30px;
+    padding: 50px 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hanger-item:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    background: rgba(212, 175, 55, 0.02);
+}
+
+.glass-shine {
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+    transform: skewX(-25deg);
+    transition: 0.7s;
+}
+
+.hanger-item:hover .glass-shine { left: 150%; }
+
+.icon-box { font-size: 3.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 20px var(--primary)); }
+
+.nav-btn {
+    margin-top: 25px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: 0.4s;
+}
+
+.nav-btn:hover { background: var(--accent); color: #000; }
+
+/* Galeria de Alta Fidelidade */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 40px 0;
+}
+
+.work-card {
+    background: #0a0a0a;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: 0.5s;
+}
+
+.work-card:hover { border-color: var(--accent); transform: scale(1.03); }
+
+.work-card img {
+    width: 100%; height: 200px; object-fit: cover;
+    filter: grayscale(0.3); transition: 0.8s;
+}
+
+.work-card:hover img { filter: grayscale(0); }
+
+.work-card .info {
+    padding: 15px;
+    text-align: center;
+}
+
+.work-card h4 {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin: 0;
+}
+
+/* Botão de Orçamento Soberano */
+.btn-budget-master {
     width: 100%;
+    padding: 25px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(45deg, var(--primary), #0a1f16);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.work-card { 
-    background: #0d0d0d; 
-    border: 1px solid rgba(212, 175, 55, 0.08); 
-    border-radius: 15px; 
-    overflow: hidden; 
-    opacity: 0; /* Começa invisível para o script animar */
-}
-
-.btn-budget { width: 100%; background: linear-gradient(135deg, var(--primary), #2d6a4f); color: #fff; border: none; padding: 18px; border-radius: 15px; font-size: 0.8rem; cursor: pointer; }
+.btn-text { font-size: 1rem; font-weight: 600; letter-spacing: 3px; display: block; }
+.btn-budget-master small { opacity: 0.6; letter-spacing: 1px; font-size: 0.6rem; }
