@@ -2,75 +2,73 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medina | Jardins & Essências</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MEDINA | SOVEREIGN ARCHITECTURE</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="master-overlay"></div>
-    <div class="vignette"></div>
-    <canvas id="leaf-canvas"></canvas> <header class="dna-header">
-        <div class="header-content">
-            <span class="pre-title">ESTÚDIO DE PAISAGISMO</span>
-            <h1>MEDINA</h1>
-            <div class="dna-line">
-                <div class="dna-pulse"></div>
-            </div>
-            <p class="tagline">JARDINAGEM • PERFUMARIA • VESTIMENTA</p>
-        </div>
-    </header>
+<body class="invisible-state">
+    <div id="nucleus-field">
+        <canvas id="particle-canvas"></canvas>
+        <div class="emerald-aura"></div>
+    </div>
 
-    <main class="wardrobe-container">
-        <section class="services-nav">
-            <div class="hanger-item garden" id="trigger-garden">
-                <div class="glass-shine"></div>
-                <div class="icon-box">🌿</div>
-                <h3>Jardinagem</h3>
-                <p>Projetos de Precisão</p>
-                <button class="nav-btn">Acessar Portfólio</button>
+    <div id="dna-scanner">
+        <div class="scan-grid"></div>
+        <div class="scan-line"></div>
+        <div class="access-label">IDENTIFYING ARCHITECT...</div>
+    </div>
+
+    <main id="sovereign-interface" class="hidden">
+        <header class="header-master">
+            <div class="brand-dna">
+                <span class="arch-sig">BY JOSÉ PATRICK</span>
+                <div class="shimmer-h1"><h1>MEDINA</h1></div>
+                <div class="dna-divider"><span></span><span></span><span></span></div>
+                <p class="core-tag">JARDINAGEM • PERFUMARIA • VESTIMENTA</p>
+            </div>
+        </header>
+
+        <section class="wardrobe-core">
+            <div class="env-module active" id="trigger-garden" data-nucleus="0">
+                <div class="module-bg" style="background-image: url('jardins/jardins.jpg')"></div>
+                <div class="module-overlay"></div>
+                <div class="module-content">
+                    <span class="module-icon">🌿</span>
+                    <div class="module-title">
+                        <h2>JARDINAGEM</h2>
+                        <small>ESTRUTURA DE PRECISÃO</small>
+                    </div>
+                </div>
             </div>
 
-            <div class="hanger-item perfume" id="trigger-perfume">
-                <div class="glass-shine"></div>
-                <div class="icon-box">✨</div>
-                <h3>Natura & Avon</h3>
-                <p>Essências & Catálogos</p>
-                <button class="nav-btn">Ver Vitrine</button>
-            </div>
-
-            <div class="hanger-item clothing">
-                <div class="glass-shine"></div>
-                <div class="icon-box">👔</div>
-                <h3>Vestimenta</h3>
-                <p>Estilo & Identidade</p>
-                <button class="nav-btn">Em Breve</button>
+            <div class="env-module" id="trigger-perfume" data-nucleus="1">
+                <div class="module-overlay"></div>
+                <div class="module-content">
+                    <span class="module-icon">✨</span>
+                    <div class="module-title">
+                        <h2>ESSÊNCIAS</h2>
+                        <small>NATURA & AVON</small>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="portfolio" class="portfolio-section">
-            <div class="section-intro">
-                <h2 class="category-title">JARDINAGEM DE PRECISÃO</h2>
-                <div class="leaf-divider">🍃</div>
-                <p class="section-sub">A materialização do verde em 20 atos de maestria.</p>
+        <section id="portfolio-layer" class="layer">
+            <div class="layer-header">
+                <h3 class="glitch-text" data-text="OBRAS MATERIAIS">OBRAS MATERIAIS</h3>
             </div>
-
-            <div class="portfolio-grid">
-                </div>
             
-            <div class="action-footer">
-                <button class="btn-budget-master">
-                    <span class="btn-glow"></span>
+            <div class="portfolio-engine" id="grid-engine">
+                </div>
+
+            <div class="master-cta">
+                <button class="btn-sovereign" id="whatsapp-master">
+                    <div class="btn-fill"></div>
                     <span class="btn-text">SOLICITAR ORÇAMENTO SOBERANO</span>
-                    <small>Conexão Direta via WhatsApp</small>
                 </button>
             </div>
         </section>
     </main>
-
-    <footer class="architect-tag">
-        <p>Sovereign Layer Access | Arquiteto José Patrick</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
