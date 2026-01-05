@@ -5,41 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medina | Jardins & Essências</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="dna-header">
-        <h1>MEDINA</h1>
-        <p>JARDINAGEM • PERFUMARIA • VESTIMENTA</p>
+    <div class="master-overlay"></div>
+    <div class="vignette"></div>
+    <canvas id="leaf-canvas"></canvas> <header class="dna-header">
+        <div class="header-content">
+            <span class="pre-title">ESTÚDIO DE PAISAGISMO</span>
+            <h1>MEDINA</h1>
+            <div class="dna-line">
+                <div class="dna-pulse"></div>
+            </div>
+            <p class="tagline">JARDINAGEM • PERFUMARIA • VESTIMENTA</p>
+        </div>
     </header>
 
     <main class="wardrobe-container">
-        <div class="hanger-item garden">
-            <div class="icon">🌿</div>
-            <h3>Jardinagem</h3>
-            <button id="trigger-garden">Ver Portfólio</button>
-        </div>
+        <section class="services-nav">
+            <div class="hanger-item garden" id="trigger-garden">
+                <div class="glass-shine"></div>
+                <div class="icon-box">🌿</div>
+                <h3>Jardinagem</h3>
+                <p>Projetos de Precisão</p>
+                <button class="nav-btn">Acessar Portfólio</button>
+            </div>
 
-        <div class="hanger-item perfume">
-            <div class="icon">✨</div>
-            <h3>Natura & Avon</h3>
-            <button id="trigger-perfume">Ver Catálogo</button>
-        </div>
+            <div class="hanger-item perfume" id="trigger-perfume">
+                <div class="glass-shine"></div>
+                <div class="icon-box">✨</div>
+                <h3>Natura & Avon</h3>
+                <p>Essências & Catálogos</p>
+                <button class="nav-btn">Ver Vitrine</button>
+            </div>
 
-        <div class="hanger-item clothing">
-            <div class="icon">👔</div>
-            <h3>Vestimenta</h3>
-            <button>Explorar Coleção</button>
-        </div>
+            <div class="hanger-item clothing">
+                <div class="glass-shine"></div>
+                <div class="icon-box">👔</div>
+                <h3>Vestimenta</h3>
+                <p>Estilo & Identidade</p>
+                <button class="nav-btn">Em Breve</button>
+            </div>
+        </section>
 
         <section id="portfolio" class="portfolio-section">
-            <h2 class="category-title">JARDINAGEM DE PRECISÃO</h2>
-            <div class="portfolio-grid"></div>
+            <div class="section-intro">
+                <h2 class="category-title">JARDINAGEM DE PRECISÃO</h2>
+                <div class="leaf-divider">🍃</div>
+                <p class="section-sub">A materialização do verde em 20 atos de maestria.</p>
+            </div>
+
+            <div class="portfolio-grid">
+                </div>
             
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-budget">Solicitar Orçamento via WhatsApp</button>
+            <div class="action-footer">
+                <button class="btn-budget-master">
+                    <span class="btn-glow"></span>
+                    <span class="btn-text">SOLICITAR ORÇAMENTO SOBERANO</span>
+                    <small>Conexão Direta via WhatsApp</small>
+                </button>
             </div>
         </section>
     </main>
+
+    <footer class="architect-tag">
+        <p>Sovereign Layer Access | Arquiteto José Patrick</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
