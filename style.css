@@ -1,121 +1,196 @@
 :root {
-    --primary: #1b4332; /* Verde Musgo Escuro */
-    --accent: #d4af37;  /* Dourado da Vitória */
-    --bg: #0b0c0b;
+    --primary: #1b4332; /* Verde Musgo Imperial */
+    --accent: #d4af37;  /* Ouro Medina */
+    --bg: #050605;      /* Preto Profundo para contraste */
+    --glass: rgba(255, 255, 255, 0.03);
+    --transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 body {
     background-color: var(--bg);
     color: #fff;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
+/* Efeito de Luz de Fundo (Aura do Núcleo) */
+body::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(27, 67, 50, 0.15) 0%, transparent 70%);
+    z-index: -1;
+}
+
+/* HEADER: Identidade Soberana */
 .dna-header {
     text-align: center;
-    padding: 40px 20px;
-    border-bottom: 1px solid var(--accent);
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
     width: 100%;
 }
 
 .dna-header h1 {
-    letter-spacing: 10px;
+    font-size: 2.2rem;
+    letter-spacing: 15px;
     font-weight: 300;
+    margin: 0;
+    background: linear-gradient(to right, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
+.dna-header p {
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: rgba(212, 175, 55, 0.7);
+    margin-top: 15px;
+}
+
+/* CONTAINER PRINCIPAL */
 .wardrobe-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 25px;
     padding: 20px;
     width: 95%;
-    max-width: 500px; /* Foco no mobile */
+    max-width: 450px;
 }
 
+/* CARDS DE SERVIÇO (Glassmorphism) */
 .hanger-item {
-    background: rgba(27, 67, 50, 0.15);
-    border: 1px solid var(--accent);
-    padding: 30px;
-    border-radius: 15px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 35px 20px;
+    border-radius: 25px;
     text-align: center;
-    transition: 0.3s;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.hanger-item::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: 0.5s;
 }
 
 .hanger-item:active {
-    transform: scale(0.98);
-    background: var(--primary);
+    transform: scale(0.96);
+    border-color: var(--accent);
 }
 
-.icon { font-size: 2.5rem; margin-bottom: 10px; }
+.hanger-item:active::after {
+    opacity: 1;
+}
+
+.icon { font-size: 3rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(27, 67, 50, 0.5)); }
 
 button {
     background: transparent;
     border: 1px solid var(--accent);
     color: var(--accent);
-    padding: 10px 20px;
+    padding: 12px 25px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.7rem;
-    margin-top: 10px;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    transition: var(--transition);
 }
 
-/* PORTFÓLIO E GALERIA */
-
+/* PORTFÓLIO: A MALHA DE MATÉRIA */
 .portfolio-section {
-    margin-top: 40px;
-    padding-bottom: 50px;
+    margin-top: 60px;
+    width: 100%;
 }
 
 .category-title {
     color: var(--accent);
-    font-size: 0.8rem;
-    letter-spacing: 4px;
+    font-size: 0.9rem;
+    letter-spacing: 6px;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     text-transform: uppercase;
+    position: relative;
+}
+
+.category-title::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+    margin: 10px auto;
 }
 
 .portfolio-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 15px;
 }
 
 .work-card {
-    background: #111;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 10px;
+    background: #0d0d0d;
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    border-radius: 15px;
     overflow: hidden;
+    transition: var(--transition);
 }
 
 .work-card img {
     width: 100%;
-    height: 130px;
+    height: 150px;
     object-fit: cover;
-    display: block;
-    filter: brightness(0.85);
+    transition: 0.8s ease;
+}
+
+.work-card:active img {
+    transform: scale(1.1);
 }
 
 .work-card p {
-    color: #fff;
-    font-size: 0.6rem;
-    padding: 10px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.55rem;
+    padding: 12px;
     text-align: center;
     margin: 0;
-    font-weight: bold;
     letter-spacing: 1px;
 }
 
+/* BOTÃO DE ORÇAMENTO (O Ponto de Ignição) */
 .btn-budget {
     width: 100%;
-    background: var(--primary);
+    background: linear-gradient(135deg, var(--primary), #2d6a4f);
     color: #fff;
-    padding: 15px;
-    border-radius: 8px;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
     font-size: 0.8rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    margin-top: 40px;
+}
+
+/* Estilo para o Lightbox injetado pelo Script */
+.sovereign-overlay {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
