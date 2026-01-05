@@ -5,60 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medina | Jardins & Essências</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-glow"></div>
-
     <header class="dna-header">
         <h1>MEDINA</h1>
-        <div class="line-detail"></div>
-        <p class="tagline">JARDINAGEM • PERFUMARIA • VESTIMENTA</p>
+        <p>JARDINAGEM • PERFUMARIA • VESTIMENTA</p>
     </header>
 
     <main class="wardrobe-container">
-        <section class="services-hub">
-            <div class="hanger-item garden" id="trigger-garden">
-                <div class="icon">🌿</div>
-                <h3>Jardinagem</h3>
-                <span class="status-badge">Portfólio Ativo</span>
-            </div>
+        <div class="hanger-item garden">
+            <div class="icon">🌿</div>
+            <h3>Jardinagem</h3>
+            <button>Ver Portfólio</button>
+        </div>
 
-            <div class="hanger-item perfume" id="trigger-perfume">
-                <div class="icon">✨</div>
-                <h3>Natura & Avon</h3>
-                <span class="status-badge">Catálogos</span>
-            </div>
+        <div class="hanger-item perfume">
+            <div class="icon">✨</div>
+            <h3>Natura & Avon</h3>
+            <button>Ver Catálogo</button>
+        </div>
 
-            <div class="hanger-item clothing" id="trigger-clothing">
-                <div class="icon">👔</div>
-                <h3>Vestimenta</h3>
-                <span class="status-badge">Breve</span>
-            </div>
-        </section>
+        <div class="hanger-item clothing">
+            <div class="icon">👔</div>
+            <h3>Vestimenta</h3>
+            <button>Explorar Coleção</button>
+        </div>
 
         <section id="portfolio" class="portfolio-section">
-            <div class="section-header">
-                <h2 class="category-title">Jardinagem de Precisão</h2>
-                <p>A arte de esculpir o verde em 20 atos.</p>
-            </div>
+            <h2 class="category-title">JARDINAGEM DE PRECISÃO</h2>
+            <div class="portfolio-grid"></div>
             
-            <div class="portfolio-grid" id="jardins-gallery">
-                <div class="loading-state">Materializando galeria...</div>
-            </div>
-            
-            <div class="cta-wrapper">
-                <button class="btn-budget">
-                    <span>Solicitar Orçamento</span>
-                    <small>WhatsApp Direto</small>
-                </button>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-budget">Solicitar Orçamento via WhatsApp</button>
             </div>
         </section>
     </main>
-
-    <footer class="architect-footer">
-        <p>Sovereign Layer Access | Arquiteto José Patrick</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
