@@ -1,192 +1,41 @@
 :root {
-    --primary: #1b4332;
+    --gold: #d4af37;
+    --emerald: #1b4332;
     --emerald-light: #2d6a4f;
-    --accent: #d4af37;
-    --accent-glow: rgba(212, 175, 55, 0.4);
-    --bg-black: #050605;
-    --glass-bg: rgba(255, 255, 255, 0.03);
+    --black: #050605;
+    --transition-master: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; }
 
-body {
-    background-color: var(--bg-black);
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    overflow-x: hidden;
-    line-height: 1.6;
-}
+body { background: var(--black); color: #fff; overflow-x: hidden; width: 100vw; height: 100vh; }
 
-/* Camada de Gradiente Esmeralda */
-.master-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% -20%, var(--primary) 0%, transparent 60%);
-    z-index: -2;
-    pointer-events: none;
-}
+/* CANVAS E AURA */
+#nucleus-field { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; }
+.emerald-aura { position: absolute; top: -20%; right: -10%; width: 70%; height: 70%; background: radial-gradient(circle, rgba(27, 67, 50, 0.3) 0%, transparent 70%); filter: blur(100px); }
 
-.vignette {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
-    z-index: -1;
-    pointer-events: none;
-}
+/* DNA SCANNER */
+#dna-scanner { position: fixed; inset: 0; z-index: 9999; background: var(--black); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1s; }
+.scan-line { width: 80%; height: 1px; background: var(--gold); box-shadow: 0 0 20px var(--gold); position: absolute; animation: scan 3s infinite ease-in-out; }
+@keyframes scan { 0%, 100% { top: 20%; } 50% { top: 80%; } }
 
-#leaf-canvas {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
+/* HEADER SOBERANO */
+.header-master { padding: 80px 40px; text-align: center; }
+.shimmer-h1 h1 { font-size: 3.5rem; letter-spacing: 20px; font-weight: 100; color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.2); }
+.dna-divider { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+.dna-divider span { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
 
-/* Header de Alta Costura */
-.dna-header {
-    padding: 100px 20px 60px;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
+/* MODULES (WARDROBE SYSTEM) */
+.wardrobe-core { padding: 0 20px; display: flex; flex-direction: column; gap: 30px; }
+.env-module { height: 180px; border-radius: 30px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: var(--transition-master); cursor: pointer; }
+.env-module.active { border-color: var(--gold); height: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+.module-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.3; transition: 1s; }
+.env-module:hover .module-bg { opacity: 0.6; transform: scale(1.1); }
+.module-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--black), transparent); }
 
-.pre-title { font-size: 0.5rem; letter-spacing: 5px; color: var(--accent); font-weight: 600; }
-
-.dna-header h1 {
-    font-size: 3.5rem;
-    font-weight: 100;
-    letter-spacing: 20px;
-    margin: 10px 0;
-    background: linear-gradient(to bottom, #fff 30%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
-}
-
-.dna-line {
-    width: 150px; height: 1px;
-    background: rgba(255,255,255,0.1);
-    margin: 20px auto;
-    position: relative;
-}
-
-.dna-pulse {
-    position: absolute;
-    width: 10px; height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-    top: -4.5px;
-    left: 0;
-    box-shadow: 0 0 10px var(--accent);
-    animation: pulseMove 4s infinite linear;
-}
-
-@keyframes pulseMove {
-    0% { left: 0; opacity: 0; }
-    50% { opacity: 1; }
-    100% { left: 100%; opacity: 0; }
-}
-
-/* Grid de Serviços Modernizada */
-.wardrobe-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; z-index: 5; position: relative; }
-
-.hanger-item {
-    background: var(--glass-bg);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 30px;
-    padding: 50px 30px;
-    margin-bottom: 30px;
-    text-align: center;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.hanger-item:hover {
-    transform: translateY(-10px);
-    border-color: var(--accent);
-    background: rgba(212, 175, 55, 0.02);
-}
-
-.glass-shine {
-    position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-    transform: skewX(-25deg);
-    transition: 0.7s;
-}
-
-.hanger-item:hover .glass-shine { left: 150%; }
-
-.icon-box { font-size: 3.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 20px var(--primary)); }
-
-.nav-btn {
-    margin-top: 25px;
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    font-weight: 600;
-    transition: 0.4s;
-}
-
-.nav-btn:hover { background: var(--accent); color: #000; }
-
-/* Galeria de Alta Fidelidade */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 40px 0;
-}
-
-.work-card {
-    background: #0a0a0a;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.03);
-    transition: 0.5s;
-}
-
-.work-card:hover { border-color: var(--accent); transform: scale(1.03); }
-
-.work-card img {
-    width: 100%; height: 200px; object-fit: cover;
-    filter: grayscale(0.3); transition: 0.8s;
-}
-
-.work-card:hover img { filter: grayscale(0); }
-
-.work-card .info {
-    padding: 15px;
-    text-align: center;
-}
-
-.work-card h4 {
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: var(--accent);
-    margin: 0;
-}
-
-/* Botão de Orçamento Soberano */
-.btn-budget-master {
-    width: 100%;
-    padding: 25px;
-    border-radius: 20px;
-    border: none;
-    background: linear-gradient(45deg, var(--primary), #0a1f16);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-
-.btn-text { font-size: 1rem; font-weight: 600; letter-spacing: 3px; display: block; }
-.btn-budget-master small { opacity: 0.6; letter-spacing: 1px; font-size: 0.6rem; }
+/* GRID ENGINE */
+.portfolio-engine { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 40px 20px; }
+.work-item { background: #0a0a0a; border-radius: 20px; border: 1px solid rgba(255,255,255,0.02); overflow: hidden; opacity: 0; transform: translateY(30px); transition: 0.8s; }
+.work-item.revealed { opacity: 1; transform: translateY(0); }
+.work-item img { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--gold); }
+.work-item .caption { padding: 15px; text-align: center; font-size: 0.6rem; letter-spacing: 2px; color: var(--gold); }
