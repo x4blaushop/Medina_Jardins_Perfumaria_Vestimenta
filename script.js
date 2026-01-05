@@ -6,20 +6,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const MEDINA_PHONE = "5511996369611";
 
-    // 1. DICIONÁRIO DE IDENTIDADE (Mantendo o que existia)
     const jardinsData = {
-        1: "Poda de Precisão",
-        2: "Design de Vasos",
-        3: "Escultura em Verde",
-        4: "Manutenção Técnica",
-        5: "Cerca Viva",
-        6: "Maquinário Próprio",
-        19: "Valores e Orçamentos",
-        20: "Finalização de Obra"
+        1: "Poda de Precisão", 2: "Design de Vasos", 3: "Escultura em Verde",
+        4: "Manutenção Técnica", 5: "Cerca Viva", 6: "Maquinário Próprio",
+        19: "Valores e Orçamentos", 20: "Finalização de Obra"
     };
 
     const renderGallery = () => {
-        // RESPEITO À RAIZ: Utilizando apenas a classe que já existe no seu HTML
         const grid = document.querySelector('.portfolio-grid'); 
         if (!grid) return;
 
@@ -30,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'work-card';
             
             const descricao = jardinsData[i] || `PROJETO ${i.toString().padStart(2, '0')}`;
-            // Ajuste de Identidade de Arquivo no GitHub
+            // Correção para o arquivo identificado no seu GitHub
             const fileName = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
 
             card.innerHTML = `
@@ -39,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
                          onerror="this.src='jardins/jardins.jpg';"
                          style="transition: transform 0.8s ease; width:100%; display:block; height:150px; object-fit:cover;">
                 </div>
-                <p style="margin-top:10px; font-weight:600;">${descricao.toUpperCase()}</p>
+                <p style="margin-top:10px; font-weight:600; color:#d4af37; text-align:center; font-size:0.6rem;">
+                    ${descricao.toUpperCase()}
+                </p>
             `;
             
             grid.appendChild(card);
@@ -48,20 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0) scale(1)';
-            }, i * 80);
+            }, i * 60);
         }
     };
 
     const bindActions = () => {
         const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
 
-        // Seletores baseados puramente na sua estrutura de Raiz
-        document.querySelector('.hanger-item.garden button')?.addEventListener('click', () => {
-            const portfolio = document.querySelector('.portfolio-section');
-            if(portfolio) portfolio.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('trigger-garden')?.addEventListener('click', () => {
+            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
         });
 
-        document.querySelector('.hanger-item.perfume button')?.addEventListener('click', () => {
+        document.getElementById('trigger-perfume')?.addEventListener('click', () => {
             sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon.");
         });
 
