@@ -1,68 +1,102 @@
 /**
- * NÚCLEO-0: MATERIALIZAÇÃO NA RAIZ
+ * NÚCLEO-0: MOTOR DE AMBIENTE VIVO
  * Arquiteto: José Patrick Castro Soares
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     const MEDINA_PHONE = "5511996369611";
 
+    // DICIONÁRIO DE IDENTIDADE - Riqueza Nominal
     const jardinsData = {
-        1: "Poda de Precisão", 2: "Design de Vasos", 3: "Escultura em Verde",
-        4: "Manutenção Técnica", 5: "Cerca Viva", 6: "Maquinário Próprio",
-        19: "Valores e Orçamentos", 20: "Finalização de Obra"
+        1: "Poda de Precisão Imperial",
+        2: "Design de Vasos Contemporâneos",
+        3: "Escultura em Verde Soberano",
+        4: "Revitalização de Ecossistemas",
+        5: "Cerca Viva de Alta Densidade",
+        6: "Manutenção com Maquinário Premium",
+        19: "Transparência: Orçamentos Técnicos",
+        20: "Finalização de Obra e Entrega de Chaves"
     };
 
-    const renderGallery = () => {
-        const grid = document.querySelector('.portfolio-grid'); 
-        if (!grid) return;
+    // --- MOTOR DE PARTÍCULAS (FOLHAS) ---
+    const canvas = document.getElementById('leaf-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
 
-        grid.innerHTML = ''; 
+    const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
+
+    class Leaf {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height - canvas.height;
+            this.size = Math.random() * 15 + 5;
+            this.speed = Math.random() * 2 + 1;
+            this.angle = Math.random() * 360;
+            this.spin = Math.random() * 0.2 - 0.1;
+        }
+        update() {
+            this.y += this.speed;
+            this.angle += this.spin;
+            if (this.y > canvas.height) {
+                this.y = -20;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.angle);
+            ctx.fillStyle = 'rgba(45, 106, 79, 0.2)';
+            ctx.beginPath();
+            ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    const initParticles = () => {
+        particles = [];
+        for (let i = 0; i < 30; i++) particles.push(new Leaf());
+    };
+
+    const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    };
+
+    // --- MATERIALIZAÇÃO ---
+    const renderGallery = () => {
+        const grid = document.querySelector('.portfolio-grid');
+        if (!grid) return;
 
         for (let i = 1; i <= 20; i++) {
             const card = document.createElement('div');
             card.className = 'work-card';
-            
-            const descricao = jardinsData[i] || `PROJETO ${i.toString().padStart(2, '0')}`;
-            // Correção para o arquivo identificado no seu GitHub
-            const fileName = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
+            const desc = jardinsData[i] || `PROJETO ARQUITETÔNICO ${i.toString().padStart(2, '0')}`;
+            const file = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
 
             card.innerHTML = `
-                <div class="img-container" style="overflow:hidden; border-radius:12px;">
-                    <img src="jardins/${fileName}" alt="${descricao}" loading="lazy" 
-                         onerror="this.src='jardins/jardins.jpg';"
-                         style="transition: transform 0.8s ease; width:100%; display:block; height:150px; object-fit:cover;">
+                <img src="jardins/${file}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
+                <div class="info">
+                    <h4>${desc.toUpperCase()}</h4>
                 </div>
-                <p style="margin-top:10px; font-weight:600; color:#d4af37; text-align:center; font-size:0.6rem;">
-                    ${descricao.toUpperCase()}
-                </p>
             `;
-            
             grid.appendChild(card);
-            
-            setTimeout(() => {
-                card.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0) scale(1)';
-            }, i * 60);
         }
     };
 
-    const bindActions = () => {
-        const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
-
-        document.getElementById('trigger-garden')?.addEventListener('click', () => {
-            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        document.getElementById('trigger-perfume')?.addEventListener('click', () => {
-            sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon.");
-        });
-
-        document.querySelector('.btn-budget')?.addEventListener('click', () => {
-            sendMsg("Olá Medina! Vi sua galeria de 20 jardins e quero um orçamento.");
-        });
-    };
-
+    window.addEventListener('resize', resize);
+    resize();
+    initParticles();
+    animate();
     renderGallery();
-    bindActions();
+
+    // Eventos
+    document.getElementById('trigger-garden')?.addEventListener('click', () => {
+        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+    });
 });
