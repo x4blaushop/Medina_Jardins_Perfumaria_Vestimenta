@@ -1,5 +1,5 @@
 /**
- * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA - CORREÇÃO DE ALVOS
+ * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA - IDENTIDADE E CORREÇÃO
  * Projeto: Medina_Jardins_Perfumaria_Vestimenta
  * Arquiteto: José Patrick Castro Soares
  */
@@ -8,16 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const MEDINA_PHONE = "5511996369611";
 
-    // --- 1. GALERIA AUTOMÁTICA (Corrigido para ID: jardins-gallery) ---
-    const renderGallery = () => {
-        // Mudança Vital: Buscando pelo ID exato que está no seu Index.html
-        const grid = document.getElementById('jardins-gallery'); 
-        if (!grid) {
-            console.error("Erro: Container 'jardins-gallery' não encontrado no Index.");
-            return;
-        }
+    // --- 1. MAPA DE IDENTIDADE (Recuperando as descrições que existiam) ---
+    const descricoesJardins = {
+        1: "Poda de Precisão",
+        2: "Design de Vasos",
+        3: "Escultura em Verde",
+        4: "Manutenção Técnica",
+        5: "Cerca Viva",
+        6: "Maquinário Próprio",
+        // Adicionando as novas identificadas no seu GitHub
+        19: "Valores e Orçamentos",
+        20: "Finalização de Obra"
+    };
 
-        grid.innerHTML = ''; // Limpa o "Materializando galeria..."
+    const renderGallery = () => {
+        const grid = document.getElementById('jardins-gallery'); 
+        if (!grid) return;
+
+        grid.innerHTML = ''; 
 
         for (let i = 1; i <= 20; i++) {
             const card = document.createElement('div');
@@ -25,13 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px) scale(0.9)';
             
-            // Garantindo que o caminho aponte para a pasta /jardins do GitHub
+            // Define o texto: Usa o mapa ou um padrão técnico
+            const textoProjeto = descricoesJardins[i] || `PROJETO ${i.toString().padStart(2, '0')}`;
+            
+            // Tratamento especial para o arquivo 19 identificado no seu GitHub
+            const fileName = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
+
             card.innerHTML = `
                 <div class="img-container" style="overflow:hidden; border-radius:12px;">
-                    <img src="jardins/jardins${i}.jpg" alt="Obra ${i}" loading="lazy" 
+                    <img src="jardins/${fileName}" alt="${textoProjeto}" loading="lazy" 
+                         onerror="this.src='jardins/jardins.jpg'"
                          style="transition: transform 0.8s ease; width:100%; display:block; height:150px; object-fit:cover;">
                 </div>
-                <p>PROJETO ${i.toString().padStart(2, '0')}</p>
+                <p>${textoProjeto.toUpperCase()}</p>
             `;
             
             grid.appendChild(card);
@@ -85,11 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 3. GATILHOS DE CONTATO (Corrigido para os IDs do Index) ---
+    // --- 3. GATILHOS DE CONTATO ---
     const bindActions = () => {
         const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
 
-        // Escuta o clique nos cards de serviço do seu Index novo
         document.getElementById('trigger-garden')?.addEventListener('click', () => {
             document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
         });
