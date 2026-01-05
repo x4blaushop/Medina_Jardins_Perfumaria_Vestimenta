@@ -2,6 +2,7 @@
  * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA
  * Projeto: Medina_Jardins_Perfumaria_Vestimenta
  * Arquiteto: José Patrick Castro Soares
+ * Ajuste: Sincronia Total com o Index de Elite
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. GALERIA AUTOMÁTICA E INOVADORA ---
     const renderGallery = () => {
-        const grid = document.querySelector('.portfolio-grid');
+        // Alinhado com o ID 'jardins-gallery' do seu Index
+        const grid = document.getElementById('jardins-gallery'); 
         if (!grid) return;
 
         grid.innerHTML = ''; 
@@ -38,9 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 2. LIGHTBOX (EXPANSÃO) ---
+    // --- 2. LIGHTBOX SURPREENDENTE (EXPANSÃO) ---
     const setupLightbox = () => {
-        document.querySelector('.portfolio-grid').addEventListener('click', (e) => {
+        const grid = document.getElementById('jardins-gallery');
+        if (!grid) return;
+
+        grid.addEventListener('click', (e) => {
             const img = e.target.closest('img');
             if (!img) return;
 
@@ -71,39 +76,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
             overlay.onclick = () => {
                 overlay.style.opacity = '0';
+                fullImg.style.transform = 'scale(0.7)';
                 setTimeout(() => overlay.remove(), 500);
             };
         });
     };
 
-    // --- 3. INTERAÇÕES TÁTEIS ---
+    // --- 3. INTERAÇÕES TÁTEIS (FEEDBACK MODERNO) ---
     const setupTactile = () => {
-        const buttons = document.querySelectorAll('button, .hanger-item');
-        buttons.forEach(btn => {
-            btn.addEventListener('touchstart', () => {
-                btn.style.transform = 'scale(0.95)';
-                btn.style.filter = 'brightness(1.3)';
+        // Agora seleciona os botões e os novos IDs de serviço
+        const elements = document.querySelectorAll('.hanger-item, .btn-budget, .work-card');
+        elements.forEach(el => {
+            el.addEventListener('touchstart', () => {
+                el.style.transform = 'scale(0.95)';
+                el.style.filter = 'brightness(1.3)';
             });
-            btn.addEventListener('touchend', () => {
-                btn.style.transform = 'scale(1)';
-                btn.style.filter = 'brightness(1)';
+            el.addEventListener('touchend', () => {
+                el.style.transform = 'scale(1)';
+                el.style.filter = 'brightness(1)';
             });
         });
     };
 
-    // --- 4. CONEXÃO WHATSAPP E SCROLL ---
+    // --- 4. CONEXÃO WHATSAPP E GATILHOS ---
     const bindActions = () => {
         const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
 
+        // Gatilho do Orçamento (via botão ou container)
         document.querySelector('.btn-budget')?.addEventListener('click', () => sendMsg("Olá Medina! Vi sua galeria de 20 jardins e quero um orçamento."));
-        document.querySelector('.hanger-item.perfume button')?.addEventListener('click', () => sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon."));
-        document.querySelector('.hanger-item.clothing button')?.addEventListener('click', () => sendMsg("Olá Medina! Tenho interesse nas vestimentas."));
-        
-        document.querySelector('.hanger-item.garden button')?.addEventListener('click', () => {
-            document.querySelector('#portfolio').scrollIntoView({ behavior: 'smooth' });
+
+        // Gatilho Jardinagem (Scroll para Portfolio)
+        document.getElementById('trigger-garden')?.addEventListener('click', () => {
+            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
         });
+
+        // Gatilho Perfumaria
+        document.getElementById('trigger-perfume')?.addEventListener('click', () => sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon."));
+
+        // Gatilho Vestimenta
+        document.getElementById('trigger-clothing')?.addEventListener('click', () => sendMsg("Olá Medina! Gostaria de saber mais sobre as vestimentas."));
     };
 
+    // INICIALIZAÇÃO DO SISTEMA
     renderGallery();
     setupLightbox();
     setupTactile();
