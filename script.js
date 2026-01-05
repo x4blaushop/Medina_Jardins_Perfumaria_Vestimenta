@@ -1,12 +1,12 @@
 /**
- * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA
+ * NÚCLEO-0: MATERIALIZAÇÃO NA RAIZ
  * Arquiteto: José Patrick Castro Soares
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     const MEDINA_PHONE = "5511996369611";
 
-    // 1. DICIONÁRIO DE MATÉRIA (Recuperando suas descrições)
+    // 1. DICIONÁRIO DE IDENTIDADE (Mantendo o que existia)
     const jardinsData = {
         1: "Poda de Precisão",
         2: "Design de Vasos",
@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderGallery = () => {
-        // Alinhando com o ID exato do seu Index: 'jardins-gallery'
-        const grid = document.getElementById('jardins-gallery') || document.querySelector('.portfolio-grid');
+        // RESPEITO À RAIZ: Utilizando apenas a classe que já existe no seu HTML
+        const grid = document.querySelector('.portfolio-grid'); 
         if (!grid) return;
 
         grid.innerHTML = ''; 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'work-card';
             
             const descricao = jardinsData[i] || `PROJETO ${i.toString().padStart(2, '0')}`;
-            // Correção para o arquivo específico no seu GitHub
+            // Ajuste de Identidade de Arquivo no GitHub
             const fileName = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
 
             card.innerHTML = `
@@ -52,21 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // 2. GATILHOS DE CONTATO E SCROLL
     const bindActions = () => {
         const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
 
-        // Scroll para Portfólio (IDs do Index atual)
-        document.getElementById('trigger-garden')?.addEventListener('click', () => {
-            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+        // Seletores baseados puramente na sua estrutura de Raiz
+        document.querySelector('.hanger-item.garden button')?.addEventListener('click', () => {
+            const portfolio = document.querySelector('.portfolio-section');
+            if(portfolio) portfolio.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // WhatsApp para Perfumaria
-        document.getElementById('trigger-perfume')?.addEventListener('click', () => {
+        document.querySelector('.hanger-item.perfume button')?.addEventListener('click', () => {
             sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon.");
         });
 
-        // Botão de Orçamento
         document.querySelector('.btn-budget')?.addEventListener('click', () => {
             sendMsg("Olá Medina! Vi sua galeria de 20 jardins e quero um orçamento.");
         });
