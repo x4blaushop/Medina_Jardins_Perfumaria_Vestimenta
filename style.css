@@ -1,0 +1,55 @@
+:root {
+    --primary: #1b4332; /* Verde Musgo Escuro */
+    --accent: #d4af37;  /* Dourado */
+    --bg: #0b0c0b;
+}
+
+body {
+    background-color: var(--bg);
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dna-header {
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 1px solid var(--accent);
+    width: 100%;
+}
+
+.wardrobe-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Um por linha no celular para focar a atenção */
+    gap: 20px;
+    padding: 20px;
+    width: 90%;
+}
+
+.hanger-item {
+    background: rgba(27, 67, 50, 0.2);
+    border: 1px solid var(--accent);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.hanger-item:active {
+    transform: scale(0.95);
+    background: var(--primary);
+}
+
+.icon { font-size: 3rem; margin-bottom: 10px; }
+
+button {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
