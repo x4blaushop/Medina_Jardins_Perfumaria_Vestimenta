@@ -9,30 +9,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const MEDINA_PHONE = "5511996369611";
 
     // --- 1. GALERIA AUTOMÁTICA E INOVADORA ---
-    // Este trecho substitui o HTML estático pelas 20 fotos com animação suave
     const renderGallery = () => {
         const grid = document.querySelector('.portfolio-grid');
         if (!grid) return;
 
-        grid.innerHTML = ''; // Limpa a estrutura antiga para injetar a nova massa
+        grid.innerHTML = ''; 
 
         for (let i = 1; i <= 20; i++) {
             const card = document.createElement('div');
             card.className = 'work-card';
-            // Configuração inicial para animação de entrada
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px) scale(0.9)';
             
             card.innerHTML = `
                 <div class="img-container" style="overflow:hidden; border-radius:12px;">
-                    <img src="jardins/jardins${i}.jpg" alt="Obra ${i}" loading="lazy" style="transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
+                    <img src="jardins/jardins${i}.jpg" alt="Obra ${i}" loading="lazy" style="transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); width:100%; display:block;">
                 </div>
                 <p>PROJETO ${i.toString().padStart(2, '0')}</p>
             `;
             
             grid.appendChild(card);
 
-            // Efeito de "Nascimento" (Surgimento suave e sequencial)
             setTimeout(() => {
                 card.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
                 card.style.opacity = '1';
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 2. LIGHTBOX SURPREENDENTE (EXPANSÃO COM VIDRO JATEADO) ---
+    // --- 2. LIGHTBOX (EXPANSÃO) ---
     const setupLightbox = () => {
         document.querySelector('.portfolio-grid').addEventListener('click', (e) => {
             const img = e.target.closest('img');
@@ -74,13 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             overlay.onclick = () => {
                 overlay.style.opacity = '0';
-                fullImg.style.transform = 'scale(0.7)';
                 setTimeout(() => overlay.remove(), 500);
             };
         });
     };
 
-    // --- 3. INTERAÇÕES TÁTEIS (FEEDBACK MODERNO) ---
+    // --- 3. INTERAÇÕES TÁTEIS ---
     const setupTactile = () => {
         const buttons = document.querySelectorAll('button, .hanger-item');
         buttons.forEach(btn => {
@@ -95,20 +91,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- 4. CONEXÃO WHATSAPP ---
+    // --- 4. CONEXÃO WHATSAPP E SCROLL ---
     const bindActions = () => {
         const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
 
         document.querySelector('.btn-budget')?.addEventListener('click', () => sendMsg("Olá Medina! Vi sua galeria de 20 jardins e quero um orçamento."));
         document.querySelector('.hanger-item.perfume button')?.addEventListener('click', () => sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon."));
+        document.querySelector('.hanger-item.clothing button')?.addEventListener('click', () => sendMsg("Olá Medina! Tenho interesse nas vestimentas."));
         
-        // Scroll Suave para o Portfólio
         document.querySelector('.hanger-item.garden button')?.addEventListener('click', () => {
             document.querySelector('#portfolio').scrollIntoView({ behavior: 'smooth' });
         });
     };
 
-    // INICIALIZAÇÃO DO SISTEMA
     renderGallery();
     setupLightbox();
     setupTactile();
