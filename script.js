@@ -1,108 +1,116 @@
 /**
- * NÚCLEO-0: COMPOSIÇÃO INTEGRAL
+ * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA
  * Projeto: Medina_Jardins_Perfumaria_Vestimenta
  * Arquiteto: José Patrick Castro Soares
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. RAIZ DE CONEXÃO (DADOS PRESERVADOS) ---
     const MEDINA_PHONE = "5511996369611";
 
-    const connect = (target) => {
-        const msgs = {
-            garden: "Olá Medina! Vi seu portfólio de jardins e quero um orçamento.",
-            perfume: "Olá Medina! Quero ver o catálogo Natura e Avon.",
-            style: "Olá Medina! Tenho interesse nas vestimentas."
-        };
-        window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msgs[target] || "Olá!")}`, '_blank');
-    };
+    // --- 1. GALERIA AUTOMÁTICA E INOVADORA ---
+    // Este trecho substitui o HTML estático pelas 20 fotos com animação suave
+    const renderGallery = () => {
+        const grid = document.querySelector('.portfolio-grid');
+        if (!grid) return;
 
-    // --- 2. EXPANSÃO DE MATÉRIA (AS 20 FOTOS DA PASTA /JARDINS) ---
-    const grid = document.querySelector('.portfolio-grid');
-    if (grid) {
-        grid.innerHTML = ''; // Limpa para injetar a sequência correta
+        grid.innerHTML = ''; // Limpa a estrutura antiga para injetar a nova massa
+
         for (let i = 1; i <= 20; i++) {
             const card = document.createElement('div');
             card.className = 'work-card';
+            // Configuração inicial para animação de entrada
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px) scale(0.9)';
+            
             card.innerHTML = `
-                <img src="jardins/jardins${i}.jpg" alt="Trabalho Medina ${i}" loading="lazy">
+                <div class="img-container" style="overflow:hidden; border-radius:12px;">
+                    <img src="jardins/jardins${i}.jpg" alt="Obra ${i}" loading="lazy" style="transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
+                </div>
                 <p>PROJETO ${i.toString().padStart(2, '0')}</p>
             `;
+            
             grid.appendChild(card);
+
+            // Efeito de "Nascimento" (Surgimento suave e sequencial)
+            setTimeout(() => {
+                card.style.transition = 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) scale(1)';
+            }, i * 80); 
         }
-    }
+    };
 
-    // --- 3. DINÂMICA DE TOQUE (EFEITOS VISUAIS NÚCLEO-0) ---
-    // Preservando os efeitos de escala e brilho que definimos antes
-    const applyEffects = () => {
-        const items = document.querySelectorAll('.hanger-item, .work-card, button');
-        items.forEach(el => {
-            el.addEventListener('touchstart', () => {
-                el.style.transform = "scale(0.96) translateY(2px)";
-                el.style.filter = "contrast(1.2) brightness(1.1)";
+    // --- 2. LIGHTBOX SURPREENDENTE (EXPANSÃO COM VIDRO JATEADO) ---
+    const setupLightbox = () => {
+        document.querySelector('.portfolio-grid').addEventListener('click', (e) => {
+            const img = e.target.closest('img');
+            if (!img) return;
+
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px); z-index: 10000;
+                display: flex; align-items: center; justify-content: center;
+                opacity: 0; transition: opacity 0.5s ease; cursor: zoom-out;
+            `;
+
+            const fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullImg.style.cssText = `
+                max-width: 90%; max-height: 80%; border-radius: 15px;
+                border: 1px solid rgba(212, 175, 55, 0.5);
+                transform: scale(0.7); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            `;
+
+            overlay.appendChild(fullImg);
+            document.body.appendChild(overlay);
+
+            requestAnimationFrame(() => {
+                overlay.style.opacity = '1';
+                fullImg.style.transform = 'scale(1)';
             });
-            el.addEventListener('touchend', () => {
-                el.style.transform = "scale(1) translateY(0)";
-                el.style.filter = "contrast(1) brightness(1)";
+
+            overlay.onclick = () => {
+                overlay.style.opacity = '0';
+                fullImg.style.transform = 'scale(0.7)';
+                setTimeout(() => overlay.remove(), 500);
+            };
+        });
+    };
+
+    // --- 3. INTERAÇÕES TÁTEIS (FEEDBACK MODERNO) ---
+    const setupTactile = () => {
+        const buttons = document.querySelectorAll('button, .hanger-item');
+        buttons.forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                btn.style.transform = 'scale(0.95)';
+                btn.style.filter = 'brightness(1.3)';
+            });
+            btn.addEventListener('touchend', () => {
+                btn.style.transform = 'scale(1)';
+                btn.style.filter = 'brightness(1)';
             });
         });
     };
 
-    // --- 4. EXPANSÃO SOBERANA (LIGHTBOX / ZOOM) ---
-    // Mantendo o efeito de vidro embaçado (blur) e expansão suave
-    const setupExpansion = () => {
-        document.body.addEventListener('click', (e) => {
-            if (e.target.tagName === 'IMG' && e.target.closest('.work-card')) {
-                const img = e.target;
-                const voidLayer = document.createElement('div');
-                voidLayer.style.cssText = `
-                    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                    background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(12px);
-                    -webkit-backdrop-filter: blur(12px); z-index: 10000;
-                    display: flex; align-items: center; justify-content: center;
-                    opacity: 0; transition: all 0.4s ease;
-                `;
-
-                const expandedImg = document.createElement('img');
-                expandedImg.src = img.src;
-                expandedImg.style.cssText = `
-                    max-width: 92%; max-height: 85%; border-radius: 4px;
-                    border: 1px solid rgba(212, 175, 55, 0.5);
-                    transform: scale(0.8); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                `;
-
-                voidLayer.appendChild(expandedImg);
-                document.body.appendChild(voidLayer);
-
-                requestAnimationFrame(() => {
-                    voidLayer.style.opacity = '1';
-                    expandedImg.style.transform = 'scale(1)';
-                });
-
-                voidLayer.onclick = () => {
-                    voidLayer.style.opacity = '0';
-                    setTimeout(() => voidLayer.remove(), 400);
-                };
-            }
-        });
-    };
-
-    // --- 5. MAPEAMENTO DE AÇÕES (SCROLL E CLIQUES) ---
+    // --- 4. CONEXÃO WHATSAPP ---
     const bindActions = () => {
-        // Scroll suave para portfólio
+        const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+
+        document.querySelector('.btn-budget')?.addEventListener('click', () => sendMsg("Olá Medina! Vi sua galeria de 20 jardins e quero um orçamento."));
+        document.querySelector('.hanger-item.perfume button')?.addEventListener('click', () => sendMsg("Olá Medina! Gostaria de ver o catálogo Natura/Avon."));
+        
+        // Scroll Suave para o Portfólio
         document.querySelector('.hanger-item.garden button')?.addEventListener('click', () => {
             document.querySelector('#portfolio').scrollIntoView({ behavior: 'smooth' });
         });
-
-        // WhatsApps
-        document.querySelector('.btn-budget')?.addEventListener('click', () => connect('garden'));
-        document.querySelector('.hanger-item.perfume button')?.addEventListener('click', () => connect('perfume'));
-        document.querySelector('.hanger-item.clothing button')?.addEventListener('click', () => connect('style'));
     };
 
-    // --- EXECUÇÃO ---
-    applyEffects();
-    setupExpansion();
+    // INICIALIZAÇÃO DO SISTEMA
+    renderGallery();
+    setupLightbox();
+    setupTactile();
     bindActions();
 });
