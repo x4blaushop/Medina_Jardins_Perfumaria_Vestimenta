@@ -1,76 +1,72 @@
 /**
  * ============================================================================
- * MEDINA_SOVEREIGN_CORE_V14.0 - SISTEMA INTEGRADO DE GESTÃO E MATERIALIZAÇÃO
+ * MEDINA_SOVEREIGN_CORE_V15.0 - SISTEMA INTEGRADO DE MATERIALIZAÇÃO
  * ARQUITETO PROPRIETÁRIO: JOSÉ PATRICK CASTRO SOARES
- * * DIAGNÓSTICO DE SEGURANÇA:
- * 1. ELEMENTS: ESTRUTURA MODULAR PURA (CASA LIMPA)
- * 2. NETWORK: INDEPENDÊNCIA DE RAIZ (GITHUB SOVEREIGN)
- * 3. CONSOLE: SILÊNCIO OPERACIONAL ABSOLUTO
- * * DESCRIÇÃO: ESTE ARQUIVO PROCESSA O DNA DA HABITAÇÃO, GERENCIANDO DESDE A 
- * FÍSICA ATMOSFÉRICA ATÉ A PROJEÇÃO FINANCEIRA C3X4.0_MAE.
+ * ----------------------------------------------------------------------------
+ * DIAGNÓSTICO DE ESTABILIDADE (DNA):
+ * 1. ELEMENTS: "A CASA ESTÁ LIMPA" - ESTRUTURA MODULAR PURA.
+ * 2. NETWORK: "O SISTEMA É INDEPENDENTE" - ZERO EXTERNAL OVERHEAD.
+ * 3. CONSOLE: "O SISTEMA ESTÁ EM SILÊNCIO" - ESTABILIDADE ABSOLUTA.
  * ============================================================================
  */
 
-const MedinaOS = (function() {
+(function(window, document) {
+    "use strict";
 
-    // --- CAMADA DE DEFINIÇÃO DE CONSTANTES TÉCNICAS (DNA) ---
-    const DNA_CONFIG = {
+    // --- DEFINIÇÃO DE CONSTANTES TÉCNICAS (O DNA DO SISTEMA) ---
+    const DNA = {
         OWNER: "JOSÉ PATRICK CASTRO SOARES",
-        CORE_ID: "MEDINA-2026-X4",
-        PATH_ASSETS: "jardins/",
+        ID: "MEDINA_2026_SOVEREIGN",
+        VERSION: "15.0.4",
+        YEAR: 2026,
+        ASSET_PATH: "jardins/",
         TOTAL_RECORDS: 20,
-        GRAVITY_LEAF: 0.05,
-        AUDIO_SENSITIVITY: 0.15,
-        FINANCIAL_PRECISION: 2,
-        STABILIZATION_YEAR: 2026,
-        CURRENCY: "BRL"
+        AUDIO_LEVEL: 0.12,
+        PARTICLE_DENSITY: 80,
+        LEAF_INTERVAL: 4000
     };
 
-    // --- MATRIZ DE PRECIFICAÇÃO (RIQUEZA DE CATEGORIAS) ---
-    const PRICING_MATRIX = {
-        JARDINAGEM: {
-            PODA_TECNICA: { id: "J01", val: 150.00, unit: "m²", desc: "Manutenção de solo e folhagem" },
-            PAISAGISMO: { id: "J02", val: 450.00, unit: "projeto", desc: "Arquitetura vegetal completa" },
-            RESTAURACAO: { id: "J03", val: 200.00, unit: "m²", desc: "Recuperação de ecossistema degradado" }
+    // --- MOTOR SENSORIAL (ÁUDIO E ATMOSFERA) ---
+    const SensoryEngine = {
+        wind: null,
+        leaves: null,
+        isInitialized: false,
+
+        setup: function() {
+            this.wind = document.getElementById('audio-vento');
+            this.leaves = document.getElementById('audio-folhas');
+            if (this.wind) this.wind.volume = DNA.AUDIO_LEVEL;
         },
-        PERFUMARIA: {
-            NATURA_ELITE: { id: "P01", val: 285.50, unit: "un", desc: "Curadoria Natura de alto padrão" },
-            AVON_EXCLUSIVE: { id: "P02", val: 190.00, unit: "un", desc: "Linha internacional exclusiva" },
-            CUIDADOS_LABORAIS: { id: "P03", val: 120.00, unit: "kit", desc: "Higiene e proteção profissional" }
+
+        ignite: function() {
+            if (this.isInitialized) return;
+            this.wind.play().catch(() => {});
+            this.isInitialized = true;
+            console.log("[DNA]: ATMOSFERA SENSORIAL ATIVADA.");
         },
-        VESTIMENTA: {
-            ARMADURA_SOCIAL: { id: "V01", val: 1200.00, unit: "un", desc: "Design de vestimenta soberana" },
-            ESTILO_MARCA: { id: "V02", val: 850.00, unit: "consultoria", desc: "Ajuste de DNA visual" }
+
+        triggerLeafSound: function(volume = 0.05) {
+            if (!this.isInitialized) return;
+            const sound = this.leaves.cloneNode();
+            sound.volume = volume;
+            sound.play();
         }
     };
 
-    // --- ESTADO INTERNO DO SISTEMA ---
-    let systemState = {
-        isBiometryVerified: false,
-        isAudioActive: false,
-        currentCalculatedValue: 0,
-        activeParticles: [],
-        leafCount: 0,
-        lastInteraction: Date.now()
-    };
-
-    /**
-     * MÓDULO 01: MOTOR ATMOSFÉRICO (FÍSICA DE LUZ)
-     * Detalhamento de renderização de partículas em 2D Canvas.
-     */
-    const LightEngine = {
+    // --- MOTOR DE PARTÍCULAS (LUX ENGINE) ---
+    const LuxEngine = {
         canvas: null,
         ctx: null,
-        particles: [],
+        points: [],
 
         init: function() {
             this.canvas = document.getElementById('lux-engine-medina');
             if (!this.canvas) return;
             this.ctx = this.canvas.getContext('2d');
             this.resize();
-            window.addEventListener('resize', () => this.resize());
-            this.createParticles();
+            this.create();
             this.animate();
+            window.addEventListener('resize', () => this.resize());
         },
 
         resize: function() {
@@ -78,115 +74,63 @@ const MedinaOS = (function() {
             this.canvas.height = window.innerHeight;
         },
 
-        createParticles: function() {
-            for (let i = 0; i < 100; i++) {
-                this.particles.push({
+        create: function() {
+            for (let i = 0; i < DNA.PARTICLE_DENSITY; i++) {
+                this.points.push({
                     x: Math.random() * this.canvas.width,
                     y: Math.random() * this.canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    size: Math.random() * 1.5,
-                    alpha: Math.random() * 0.5
+                    s: Math.random() * 0.8,
+                    o: Math.random()
                 });
             }
         },
 
         animate: function() {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.particles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
-                
-                this.ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
+            this.ctx.fillStyle = "rgba(212, 175, 55, 0.2)";
+            this.points.forEach(p => {
+                p.y -= p.s;
+                if (p.y < 0) p.y = this.canvas.height;
                 this.ctx.beginPath();
-                this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                this.ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
                 this.ctx.fill();
             });
             requestAnimationFrame(() => this.animate());
         }
     };
 
-    /**
-     * MÓDULO 02: AMBIENTE DE NATUREZA (FÍSICA DE FOLHAS E SOM)
-     * Processamento de ambiente sem poluição visual.
-     */
+    // --- MOTOR DE NATUREZA (FOLHAS) ---
     const NatureEngine = {
-        audioVento: null,
-        audioFolhas: null,
-
         init: function() {
-            this.audioVento = document.getElementById('audio-vento');
-            this.audioFolhas = document.getElementById('audio-folhas');
-            this.startLeafSystem();
+            setInterval(() => this.spawnLeaf(), DNA.LEAF_INTERVAL);
         },
 
-        startLeafSystem: function() {
-            setInterval(() => {
-                if (systemState.leafCount < 15) { // Controle de densidade
-                    this.createLeaf();
-                }
-            }, 3000);
-        },
-
-        createLeaf: function() {
+        spawnLeaf: function() {
             const leaf = document.createElement('div');
             leaf.className = 'folha-digital';
             leaf.innerHTML = '🍃';
-            leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            leaf.style.animationDuration = (Math.random() * 8 + 7) + 's';
-            
+            leaf.style.left = Math.random() * 100 + "vw";
+            leaf.style.fontSize = (Math.random() * 10 + 15) + "px";
+            leaf.style.animationDuration = (Math.random() * 5 + 8) + "s";
             document.body.appendChild(leaf);
-            systemState.leafCount++;
-
-            leaf.addEventListener('animationend', () => {
-                leaf.remove();
-                systemState.leafCount--;
-            });
-        },
-
-        activateSound: function() {
-            if (systemState.isAudioActive) return;
-            this.audioVento.volume = DNA_CONFIG.AUDIO_SENSITIVITY;
-            this.audioVento.play();
-            systemState.isAudioActive = true;
-            this.farfalharBackground();
-        },
-
-        farfalharBackground: function() {
-            setInterval(() => {
-                if (Math.random() > 0.8) {
-                    this.audioFolhas.volume = 0.05;
-                    this.audioFolhas.play();
-                }
-            }, 10000);
+            
+            leaf.addEventListener('animationend', () => leaf.remove());
         }
     };
 
-    /**
-     * MÓDULO 03: GESTÃO FINANCEIRA C3X4.0_MAE
-     * Lógica exaustiva de cálculo e projeção.
-     */
+    // --- MOTOR FINANCEIRO C3X4.0_MAE ---
     const FinanceEngine = {
         chart: null,
 
         init: function() {
-            this.buildChart();
-            this.bindEvents();
-        },
-
-        buildChart: function() {
             const ctx = document.getElementById('grafico-investimento');
             if (!ctx) return;
             this.chart = new Chart(ctx.getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: Array.from({length: 12}, (_, i) => `CICLO ${i+1}`),
+                    labels: ['INÍCIO', 'MÊS 3', 'MÊS 6', 'MÊS 9', 'MÊS 12'],
                     datasets: [{
-                        label: 'INVESTIMENTO PROJETADO',
-                        data: Array(12).fill(0),
+                        data: [0, 0, 0, 0, 0],
                         borderColor: '#d4af37',
                         borderWidth: 1,
                         backgroundColor: 'rgba(212, 175, 55, 0.05)',
@@ -197,94 +141,78 @@ const MedinaOS = (function() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: { beginAtZero: true, grid: { color: '#111' } },
-                        x: { grid: { display: false } }
+                        y: { grid: { color: '#111' }, ticks: { color: '#444' } },
+                        x: { grid: { display: false }, ticks: { color: '#444' } }
                     }
                 }
             });
         },
 
-        calculate: function() {
-            const baseValue = parseFloat(document.getElementById('categoria-dna').value);
-            const volume = parseFloat(document.getElementById('volume-dna').value) || 0;
+        execute: function() {
+            const price = parseFloat(document.getElementById('categoria-dna').value);
+            const qty = parseFloat(document.getElementById('volume-dna').value) || 0;
             const months = parseInt(document.getElementById('tempo-dna').value);
-
-            const subtotal = baseValue * volume;
-            const total = subtotal * months;
+            
+            const total = price * qty * months;
             const monthly = total / months;
-
-            // Injeção de Detalhes no Relatório Técnico
-            this.renderReport(baseValue, volume, months, total, monthly);
-            this.updateChart(monthly, months);
 
             document.getElementById('valor-total-final').innerText = `R$ ${total.toLocaleString('pt-BR')}`;
             document.getElementById('valor-mensal-final').innerText = `R$ ${monthly.toLocaleString('pt-BR')}`;
+
+            this.updateChart(total, months);
+            this.generateReport(price, qty, months, total, monthly);
         },
 
-        renderReport: function(p, v, m, t, mon) {
-            const reportBox = document.getElementById('relatorio-medina-venda');
-            const date = new Date().toLocaleString();
-            
-            reportBox.innerHTML = `
-                [PROTOCOLO DE MATERIALIZAÇÃO MEDINA]
-                DATA: ${date}
-                ARQUITETO: ${DNA_CONFIG.OWNER}
-                ------------------------------------------
-                SISTEMA: C3X4.0_MAE
-                VALOR UNITÁRIO: R$ ${p.toFixed(2)}
-                QUANTIDADE ALOCADA: ${v}
-                PERÍODO DE CICLO: ${m} MESES
-                ------------------------------------------
-                INVESTIMENTO BRUTO: R$ ${t.toLocaleString('pt-BR')}
-                FLUXO MENSAL: R$ ${mon.toLocaleString('pt-BR')}
-                STATUS: DNA_CONFIRMED
-                ------------------------------------------
-                ASSINATURA DIGITAL: 0x${Math.random().toString(16).slice(2, 10).toUpperCase()}
-            `;
-        },
-
-        updateChart: function(monthly, months) {
-            const newData = Array.from({length: 12}, (_, i) => i < months ? monthly * (i + 1) : null);
-            this.chart.data.datasets[0].data = newData;
+        updateChart: function(total, months) {
+            const dataPoints = [0, total * 0.25, total * 0.5, total * 0.75, total];
+            this.chart.data.datasets[0].data = dataPoints;
             this.chart.update();
         },
 
-        bindEvents: function() {
-            document.getElementById('executar-projeto').addEventListener('click', () => this.calculate());
+        generateReport: function(p, q, m, t, mon) {
+            const report = document.getElementById('relatorio-medina-venda');
+            const cat = document.getElementById('categoria-dna').selectedOptions[0].text;
+            report.innerHTML = `
+[PROPOSTA TÉCNICA MEDINA]
+ARQUITETO: ${DNA.OWNER}
+DATA: ${new Date().toLocaleDateString()}
+------------------------------------------
+ATIVO: ${cat}
+VOLUME: ${q} UN/M² | CICLO: ${m} MESES
+TOTAL: R$ ${t.toLocaleString('pt-BR')}
+MENSAL: R$ ${mon.toLocaleString('pt-BR')}
+------------------------------------------
+DNA_STATUS: VERIFIED_SOVEREIGN
+            `;
         }
     };
 
-    /**
-     * MÓDULO 04: MATERIALIZAÇÃO DE ATIVOS (GALERIA)
-     * Gestão de 20 registros com ID e metadados.
-     */
+    // --- GESTOR DE ATIVOS (GALERIA) ---
     const AssetManager = {
         init: function() {
             const grid = document.getElementById('grid-medina-assets');
             if (!grid) return;
 
-            for (let i = 1; i <= DNA_CONFIG.TOTAL_RECORDS; i++) {
-                const fileName = (i === 19) ? 'jardins19_valores.jpg' : `jardins${i}.jpg`;
-                const assetId = i.toString().padStart(3, '0');
+            for (let i = 1; i <= DNA.TOTAL_RECORDS; i++) {
+                const id = i.toString().padStart(3, '0');
+                const file = (i === 19) ? 'jardins19_valores.jpg' : `jardins${i}.jpg`;
                 
-                const card = document.createElement('div');
-                card.className = 'asset-item';
-                card.innerHTML = `
-                    <img src="${DNA_CONFIG.PATH_ASSETS}${fileName}" loading="lazy" alt="Asset ${assetId}">
-                    <div class="asset-overlay">REGISTRO ${assetId}</div>
-                `;
+                const item = document.createElement('div');
+                item.className = 'asset-item';
+                item.innerHTML = `<img src="${DNA.ASSET_PATH}${file}" loading="lazy">`;
                 
-                card.addEventListener('click', () => {
-                    this.openLightbox(`${DNA_CONFIG.PATH_ASSETS}${fileName}`, assetId);
-                    NatureEngine.activateSound(); // Ativa som na interação
-                });
-                
-                grid.appendChild(card);
+                item.onclick = () => {
+                    SensoryEngine.ignite();
+                    SensoryEngine.triggerLeafSound(0.2);
+                    this.show(DNA.ASSET_PATH + file, id);
+                };
+                grid.appendChild(item);
             }
         },
 
-        openLightbox: function(src, id) {
+        show: function(src, id) {
             const lb = document.getElementById('visualizador-medina');
             document.getElementById('imagem-alvo').src = src;
             document.getElementById('asset-id-display').innerText = id;
@@ -292,37 +220,35 @@ const MedinaOS = (function() {
         }
     };
 
-    // --- INICIALIZAÇÃO DO NÚCLEO SOBERANO ---
-    return {
-        ignite: function() {
-            LightEngine.init();
+    // --- NÚCLEO DE CONTROLE GLOBAL ---
+    const Core = {
+        init: function() {
+            LuxEngine.init();
             NatureEngine.init();
             FinanceEngine.init();
             AssetManager.init();
-            this.bindGlobalEvents();
+            SensoryEngine.setup();
+            this.bind();
+            console.log("HABITAÇÃO MEDINA: MATERIALIZAÇÃO CONCLUÍDA.");
         },
 
-        bindGlobalEvents: function() {
-            // Fechamento de Lightbox
-            document.querySelector('.fechar-comando').addEventListener('click', () => {
+        bind: function() {
+            document.getElementById('executar-projeto').onclick = () => FinanceEngine.execute();
+            document.getElementById('biometria-trigger').onclick = () => SensoryEngine.ignite();
+            document.querySelector('.fechar-comando').onclick = () => {
                 document.getElementById('visualizador-medina').classList.remove('ativo');
-            });
-
-            // Slider de tempo
-            document.getElementById('tempo-dna').addEventListener('input', (e) => {
+            };
+            document.getElementById('tempo-dna').oninput = (e) => {
                 document.getElementById('meses-valor').innerText = e.target.value;
-            });
-
-            // Clique na Biometria (Início de áudio e feedback visual)
-            document.getElementById('biometria-trigger').addEventListener('click', function() {
-                NatureEngine.activateSound();
-                this.classList.add('verified');
-                console.log("DNA JOSÉ PATRICK RECONHECIDO.");
-            });
+            };
+            document.getElementById('whatsapp-venda-trigger').onclick = () => {
+                const msg = encodeURIComponent("*HABITAÇÃO MEDINA*\n" + document.getElementById('relatorio-medina-venda').innerText);
+                window.open(`https://wa.me/5511996369611?text=${msg}`);
+            };
         }
     };
 
-})();
+    // START
+    window.addEventListener('DOMContentLoaded', () => Core.init());
 
-// START OPERACIONAL
-window.onload = () => MedinaOS.ignite();
+})(window, document);
