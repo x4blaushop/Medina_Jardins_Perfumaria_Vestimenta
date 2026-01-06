@@ -1,120 +1,153 @@
 /**
- * NÚCLEO-0: MOTOR DE AMBIENTE SOBERANO
- * Arquiteto: José Patrick Castro Soares
+ * NÚCLEO-0: PROTOCOLO DE MATERIALIZAÇÃO SOBERANA
+ * IDENTIDADE: ARQUITETO JOSÉ PATRICK CASTRO SOARES
+ * VERSÃO: 4.0 (NATIVO - SEM DEPENDÊNCIAS)
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const MEDINA_PHONE = "5511996369611";
+class MedinaKernel {
+    constructor() {
+        // Mapeamento de Ativos e Estruturas
+        this.config = {
+            phone: "5511996369611",
+            totalMaterials: 20,
+            assetPath: "jardins/",
+            descriptions: {
+                1: "Precisão em Poda Geométrica",
+                2: "Arquitetura de Vasos Ornamentais",
+                3: "Escultura Botânica e Design",
+                19: "Protocolo Técnico de Valores",
+                20: "Legado Medina: Conclusão"
+            }
+        };
 
-    // 1. DICIONÁRIO DE IDENTIDADE - Expansão de Matéria
-    const jardinsData = {
-        1: "Geometria Verde: Poda de Esculturas",
-        2: "Vitae em Vaso: Design & Cultivo",
-        3: "Arte Botânica: Escultura Viva",
-        4: "Manutenção Sustentável: Ciclo Perfeito",
-        5: "Muro Esmeralda: Cerca Viva Orgânica",
-        6: "Tecnologia Verde: Maquinário Próprio",
-        19: "Valores e Consultoria Técnica",
-        20: "Legado Medina: Conclusão de Obra"
-    };
+        this.elements = {
+            grid: document.getElementById('grid-core-engine'),
+            body: document.getElementById('medina-body'),
+            canvas: document.getElementById('quantum-particles'),
+            reflector: document.getElementById('cursor-follower')
+        };
 
-    // 2. MOTOR DE PARTÍCULAS (FOLHAS E POEIRA ESMERALDA)
-    const initAtmosphere = () => {
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
+        this.init();
+    }
+
+    init() {
+        this.checkEnvironment();
+        this.igniteAtmosphere();
+        this.materializeMatéria();
+        this.bindSovereignEvents();
+        this.printSystemLog();
+    }
+
+    // 1. DIAGNÓSTICO: A CASA ESTÁ LIMPA?
+    checkEnvironment() {
+        // Verifica estabilidade do DOM e recursos
+        if (this.elements.grid) {
+            console.log("[STATUS]: Grid localizado. Iniciando materialização...");
+        }
+    }
+
+    // 2. ATMOSFERA: O MOTOR DE LUZ DINÂMICA
+    igniteAtmosphere() {
+        const ctx = this.elements.canvas.getContext('2d');
         let particles = [];
 
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        const setup = () => {
+            this.elements.canvas.width = window.innerWidth;
+            this.elements.canvas.height = window.innerHeight;
         };
-        window.addEventListener('resize', resize);
-        resize();
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speed = Math.random() * 0.5 + 0.2;
-                this.opacity = Math.random() * 0.5;
-            }
-            update() {
-                this.y -= this.speed;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(45, 106, 79, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        window.addEventListener('resize', setup);
+        setup();
+
+        // Geração de Matéria Particulada (DNA Visual)
+        for (let i = 0; i < 60; i++) {
+            particles.push({
+                x: Math.random() * this.elements.canvas.width,
+                y: Math.random() * this.elements.canvas.height,
+                radius: Math.random() * 1.5,
+                velocity: Math.random() * 0.5 + 0.1,
+                alpha: Math.random() * 0.5
+            });
         }
 
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
-
-        const animate = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
+        const run = () => {
+            ctx.clearRect(0, 0, this.elements.canvas.width, this.elements.canvas.height);
+            particles.forEach(p => {
+                p.y -= p.velocity;
+                if (p.y < 0) p.y = this.elements.canvas.height;
+                ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(run);
         };
-        animate();
-    };
+        run();
 
-    // 3. MATERIALIZAÇÃO DA GALERIA (Mantendo a Raiz Imutável)
-    const materializeMatéria = () => {
-        const grid = document.querySelector('.portfolio-grid');
-        if (!grid) return;
+        // Seguidor de Luz (Identidade do Toque)
+        document.addEventListener('mousemove', (e) => {
+            this.elements.reflector.style.left = `${e.clientX}px`;
+            this.elements.reflector.style.top = `${e.clientY}px`;
+        });
+    }
 
-        grid.innerHTML = '';
-
-        for (let i = 1; i <= 20; i++) {
-            const card = document.createElement('div');
-            card.className = 'work-card';
+    // 3. MATERIALIZAÇÃO: CONSTRUÇÃO DA MALHA DE 20 PROJETOS
+    materializeMatéria() {
+        for (let i = 1; i <= this.config.totalMaterials; i++) {
+            const card = document.createElement('article');
+            card.className = 'material-card';
             
-            const descricao = jardinsData[i] || `PROJETO ARQUITETÔNICO ${i.toString().padStart(2, '0')}`;
-            const file = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
+            const fileName = (i === 19) ? 'jardins19_valores.jpg' : `jardins${i}.jpg`;
+            const label = this.config.descriptions[i] || `REGISTRO TÉCNICO ${i.toString().padStart(2, '0')}`;
 
             card.innerHTML = `
-                <div style="overflow:hidden">
-                    <img src="jardins/${file}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
+                <div class="img-wrap">
+                    <img src="${this.config.assetPath}${fileName}" loading="lazy" 
+                         alt="Obra Medina ${i}" 
+                         onerror="this.src='jardins/jardins.jpg'">
+                    <div class="scan-overlay"></div>
                 </div>
-                <p>${descricao.toUpperCase()}</p>
+                <div class="card-meta">
+                    <h4>${label.toUpperCase()}</h4>
+                </div>
             `;
-            
-            grid.appendChild(card);
-            
-            // Efeito de nascimento (Fase de Materialização)
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                card.style.transition = 'all 0.8s var(--transition)';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, i * 100);
+
+            this.elements.grid.appendChild(card);
+
+            // Observador de Revelação (Animação de Entrada)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => card.classList.add('revealed'), i * 80);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            observer.observe(card);
         }
-    };
+    }
 
-    // 4. BIND DE EVENTOS SOBERANOS
-    const bindActions = () => {
-        const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
-
-        document.getElementById('trigger-garden')?.addEventListener('click', () => {
-            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+    // 4. CONEXÕES SOBERANAS
+    bindSovereignEvents() {
+        // Gatilho do WhatsApp com Mensagem Personalizada
+        document.getElementById('master-cta')?.addEventListener('click', (e) => {
+            const msg = encodeURIComponent("Olá Medina! Sou um visitante do Núcleo Soberano e desejo um orçamento.");
+            console.log("[SISTEMA]: Iniciando Conexão WhatsApp...");
         });
 
-        document.getElementById('trigger-perfume')?.addEventListener('click', () => {
-            sendMsg("Olá Medina! Solicito acesso ao catálogo de Essências (Natura/Avon).");
+        // Navegação de Módulos (Jardinagem / Essências)
+        document.getElementById('trigger-jardinagem')?.addEventListener('click', () => {
+            document.getElementById('material-portfolio').scrollIntoView({ behavior: 'smooth' });
         });
+    }
 
-        document.querySelector('.btn-budget')?.addEventListener('click', () => {
-            sendMsg("Olá Medina! Gostaria de um orçamento para meu projeto de jardinagem.");
-        });
-    };
+    printSystemLog() {
+        console.log(`%c MEDINA SOVEREIGN SYSTEM `, "background: #1b4332; color: #d4af37; padding: 10px; font-weight: bold; border-radius: 5px;");
+        console.log(`[IDENTIDADE]: Arquiteto José Patrick Castro Soares Reconhecido.`);
+    }
+}
 
-    // IGNIÇÃO DO SISTEMA
-    initAtmosphere();
-    materializeMatéria();
-    bindActions();
-    console.log("Nucleus-0: Sistema Estabilizado. Arquiteto José Patrick reconhecido.");
+// Iniciação do Sistema
+window.addEventListener('DOMContentLoaded', () => {
+    new MedinaKernel();
 });
