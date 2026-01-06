@@ -3,92 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEDINA | HABITAÇÃO DEFINITIVA - JOSÉ PATRICK</title>
+    <title>MEDINA | JOSÉ PATRICK</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="medina-os">
+<body class="corpo-medina">
 
-    <div id="medina-lightbox" class="lightbox">
-        <div class="lb-controls">
-            <span class="lb-close">&times;</span>
-        </div>
-        <div class="lb-content">
-            <img id="lb-img" src="" alt="Medina Asset">
-            <div id="lb-caption">REGISTRO TÉCNICO - ARQUITETO JOSÉ PATRICK</div>
+    <div id="expansor-medina" class="lightbox-medina">
+        <span class="fechar-medina">&times;</span>
+        <div class="moldura-medina">
+            <img id="imagem-expandida" src="" alt="Registro Medina">
+            <div id="legenda-medina">HABITAÇÃO MEDINA | MODELO JOSÉ PATRICK</div>
         </div>
     </div>
 
-    <canvas id="lux-engine"></canvas>
+    <canvas id="lux-medina"></canvas>
 
-    <main id="root-container">
-        <header class="main-header">
-            <div class="logo-area">
-                <h1 class="glitch" data-text="MEDINA">MEDINA</h1>
-                <div class="sub-label">ARQUITETURA • DESIGN • GESTÃO</div>
-            </div>
-            <div class="owner-tag">JOSÉ PATRICK CASTRO SOARES</div>
+    <main class="nucleo-medina">
+        
+        <header class="topo-medina">
+            <h1 class="marca-medina" data-text="MEDINA">MEDINA</h1>
+            <p class="assinatura-medina">ARQUITETO JOSÉ PATRICK CASTRO SOARES</p>
         </header>
 
-        <section id="management-terminal" class="terminal">
-            <div class="terminal-grid">
-                <div class="controls-panel">
-                    <h3 class="panel-title">TERMINAL DE INVESTIMENTO</h3>
-                    <div class="field">
-                        <label>CATEGORIA SOBERANA</label>
-                        <select id="calc-category">
+        <section class="gestao-medina">
+            <div class="interface-medina">
+                <div class="comandos-medina">
+                    <h3 class="titulo-medina">MODELO DE INVESTIMENTO</h3>
+                    
+                    <div class="campo-medina">
+                        <label>CATEGORIA DE ATIVOS</label>
+                        <select id="categoria-medina">
                             <option value="150">JARDINAGEM (MANUTENÇÃO M²)</option>
-                            <option value="350">PERFUMARIA (CURADORIA ELITE)</option>
-                            <option value="1200">VESTIMENTA (ARMADURA DESIGN)</option>
+                            <option value="285">PERFUMARIA (CURADORIA ELITE)</option>
+                            <option value="1200">VESTIMENTA (DESIGN EXCLUSIVO)</option>
                         </select>
                     </div>
-                    <div class="field">
-                        <label>VOLUME / QUANTIDADE</label>
-                        <input type="number" id="calc-qty" value="1" min="1">
+
+                    <div class="campo-medina">
+                        <label>VOLUME DE OPERAÇÃO</label>
+                        <input type="number" id="volume-medina" value="1" min="1">
                     </div>
-                    <div class="field">
-                        <label>PERÍODO OPERACIONAL (MESES)</label>
-                        <input type="range" id="calc-range" min="1" max="12" value="1">
-                        <div class="range-value"><span id="months-out">1</span> MÊS(ES)</div>
+
+                    <div class="campo-medina">
+                        <label>TEMPO DE EXECUÇÃO (MESES)</label>
+                        <input type="range" id="tempo-medina" min="1" max="12" value="1">
+                        <span id="label-tempo">1 Mês</span>
                     </div>
-                    <button id="calc-trigger" class="btn-action">PROCESSAR PROPOSTA</button>
+
+                    <button id="processar-medina" class="botao-medina">MATERIALIZAR PROJEÇÃO</button>
                 </div>
 
-                <div class="analytics-panel">
-                    <div class="chart-wrapper">
-                        <canvas id="main-analytics-chart"></canvas>
+                <div class="visual-medina">
+                    <div class="grafico-medina">
+                        <canvas id="chart-medina"></canvas>
                     </div>
-                    <div class="results-display">
-                        <div class="res-box">
+                    <div class="placar-medina">
+                        <div class="bloco-valor">
                             <span>TOTAL PROJETADO</span>
-                            <strong id="res-total">R$ 0,00</strong>
+                            <strong id="valor-total">R$ 0,00</strong>
                         </div>
-                        <div class="res-box">
-                            <span>MÉDIA MENSAL</span>
-                            <strong id="res-monthly">R$ 0,00</strong>
+                        <div class="bloco-valor">
+                            <span>CUSTO MENSAL</span>
+                            <strong id="valor-mensal">R$ 0,00</strong>
                         </div>
                     </div>
-                    <div id="tech-summary" class="summary-box">
-                        Defina os parâmetros para gerar o relatório...
-                    </div>
-                    <button id="wa-send" class="btn-wa">FINALIZAR NA RAIZ (WHATSAPP)</button>
                 </div>
             </div>
+            
+            <div id="resumo-medina" class="relatorio-medina">
+                Aguardando entrada de dados para o modelo Medina...
+            </div>
+            <button id="enviar-medina" class="botao-whatsapp-medina">ENVIAR PARA JOSÉ PATRICK</button>
         </section>
 
-        <section id="gallery-root">
-            <div class="gallery-header">
+        <section class="galeria-medina">
+            <div class="titulo-galeria">
                 <h2>REGISTROS DE MATERIALIZAÇÃO</h2>
-                <p>Toque na imagem para expandir com definição técnica</p>
+                <div class="linha-medina"></div>
             </div>
-            <div id="gallery-grid" class="grid">
+            <div id="grade-medina" class="grade-fotos">
                 </div>
         </section>
 
-        <footer class="main-footer">
-            <div class="footer-dna">DNA_KEY: JOSÉ_PATRICK_SOARES | STATUS: SOBERANO</div>
+        <footer class="rodape-medina">
+            <span>DNA: JOSÉ PATRICK CASTRO SOARES | 2026</span>
         </footer>
+
     </main>
 
     <script src="script.js"></script>
