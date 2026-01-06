@@ -3,86 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEDINA | ARQUITETURA E GESTÃO SOBERANA</title>
+    <title>MEDINA | HABITAÇÃO DEFINITIVA - JOSÉ PATRICK</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="medina-os">
 
-    <div id="lightbox" class="lightbox-overlay">
-        <span class="close-lightbox">&times;</span>
-        <img id="lightbox-img" src="" alt="Expansão Medina">
-        <div id="lightbox-caption"></div>
+    <div id="medina-lightbox" class="lightbox">
+        <div class="lb-controls">
+            <span class="lb-close">&times;</span>
+        </div>
+        <div class="lb-content">
+            <img id="lb-img" src="" alt="Medina Asset">
+            <div id="lb-caption">REGISTRO TÉCNICO - ARQUITETO JOSÉ PATRICK</div>
+        </div>
     </div>
 
-    <canvas id="ambient-particles"></canvas>
+    <canvas id="lux-engine"></canvas>
 
-    <main id="main-structure">
-        <header class="master-header">
-            <h1 class="logo-glitch" data-text="MEDINA">MEDINA</h1>
-            <div class="arch-signature">ARQUITETO JOSÉ PATRICK CASTRO SOARES</div>
-            <div class="system-status">
-                <span class="pulse-icon"></span> SISTEMA ESTABILIZADO | 2026
+    <main id="root-container">
+        <header class="main-header">
+            <div class="logo-area">
+                <h1 class="glitch" data-text="MEDINA">MEDINA</h1>
+                <div class="sub-label">ARQUITETURA • DESIGN • GESTÃO</div>
             </div>
+            <div class="owner-tag">JOSÉ PATRICK CASTRO SOARES</div>
         </header>
 
-        <section id="management-hub">
-            <div class="glass-panel">
-                <div class="panel-header">
-                    <h2>C3X4.0_MAE | GESTÃO DE INVESTIMENTOS</h2>
-                    <p>Controle pessoal e projeção de gastos mensais</p>
+        <section id="management-terminal" class="terminal">
+            <div class="terminal-grid">
+                <div class="controls-panel">
+                    <h3 class="panel-title">TERMINAL DE INVESTIMENTO</h3>
+                    <div class="field">
+                        <label>CATEGORIA SOBERANA</label>
+                        <select id="calc-category">
+                            <option value="150">JARDINAGEM (MANUTENÇÃO M²)</option>
+                            <option value="350">PERFUMARIA (CURADORIA ELITE)</option>
+                            <option value="1200">VESTIMENTA (ARMADURA DESIGN)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>VOLUME / QUANTIDADE</label>
+                        <input type="number" id="calc-qty" value="1" min="1">
+                    </div>
+                    <div class="field">
+                        <label>PERÍODO OPERACIONAL (MESES)</label>
+                        <input type="range" id="calc-range" min="1" max="12" value="1">
+                        <div class="range-value"><span id="months-out">1</span> MÊS(ES)</div>
+                    </div>
+                    <button id="calc-trigger" class="btn-action">PROCESSAR PROPOSTA</button>
                 </div>
-                
-                <div class="hub-content">
-                    <div class="inputs">
-                        <div class="input-box">
-                            <label>SERVIÇO/PRODUTO</label>
-                            <select id="calc-type">
-                                <option value="150">JARDINAGEM (M²)</option>
-                                <option value="280">PERFUMARIA (KIT NATURA)</option>
-                                <option value="1500">VESTIMENTA (DESIGN)</option>
-                            </select>
-                        </div>
-                        <div class="input-box">
-                            <label>QUANTIDADE / VOLUME</label>
-                            <input type="number" id="calc-qty" value="1">
-                        </div>
-                        <div class="input-box">
-                            <label>TEMPO DE USO (MESES)</label>
-                            <input type="range" id="calc-range" min="1" max="12" value="1">
-                            <span id="range-val">1 Mês</span>
-                        </div>
-                        <button id="add-data" class="medina-btn">GERAR PROJEÇÃO</button>
+
+                <div class="analytics-panel">
+                    <div class="chart-wrapper">
+                        <canvas id="main-analytics-chart"></canvas>
                     </div>
-                    
-                    <div class="chart-box">
-                        <canvas id="mainChart"></canvas>
-                        <div class="total-display">
-                            <span>TOTAL ACUMULADO:</span>
-                            <strong id="total-result">R$ 0,00</strong>
+                    <div class="results-display">
+                        <div class="res-box">
+                            <span>TOTAL PROJETADO</span>
+                            <strong id="res-total">R$ 0,00</strong>
+                        </div>
+                        <div class="res-box">
+                            <span>MÉDIA MENSAL</span>
+                            <strong id="res-monthly">R$ 0,00</strong>
                         </div>
                     </div>
+                    <div id="tech-summary" class="summary-box">
+                        Defina os parâmetros para gerar o relatório...
+                    </div>
+                    <button id="wa-send" class="btn-wa">FINALIZAR NA RAIZ (WHATSAPP)</button>
                 </div>
             </div>
         </section>
 
         <section id="gallery-root">
-            <div class="section-title">
-                <span>ROOT_ASSETS</span>
-                <h2>REGISTROS TÉCNICOS JARDINS</h2>
+            <div class="gallery-header">
+                <h2>REGISTROS DE MATERIALIZAÇÃO</h2>
+                <p>Toque na imagem para expandir com definição técnica</p>
             </div>
-            <div id="gallery-engine" class="gallery-grid">
+            <div id="gallery-grid" class="grid">
                 </div>
         </section>
 
-        <a href="https://wa.me/5511996369611" class="wa-bridge">
-            <div class="wa-icon">🌿</div>
-            <div class="wa-text">
-                <strong>CONEXÃO DIRETA</strong>
-                <span>JOSÉ PATRICK</span>
-            </div>
-        </a>
+        <footer class="main-footer">
+            <div class="footer-dna">DNA_KEY: JOSÉ_PATRICK_SOARES | STATUS: SOBERANO</div>
+        </footer>
     </main>
 
     <script src="script.js"></script>
