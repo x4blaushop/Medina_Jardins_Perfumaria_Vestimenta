@@ -1,220 +1,286 @@
-/* =========================================================
-   MEDINA_SOVEREIGN_STYLE_V14.0 (EXPANSÃO MONUMENTAL)
-   ESPECIFICAÇÃO DE MATERIAIS PARA HABITAÇÃO DEFINITIVA
-   ARQUITETO: JOSÉ PATRICK CASTRO SOARES
-   ========================================================= */
+/* ============================================================================
+   MEDINA_SOVEREIGN_CSS_V15.0 - ESPECIFICAÇÃO DE MATERIAIS TÉCNICOS
+   ARQUITETO PROPRIETÁRIO: JOSÉ PATRICK CASTRO SOARES
+   ESTABILIZAÇÃO GERAL DO DNA: 2026
+   ----------------------------------------------------------------------------
+   DIAGNÓSTICO:
+   1. ABA ELEMENTS: ESTRUTURA LIMPA, SEM RUÍDO VISUAL.
+   2. ABA NETWORK: INDEPENDÊNCIA DE RAIZ.
+   3. ABA CONSOLE: ESTABILIDADE ESTÉTICA ABSOLUTA.
+   ============================================================================ */
 
+/* --- BLOCO 01: MATRIZ DE VARIÁVEIS (DNA DO DESIGN) --- */
 :root {
-    /* MATRIZ DE MATERIAIS (PHYSICAL PROPERTIES) */
+    /* PALETA DE MATERIAIS NOBRES */
     --p-gold: #d4af37;
+    --p-gold-bright: #f1d56e;
     --p-gold-muted: rgba(212, 175, 55, 0.4);
     --p-gold-glow: rgba(212, 175, 55, 0.15);
-    --p-emerald-deep: #050a08;
     --p-black-void: #020302;
+    --p-carbon: #0a0a0a;
     --p-industrial-gray: #121212;
-    --p-carbon-fiber: #0a0a0a;
+    --p-emerald-deep: #050a08;
+    --p-white-pure: #ffffff;
     
-    /* DINÂMICA ATMOSFÉRICA */
+    /* FÍSICA E DINÂMICA */
     --a-transition-slow: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
     --a-transition-med: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --a-transition-fast: all 0.2s ease-out;
     --a-blur-standard: blur(15px);
     
-    /* ESPAÇAMENTO MATEMÁTICO */
-    --s-gutter: 40px;
+    /* GEOMETRIA ESPACIAL */
+    --s-gutter: 60px;
     --s-radius-lg: 30px;
     --s-radius-sm: 4px;
+    --s-border-thin: 1px solid var(--p-gold-muted);
 }
 
-/* CAMADA ZERO: FUNDAÇÃO DINÂMICA */
+/* --- BLOCO 02: RESET E FUNDAÇÃO ESTRUTURAL --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-width: thin;
+    scrollbar-color: var(--p-gold) var(--p-black-void);
+}
+
 body {
     background: var(--p-black-void);
-    color: var(--branco-puro);
+    color: var(--p-white-pure);
     font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
-    cursor: crosshair; /* Precisão técnica */
+    cursor: crosshair; /* Precisão do Arquiteto */
 }
 
-/* MOTOR DE AMBIENTE: FOLHAS DIGITAIS (🍃) 
-   Aqui definimos a queda harmônica sem poluição.
-*/
+/* --- BLOCO 03: MOTOR ATMOSFÉRICO (PARTÍCULAS E LUX) --- */
+#lux-engine-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 .folha-digital {
     position: fixed;
-    top: -100px;
-    z-index: 5;
+    top: -50px;
+    z-index: 9999;
     pointer-events: none;
-    user-select: none;
-    font-size: 20px;
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)) sepia(0.6) hue-rotate(85deg);
-    opacity: 0;
+    font-size: 24px;
+    filter: sepia(0.8) hue-rotate(80deg) brightness(0.7);
     animation: fisica-queda-medina linear forwards;
 }
 
 @keyframes fisica-queda-medina {
-    0% {
-        transform: translateY(0) rotate(0deg) translateX(0);
-        opacity: 0;
-    }
-    15% { opacity: 0.7; }
-    85% { opacity: 0.5; }
-    100% {
-        transform: translateY(110vh) rotate(1080deg) translateX(150px);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(100px); opacity: 0; }
 }
 
-/* TERMINAL DE COMANDO: GESTÃO C3X4.0_MAE */
-.terminal-operacional {
+/* --- BLOCO 04: CABEÇALHO MONUMENTAL --- */
+.header-industrial {
+    padding: var(--s-gutter);
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
     position: relative;
-    padding: 120px var(--s-gutter);
-    border-top: 1px solid var(--p-gold-muted);
-    background: linear-gradient(180deg, var(--p-carbon-fiber) 0%, var(--p-black-void) 100%);
+    z-index: 10;
 }
 
-.interface-industrial {
-    max-width: 1800px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 480px 1fr;
-    gap: 100px;
+.brand-logo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 25px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--p-gold);
+    text-transform: uppercase;
+    position: relative;
+    transition: var(--a-transition-slow);
 }
 
-/* MÓDULO DE IDENTIFICAÇÃO BIOMÉTRICA */
-.modulo-biometria-acesso {
-    padding: 40px;
-    background: var(--vidro-dna);
-    border: 1px solid var(--p-gold-muted);
-    border-radius: var(--s-radius-lg);
+.brand-logo:hover {
+    color: var(--p-gold);
+    text-shadow: 0 0 30px var(--p-gold-glow);
+}
+
+/* --- BLOCO 05: MÓDULO DE BIOMETRIA (IDENTIFICAÇÃO DE ACESSO) --- */
+.biometric-module {
+    display: inline-flex;
+    align-items: center;
+    padding: 20px 40px;
+    border: var(--s-border-thin);
+    border-radius: var(--s-radius-sm);
+    background: rgba(255, 255, 255, 0.02);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     transition: var(--a-transition-med);
 }
 
-.modulo-biometria-acesso:hover {
-    background: rgba(212, 175, 55, 0.05);
+.biometric-module:hover {
     border-color: var(--p-gold);
+    background: var(--p-gold-glow);
 }
 
-.scanner-laser {
+.scanner-line {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 2px;
     background: var(--p-gold);
-    box-shadow: 0 0 25px var(--p-gold);
-    animation: scan-tecnico 4s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    box-shadow: 0 0 15px var(--p-gold);
+    animation: scan-tecnico 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes scan-tecnico {
-    0%, 100% { top: 0%; opacity: 0.2; }
+    0%, 100% { top: 0%; opacity: 0; }
     50% { top: 100%; opacity: 1; }
 }
 
-/* CONTROLES DE INVESTIMENTO (INPUTS) */
-.campo-operacional label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: var(--p-gold);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: block;
+/* --- BLOCO 06: TERMINAL DE MATERIALIZAÇÃO (DASHBOARD) --- */
+.terminal-section {
+    padding: var(--s-gutter);
+    max-width: 1800px;
+    margin: 0 auto;
 }
 
-.input-medina {
-    width: 100%;
-    padding: 22px;
-    background: #000;
-    border: 1px solid #222;
-    color: #fff;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    transition: var(--a-transition-med);
-}
-
-.input-medina:focus {
-    border-color: var(--p-gold);
-    box-shadow: 0 0 20px var(--p-gold-glow);
-}
-
-/* ANALYTICS: GRÁFICOS DE ALTA DENSIDADE */
-.dashboard-grafico {
-    height: 500px;
-    padding: 30px;
-    background: rgba(0,0,0,0.5);
+.section-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    background: var(--p-carbon);
+    padding: 50px;
     border-radius: var(--s-radius-lg);
     border: 1px solid rgba(255,255,255,0.05);
 }
 
-.card-valor {
-    background: rgba(255,255,255,0.02);
-    border-bottom: 2px solid var(--p-gold);
-    padding: 40px;
+.medina-input, .medina-select {
+    width: 100%;
+    padding: 20px;
+    background: #000;
+    border: 1px solid #222;
+    color: var(--p-white-pure);
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 10px;
     transition: var(--a-transition-med);
 }
 
-.card-valor:hover {
-    transform: translateY(-5px);
-    background: rgba(212, 175, 55, 0.03);
+.medina-input:focus {
+    border-color: var(--p-gold);
+    outline: none;
+    box-shadow: 0 0 15px var(--p-gold-glow);
 }
 
-/* RELATÓRIO TÉCNICO (DOCUMENTO DE VENDA) */
-.resumo-tecnico-box {
-    margin-top: 40px;
-    background: #050505;
-    border-left: 10px solid var(--p-gold);
-    padding: 50px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    color: #aaa;
-    white-space: pre-wrap;
-    letter-spacing: 1px;
+/* --- BLOCO 07: GRÁFICOS E VALORES --- */
+.chart-container {
+    height: 400px;
+    background: rgba(0,0,0,0.3);
+    border-radius: var(--s-radius-sm);
+    padding: 20px;
 }
 
-/* GALERIA DE REGISTROS (FOTOGRAFIA TÉCNICA) */
-.grade-assets {
+.value-card {
+    padding: 40px;
+    background: rgba(255,255,255,0.01);
+    border-bottom: 2px solid var(--p-gold-muted);
+    transition: var(--a-transition-med);
+}
+
+.value-card:hover {
+    background: var(--p-gold-glow);
+    border-bottom-color: var(--p-gold);
+}
+
+.card-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--p-gold);
+}
+
+/* --- BLOCO 08: GALERIA DE ASSETS (REGISTROS DNA) --- */
+.asset-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
-    padding: 80px 0;
+    margin-top: 50px;
 }
 
 .asset-item {
-    height: 600px;
+    height: 500px;
     overflow: hidden;
+    background: #000;
     border-radius: var(--s-radius-sm);
     position: relative;
+    cursor: pointer;
 }
 
 .asset-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(1) brightness(0.3);
+    filter: grayscale(1) brightness(0.4);
     transition: var(--a-transition-slow);
 }
 
 .asset-item:hover img {
     filter: grayscale(0) brightness(1);
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-/* BOTÃO DE MATERIALIZAÇÃO FINAL */
-.btn-whatsapp-medina {
+/* --- BLOCO 09: TERMINAL LOG (CONSOLES) --- */
+.terminal-log-output {
+    margin-top: 30px;
+    padding: 30px;
+    background: #050505;
+    border-left: 5px solid var(--p-gold);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #888;
+    white-space: pre-wrap;
+    letter-spacing: 1px;
+}
+
+/* --- BLOCO 10: LIGHTBOX SOBERANO --- */
+.medina-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 35px;
-    background: var(--p-gold);
-    color: var(--p-black-void);
-    font-weight: 900;
-    font-size: 0.9rem;
-    letter-spacing: 10px;
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: var(--a-transition-med);
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
 }
 
-.btn-whatsapp-medina:hover {
-    background: #fff;
-    letter-spacing: 12px;
+.medina-lightbox.active { display: flex; }
+
+.image-wrapper img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border: 1px solid var(--p-gold);
 }
+
+/* --- BLOCO 11: FOOTER E IDENTIFICAÇÃO FINAL --- */
+.footer-industrial {
+    padding: 100px var(--s-gutter);
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-details {
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    color: #444;
+    text-transform: uppercase;
+}
+
+.gold-highlight { color: var(--p-gold); font-weight: 700; }
