@@ -1,97 +1,161 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="medina-sovereign-layer">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEDINA | JOSÉ PATRICK</title>
+    <meta name="author" content="José Patrick Castro Soares">
+    <meta name="owner" content="José Patrick Castro Soares">
+    <meta name="designer" content="José Patrick Castro Soares">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#050505">
+    
+    <meta name="security-dna" content="FACIAL_RECOGNITION_ENABLED">
+    <meta name="access-key" content="ARCHITECT_IDENTIFICATION_DNA">
+    
+    <title>MEDINA | TERMINAL DE MATERIALIZAÇÃO SOBERANA - JOSÉ PATRICK</title>
+    
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/png" href="jardins/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,700;0,900;1,100&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
-<body class="corpo-medina">
 
-    <div id="expansor-medina" class="lightbox-medina">
-        <span class="fechar-medina">&times;</span>
-        <div class="moldura-medina">
-            <img id="imagem-expandida" src="" alt="Registro Medina">
-            <div id="legenda-medina">HABITAÇÃO MEDINA | MODELO JOSÉ PATRICK</div>
-        </div>
+<body class="medina-body-core">
+
+    <div id="sovereign-layer" style="display:none;" aria-hidden="true">
+        AUTH_KEY: JOSÉ_PATRICK_CASTRO_SOARES
+        DNA_LOCK: BIOMETRIC_FACIAL_LOCK
+        STATUS: OWNER_AUTHENTICATED
     </div>
 
-    <canvas id="lux-medina"></canvas>
+    <div id="sensory-engine" class="hidden-audio-controller">
+        <audio id="audio-vento" loop preload="auto">
+            <source src="https://www.soundjay.com/nature/sounds/wind-01.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="audio-folhas" preload="auto">
+            <source src="https://www.soundjay.com/nature/sounds/dry-leaves-01.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
-    <main class="nucleo-medina">
-        
-        <header class="topo-medina">
-            <h1 class="marca-medina" data-text="MEDINA">MEDINA</h1>
-            <p class="assinatura-medina">ARQUITETO JOSÉ PATRICK CASTRO SOARES</p>
+    <canvas id="lux-engine-canvas" class="background-atmosphere"></canvas>
+
+    <main id="medina-main-terminal" class="terminal-grid-layout">
+
+        <header id="medina-header" class="header-industrial">
+            <div class="header-content">
+                <div class="brand-zone">
+                    <h1 class="brand-logo" data-text="MEDINA">MEDINA</h1>
+                    <span class="brand-tagline">ARQUITETURA DE HABITAÇÃO DEFINITIVA</span>
+                </div>
+                
+                <div id="biometric-access-trigger" class="biometric-module" title="IDENTIFICAÇÃO POR DNA">
+                    <div class="scanner-line"></div>
+                    <div class="biometric-info">
+                        <span class="auth-status">BIO_ID: AGUARDANDO_DNA</span>
+                        <span class="owner-name">OWNER: JOSÉ PATRICK</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <section class="gestao-medina">
-            <div class="interface-medina">
-                <div class="comandos-medina">
-                    <h3 class="titulo-medina">MODELO DE INVESTIMENTO</h3>
+        <section id="financial-terminal" class="terminal-section">
+            <div class="section-container">
+                <div class="config-panel">
+                    <h2 class="section-title">CONFIGURADOR DE ATIVOS (C3X4.0_MAE)</h2>
                     
-                    <div class="campo-medina">
-                        <label>CATEGORIA DE ATIVOS</label>
-                        <select id="categoria-medina">
-                            <option value="150">JARDINAGEM (MANUTENÇÃO M²)</option>
-                            <option value="285">PERFUMARIA (CURADORIA ELITE)</option>
-                            <option value="1200">VESTIMENTA (DESIGN EXCLUSIVO)</option>
+                    <div class="input-field">
+                        <label for="categoria-dna">CATEGORIA DE ALOCAÇÃO</label>
+                        <select id="categoria-dna" class="medina-select">
+                            <optgroup label="JARDINAGEM E PAISAGISMO">
+                                <option value="150.00">MANUTENÇÃO TÉCNICA (PODA/LIMPEZA)</option>
+                                <option value="450.00">PROJETO PAISAGÍSTICO ESTRUTURAL</option>
+                                <option value="200.00">RESTAURAÇÃO DE ÁREAS (M²)</option>
+                            </optgroup>
+                            <optgroup label="PERFUMARIA (NATURA/AVON)">
+                                <option value="285.50">NATURA ELITE (CURADORIA)</option>
+                                <option value="190.00">AVON EXCLUSIVE (LINHA INTERNACIONAL)</option>
+                            </optgroup>
+                            <optgroup label="VESTIMENTA IDENTITÁRIA">
+                                <option value="1200.00">ARMADURA SOCIAL (SOB MEDIDA)</option>
+                            </optgroup>
                         </select>
                     </div>
 
-                    <div class="campo-medina">
-                        <label>VOLUME DE OPERAÇÃO</label>
-                        <input type="number" id="volume-medina" value="1" min="1">
+                    <div class="input-field">
+                        <label for="volume-dna">VOLUME DE ALOCAÇÃO (M² / UNIDADES)</label>
+                        <input type="number" id="volume-dna" value="10" min="1" class="medina-input">
                     </div>
 
-                    <div class="campo-medina">
-                        <label>TEMPO DE EXECUÇÃO (MESES)</label>
-                        <input type="range" id="tempo-medina" min="1" max="12" value="1">
-                        <span id="label-tempo">1 Mês</span>
+                    <div class="input-field">
+                        <label for="tempo-dna">TEMPO DE CICLO: <span id="meses-valor" class="gold-highlight">6</span> MESES</label>
+                        <input type="range" id="tempo-dna" min="1" max="24" value="6" class="medina-range">
                     </div>
 
-                    <button id="processar-medina" class="botao-medina">MATERIALIZAR PROJEÇÃO</button>
+                    <button id="executar-projeto" class="medina-btn">MATERIALIZAR INVESTIMENTO</button>
                 </div>
 
-                <div class="visual-medina">
-                    <div class="grafico-medina">
-                        <canvas id="chart-medina"></canvas>
+                <div class="analytics-panel">
+                    <div class="chart-container">
+                        <canvas id="grafico-investimento-medina"></canvas>
                     </div>
-                    <div class="placar-medina">
-                        <div class="bloco-valor">
-                            <span>TOTAL PROJETADO</span>
-                            <strong id="valor-total">R$ 0,00</strong>
+                    <div class="value-display-grid">
+                        <div class="value-card">
+                            <span class="card-label">VALOR TOTAL (BRUTO)</span>
+                            <strong id="valor-total-final" class="card-value">R$ 0,00</strong>
                         </div>
-                        <div class="bloco-valor">
-                            <span>CUSTO MENSAL</span>
-                            <strong id="valor-mensal">R$ 0,00</strong>
+                        <div class="value-card">
+                            <span class="card-label">VALOR MENSAL (FLUXO)</span>
+                            <strong id="valor-mensal-final" class="card-value">R$ 0,00</strong>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div id="resumo-medina" class="relatorio-medina">
-                Aguardando entrada de dados para o modelo Medina...
+            <div id="relatorio-medina-venda" class="terminal-log-output">
+                [SISTEMA EM SILÊNCIO OPERACIONAL - AGUARDANDO MATERIALIZAÇÃO]
             </div>
-            <button id="enviar-medina" class="botao-whatsapp-medina">ENVIAR PARA JOSÉ PATRICK</button>
         </section>
 
-        <section class="galeria-medina">
-            <div class="titulo-galeria">
-                <h2>REGISTROS DE MATERIALIZAÇÃO</h2>
-                <div class="linha-medina"></div>
+        <section id="asset-gallery" class="terminal-section">
+            <div class="gallery-header">
+                <h2 class="section-title">GALERIA DE REGISTROS TÉCNICOS (DNA)</h2>
+                <p class="section-subtitle">20 ATIVOS IDENTIFICADOS NA RAIZ /JARDINS/</p>
             </div>
-            <div id="grade-medina" class="grade-fotos">
+            
+            <div id="grid-medina-assets" class="asset-grid">
                 </div>
         </section>
 
-        <footer class="rodape-medina">
-            <span>DNA: JOSÉ PATRICK CASTRO SOARES | 2026</span>
+        <footer id="medina-footer" class="footer-industrial">
+            <div class="footer-details">
+                <span>ESTADO SOBERANO: 2026</span>
+                <span class="divider">|</span>
+                <span>ID: JOSÉ PATRICK CASTRO SOARES</span>
+                <span class="divider">|</span>
+                <span>SISTEMA: C3X4.0_MAE</span>
+            </div>
         </footer>
 
     </main>
+
+    <div id="visualizador-medina" class="medina-lightbox">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <span class="close-lightbox" title="FECHAR_ID">&times;</span>
+            <div class="image-wrapper">
+                <img id="imagem-alvo" src="" alt="Registro de Ativo Medina">
+                <div class="asset-meta-info">
+                    <span id="asset-id-display">000</span>
+                    <span class="asset-owner">JOSÉ PATRICK CASTRO SOARES</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
