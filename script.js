@@ -1,111 +1,120 @@
 /**
- * NÚCLEO-0: MATERIALIZAÇÃO SOBERANA
- * Engine Core: Medina OS v2.0
+ * NÚCLEO-0: MOTOR DE AMBIENTE SOBERANO
+ * Arquiteto: José Patrick Castro Soares
  */
 
-const CORE_DATABASE = {
-    phone: "5511996369611",
-    jardins: [
-        { id: 1, tag: "PODA DE PRECISÃO GEOMÉTRICA" },
-        { id: 2, tag: "ARQUITETURA DE VASOS CLÁSSICOS" },
-        { id: 3, tag: "ESCULTURA BOTÂNICA IMPERIAL" },
-        { id: 4, tag: "REVITALIZAÇÃO DE ECOSSISTEMAS" },
-        { id: 19, tag: "VALORES & CONSULTORIA TÉCNICA", file: "jardins19_valores.jpg" },
-        { id: 20, tag: "LEGADO VERDE: CONCLUSÃO" }
-    ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const MEDINA_PHONE = "5511996369611";
 
-class MedinaKernel {
-    constructor() {
-        this.interface = document.getElementById('sovereign-interface');
-        this.scanner = document.getElementById('dna-scanner');
-        this.init();
-    }
+    // 1. DICIONÁRIO DE IDENTIDADE - Expansão de Matéria
+    const jardinsData = {
+        1: "Geometria Verde: Poda de Esculturas",
+        2: "Vitae em Vaso: Design & Cultivo",
+        3: "Arte Botânica: Escultura Viva",
+        4: "Manutenção Sustentável: Ciclo Perfeito",
+        5: "Muro Esmeralda: Cerca Viva Orgânica",
+        6: "Tecnologia Verde: Maquinário Próprio",
+        19: "Valores e Consultoria Técnica",
+        20: "Legado Medina: Conclusão de Obra"
+    };
 
-    async init() {
-        await this.simulateScan();
-        this.materializeGallery();
-        this.setupObservers();
-        this.bindMasterActions();
-        this.initParticles();
-    }
-
-    simulateScan() {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                this.scanner.style.opacity = '0';
-                this.interface.classList.remove('hidden');
-                setTimeout(() => { this.scanner.remove(); resolve(); }, 1000);
-            }, 3000);
-        });
-    }
-
-    materializeGallery() {
-        const engine = document.getElementById('grid-engine');
-        if (!engine) return;
-
-        // Gerador de Matéria (20 Projetos)
-        for (let i = 1; i <= 20; i++) {
-            const entry = CORE_DATABASE.jardins.find(j => j.id === i) || { tag: `PROJETO TÉCNICO ${i.toString().padStart(2, '0')}` };
-            const fileName = entry.file || `jardins${i}.jpg`;
-            
-            const card = document.createElement('div');
-            card.className = 'work-item';
-            card.innerHTML = `
-                <div class="img-wrap">
-                    <img src="jardins/${fileName}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
-                </div>
-                <div class="caption">${entry.tag}</div>
-            `;
-            engine.appendChild(card);
-        }
-    }
-
-    setupObservers() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('revealed');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
-    }
-
-    initParticles() {
+    // 2. MOTOR DE PARTÍCULAS (FOLHAS E POEIRA ESMERALDA)
+    const initAtmosphere = () => {
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        let particles = [];
 
-        const particles = Array.from({ length: 40 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2,
-            speed: Math.random() * 0.5 + 0.1
-        }));
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(45, 106, 79, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
 
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(45, 106, 79, 0.4)';
-            particles.forEach(p => {
-                p.y -= p.speed;
-                if (p.y < 0) p.y = canvas.height;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         };
         animate();
-    }
+    };
 
-    bindMasterActions() {
-        document.getElementById('whatsapp-master')?.addEventListener('click', () => {
-            const url = `https://wa.me/${CORE_DATABASE.phone}?text=${encodeURIComponent("Olá Medina! Solicito acesso ao orçamento de jardinagem.")}`;
-            window.open(url, '_blank');
+    // 3. MATERIALIZAÇÃO DA GALERIA (Mantendo a Raiz Imutável)
+    const materializeMatéria = () => {
+        const grid = document.querySelector('.portfolio-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+
+        for (let i = 1; i <= 20; i++) {
+            const card = document.createElement('div');
+            card.className = 'work-card';
+            
+            const descricao = jardinsData[i] || `PROJETO ARQUITETÔNICO ${i.toString().padStart(2, '0')}`;
+            const file = (i === 19) ? "jardins19_valores.jpg" : `jardins${i}.jpg`;
+
+            card.innerHTML = `
+                <div style="overflow:hidden">
+                    <img src="jardins/${file}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
+                </div>
+                <p>${descricao.toUpperCase()}</p>
+            `;
+            
+            grid.appendChild(card);
+            
+            // Efeito de nascimento (Fase de Materialização)
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.8s var(--transition)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, i * 100);
+        }
+    };
+
+    // 4. BIND DE EVENTOS SOBERANOS
+    const bindActions = () => {
+        const sendMsg = (msg) => window.open(`https://wa.me/${MEDINA_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+
+        document.getElementById('trigger-garden')?.addEventListener('click', () => {
+            document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
         });
-    }
-}
 
-// Ignição do Sistema
-window.addEventListener('load', () => new MedinaKernel());
+        document.getElementById('trigger-perfume')?.addEventListener('click', () => {
+            sendMsg("Olá Medina! Solicito acesso ao catálogo de Essências (Natura/Avon).");
+        });
+
+        document.querySelector('.btn-budget')?.addEventListener('click', () => {
+            sendMsg("Olá Medina! Gostaria de um orçamento para meu projeto de jardinagem.");
+        });
+    };
+
+    // IGNIÇÃO DO SISTEMA
+    initAtmosphere();
+    materializeMatéria();
+    bindActions();
+    console.log("Nucleus-0: Sistema Estabilizado. Arquiteto José Patrick reconhecido.");
+});
