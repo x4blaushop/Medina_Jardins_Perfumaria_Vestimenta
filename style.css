@@ -1,54 +1,220 @@
-/* ESTILO MEDINA - DEFINIÇÃO DE ALTO PADRÃO */
+/* =========================================================
+   MEDINA_SOVEREIGN_STYLE_V14.0 (EXPANSÃO MONUMENTAL)
+   ESPECIFICAÇÃO DE MATERIAIS PARA HABITAÇÃO DEFINITIVA
+   ARQUITETO: JOSÉ PATRICK CASTRO SOARES
+   ========================================================= */
+
 :root {
-    --ouro-medina: #d4af37;
-    --esmeralda-medina: #0d2b1f;
-    --preto-medina: #020302;
-    --branco-medina: #f1f1f1;
-    --transicao: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    /* MATRIZ DE MATERIAIS (PHYSICAL PROPERTIES) */
+    --p-gold: #d4af37;
+    --p-gold-muted: rgba(212, 175, 55, 0.4);
+    --p-gold-glow: rgba(212, 175, 55, 0.15);
+    --p-emerald-deep: #050a08;
+    --p-black-void: #020302;
+    --p-industrial-gray: #121212;
+    --p-carbon-fiber: #0a0a0a;
+    
+    /* DINÂMICA ATMOSFÉRICA */
+    --a-transition-slow: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --a-transition-med: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --a-blur-standard: blur(15px);
+    
+    /* ESPAÇAMENTO MATEMÁTICO */
+    --s-gutter: 40px;
+    --s-radius-lg: 30px;
+    --s-radius-sm: 4px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--preto-medina); color: var(--branco-medina); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+/* CAMADA ZERO: FUNDAÇÃO DINÂMICA */
+body {
+    background: var(--p-black-void);
+    color: var(--branco-puro);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    cursor: crosshair; /* Precisão técnica */
+}
 
-#lux-medina { position: fixed; inset: 0; z-index: -1; opacity: 0.3; }
+/* MOTOR DE AMBIENTE: FOLHAS DIGITAIS (🍃) 
+   Aqui definimos a queda harmônica sem poluição.
+*/
+.folha-digital {
+    position: fixed;
+    top: -100px;
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+    font-size: 20px;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)) sepia(0.6) hue-rotate(85deg);
+    opacity: 0;
+    animation: fisica-queda-medina linear forwards;
+}
 
-/* CABEÇALHO */
-.topo-medina { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-.marca-medina { font-size: clamp(3rem, 15vw, 8rem); letter-spacing: 40px; color: var(--ouro-medina); text-indent: 40px; font-weight: 100; }
-.assinatura-medina { font-size: 0.6rem; letter-spacing: 12px; opacity: 0.6; margin-top: 20px; text-transform: uppercase; }
+@keyframes fisica-queda-medina {
+    0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    15% { opacity: 0.7; }
+    85% { opacity: 0.5; }
+    100% {
+        transform: translateY(110vh) rotate(1080deg) translateX(150px);
+        opacity: 0;
+    }
+}
 
-/* DASHBOARD GESTÃO */
-.gestao-medina { padding: 60px 5%; max-width: 1500px; margin: 0 auto; background: rgba(255,255,255,0.02); border-radius: 40px; border: 1px solid rgba(212,175,55,0.1); }
-.interface-medina { display: grid; grid-template-columns: 350px 1fr; gap: 50px; }
-.titulo-medina { font-size: 0.8rem; letter-spacing: 5px; color: var(--ouro-medina); margin-bottom: 30px; }
+/* TERMINAL DE COMANDO: GESTÃO C3X4.0_MAE */
+.terminal-operacional {
+    position: relative;
+    padding: 120px var(--s-gutter);
+    border-top: 1px solid var(--p-gold-muted);
+    background: linear-gradient(180deg, var(--p-carbon-fiber) 0%, var(--p-black-void) 100%);
+}
 
-.campo-medina { margin-bottom: 25px; }
-.campo-medina label { display: block; font-size: 0.5rem; letter-spacing: 2px; margin-bottom: 10px; color: var(--ouro-medina); }
-input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-family: inherit; }
+.interface-industrial {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    gap: 100px;
+}
 
-.grafico-medina { height: 300px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; margin-bottom: 30px; }
-.placar-medina { display: flex; gap: 20px; }
-.bloco-valor { flex: 1; padding: 25px; background: rgba(212,175,55,0.05); border-left: 4px solid var(--ouro-medina); border-radius: 10px; }
-.bloco-valor span { font-size: 0.5rem; letter-spacing: 2px; display: block; }
-.bloco-valor strong { font-size: 2rem; color: var(--ouro-medina); font-weight: 200; }
+/* MÓDULO DE IDENTIFICAÇÃO BIOMÉTRICA */
+.modulo-biometria-acesso {
+    padding: 40px;
+    background: var(--vidro-dna);
+    border: 1px solid var(--p-gold-muted);
+    border-radius: var(--s-radius-lg);
+    position: relative;
+    overflow: hidden;
+    transition: var(--a-transition-med);
+}
 
-.relatorio-medina { margin-top: 30px; padding: 20px; background: #000; border: 1px dashed #444; font-family: monospace; font-size: 0.8rem; line-height: 1.6; }
+.modulo-biometria-acesso:hover {
+    background: rgba(212, 175, 55, 0.05);
+    border-color: var(--p-gold);
+}
 
-/* GALERIA CELULAR */
-.grade-fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 60px 0; }
-.foto-medina { height: 450px; border-radius: 25px; overflow: hidden; cursor: pointer; transition: var(--transicao); border: 1px solid rgba(255,255,255,0.05); }
-.foto-medina img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.4); transition: 1.2s var(--transicao); }
-.foto-medina:hover { transform: translateY(-10px); border-color: var(--ouro-medina); }
-.foto-medina:hover img { filter: grayscale(0) brightness(1); transform: scale(1.05); }
+.scanner-laser {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--p-gold);
+    box-shadow: 0 0 25px var(--p-gold);
+    animation: scan-tecnico 4s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
 
-/* LIGHTBOX MEDINA */
-.lightbox-medina { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.5s; }
-.lightbox-medina.ativa { display: flex; opacity: 1; }
-.moldura-medina img { max-width: 90vw; max-height: 80vh; border-radius: 10px; box-shadow: 0 0 40px var(--ouro-medina); transform: scale(0.9); transition: 0.6s var(--transicao); }
-.lightbox-medina.ativa img { transform: scale(1); }
-.fechar-medina { position: absolute; top: 30px; right: 40px; font-size: 3rem; color: var(--ouro-medina); cursor: pointer; }
+@keyframes scan-tecnico {
+    0%, 100% { top: 0%; opacity: 0.2; }
+    50% { top: 100%; opacity: 1; }
+}
 
-/* BOTÕES */
-.botao-medina, .botao-whatsapp-medina { width: 100%; padding: 20px; border: 1px solid var(--ouro-medina); background: transparent; color: var(--ouro-medina); letter-spacing: 5px; cursor: pointer; transition: 0.3s; margin-top: 15px; }
-.botao-whatsapp-medina { background: var(--ouro-medina); color: #000; font-weight: bold; }
-.botao-medina:hover { background: var(--ouro-medina); color: #000; }
+/* CONTROLES DE INVESTIMENTO (INPUTS) */
+.campo-operacional label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--p-gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.input-medina {
+    width: 100%;
+    padding: 22px;
+    background: #000;
+    border: 1px solid #222;
+    color: #fff;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: var(--a-transition-med);
+}
+
+.input-medina:focus {
+    border-color: var(--p-gold);
+    box-shadow: 0 0 20px var(--p-gold-glow);
+}
+
+/* ANALYTICS: GRÁFICOS DE ALTA DENSIDADE */
+.dashboard-grafico {
+    height: 500px;
+    padding: 30px;
+    background: rgba(0,0,0,0.5);
+    border-radius: var(--s-radius-lg);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card-valor {
+    background: rgba(255,255,255,0.02);
+    border-bottom: 2px solid var(--p-gold);
+    padding: 40px;
+    transition: var(--a-transition-med);
+}
+
+.card-valor:hover {
+    transform: translateY(-5px);
+    background: rgba(212, 175, 55, 0.03);
+}
+
+/* RELATÓRIO TÉCNICO (DOCUMENTO DE VENDA) */
+.resumo-tecnico-box {
+    margin-top: 40px;
+    background: #050505;
+    border-left: 10px solid var(--p-gold);
+    padding: 50px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #aaa;
+    white-space: pre-wrap;
+    letter-spacing: 1px;
+}
+
+/* GALERIA DE REGISTROS (FOTOGRAFIA TÉCNICA) */
+.grade-assets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+    padding: 80px 0;
+}
+
+.asset-item {
+    height: 600px;
+    overflow: hidden;
+    border-radius: var(--s-radius-sm);
+    position: relative;
+}
+
+.asset-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) brightness(0.3);
+    transition: var(--a-transition-slow);
+}
+
+.asset-item:hover img {
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.1);
+}
+
+/* BOTÃO DE MATERIALIZAÇÃO FINAL */
+.btn-whatsapp-medina {
+    width: 100%;
+    padding: 35px;
+    background: var(--p-gold);
+    color: var(--p-black-void);
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: var(--a-transition-med);
+}
+
+.btn-whatsapp-medina:hover {
+    background: #fff;
+    letter-spacing: 12px;
+}
