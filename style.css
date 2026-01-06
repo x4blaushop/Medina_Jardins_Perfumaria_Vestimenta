@@ -1,59 +1,54 @@
-/* MEDINA DEFINITIVE STYLE - KERNEL v12.0 */
+/* ESTILO MEDINA - DEFINIÇÃO DE ALTO PADRÃO */
 :root {
-    --gold: #d4af37;
-    --emerald: #0d2b1f;
-    --emerald-glow: #1b4332;
-    --black: #020302;
-    --white: #f5f5f5;
-    --transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    --ouro-medina: #d4af37;
+    --esmeralda-medina: #0d2b1f;
+    --preto-medina: #020302;
+    --branco-medina: #f1f1f1;
+    --transicao: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    background: var(--black); color: var(--white); 
-    font-family: 'Montserrat', sans-serif; overflow-x: hidden;
-}
+body { background: var(--preto-medina); color: var(--branco-medina); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-#lux-engine { position: fixed; inset: 0; z-index: -1; opacity: 0.4; }
+#lux-medina { position: fixed; inset: 0; z-index: -1; opacity: 0.3; }
 
-/* HEADER */
-.main-header { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-.glitch { font-size: clamp(3rem, 12vw, 8rem); letter-spacing: 40px; color: var(--gold); text-indent: 40px; position: relative; }
-.owner-tag { font-size: 0.6rem; letter-spacing: 12px; margin-top: 30px; opacity: 0.6; }
+/* CABEÇALHO */
+.topo-medina { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.marca-medina { font-size: clamp(3rem, 15vw, 8rem); letter-spacing: 40px; color: var(--ouro-medina); text-indent: 40px; font-weight: 100; }
+.assinatura-medina { font-size: 0.6rem; letter-spacing: 12px; opacity: 0.6; margin-top: 20px; text-transform: uppercase; }
 
-/* TERMINAL GESTÃO */
-.terminal { padding: 80px 5%; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(212,175,55,0.1); }
-.terminal-grid { display: grid; grid-template-columns: 350px 1fr; gap: 50px; max-width: 1500px; margin: 0 auto; }
-.controls-panel { background: rgba(0,0,0,0.4); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
-.field { margin-bottom: 25px; }
-.field label { display: block; font-size: 0.5rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px; }
-input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 5px; }
-input:focus { border-color: var(--gold); }
+/* DASHBOARD GESTÃO */
+.gestao-medina { padding: 60px 5%; max-width: 1500px; margin: 0 auto; background: rgba(255,255,255,0.02); border-radius: 40px; border: 1px solid rgba(212,175,55,0.1); }
+.interface-medina { display: grid; grid-template-columns: 350px 1fr; gap: 50px; }
+.titulo-medina { font-size: 0.8rem; letter-spacing: 5px; color: var(--ouro-medina); margin-bottom: 30px; }
 
-.analytics-panel { display: flex; flex-direction: column; gap: 30px; }
-.chart-wrapper { height: 350px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; }
-.results-display { display: flex; gap: 20px; }
-.res-box { flex: 1; padding: 20px; background: rgba(212,175,55,0.05); border-radius: 15px; border-left: 3px solid var(--gold); }
-.res-box span { font-size: 0.5rem; letter-spacing: 2px; display: block; }
-.res-box strong { font-size: 1.8rem; color: var(--gold); }
+.campo-medina { margin-bottom: 25px; }
+.campo-medina label { display: block; font-size: 0.5rem; letter-spacing: 2px; margin-bottom: 10px; color: var(--ouro-medina); }
+input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-family: inherit; }
 
-.summary-box { font-family: 'Courier New', monospace; font-size: 0.8rem; padding: 20px; background: #050505; border: 1px dashed #444; color: #aaa; }
+.grafico-medina { height: 300px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 20px; margin-bottom: 30px; }
+.placar-medina { display: flex; gap: 20px; }
+.bloco-valor { flex: 1; padding: 25px; background: rgba(212,175,55,0.05); border-left: 4px solid var(--ouro-medina); border-radius: 10px; }
+.bloco-valor span { font-size: 0.5rem; letter-spacing: 2px; display: block; }
+.bloco-valor strong { font-size: 2rem; color: var(--ouro-medina); font-weight: 200; }
+
+.relatorio-medina { margin-top: 30px; padding: 20px; background: #000; border: 1px dashed #444; font-family: monospace; font-size: 0.8rem; line-height: 1.6; }
 
 /* GALERIA CELULAR */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 50px 5%; }
-.asset-card { height: 450px; border-radius: 20px; overflow: hidden; cursor: pointer; transition: var(--transition); border: 1px solid transparent; }
-.asset-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.5); transition: 1.2s var(--transition); }
-.asset-card:hover { border-color: var(--gold); transform: translateY(-10px); }
-.asset-card:hover img { filter: grayscale(0) brightness(1); transform: scale(1.05); }
+.grade-fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 60px 0; }
+.foto-medina { height: 450px; border-radius: 25px; overflow: hidden; cursor: pointer; transition: var(--transicao); border: 1px solid rgba(255,255,255,0.05); }
+.foto-medina img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.4); transition: 1.2s var(--transicao); }
+.foto-medina:hover { transform: translateY(-10px); border-color: var(--ouro-medina); }
+.foto-medina:hover img { filter: grayscale(0) brightness(1); transform: scale(1.05); }
 
-/* LIGHTBOX */
-.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.5s; }
-.lightbox.active { display: flex; opacity: 1; }
-.lb-content img { max-width: 90vw; max-height: 80vh; border-radius: 10px; box-shadow: 0 0 50px var(--gold); transform: scale(0.9); transition: 0.6s var(--transition); }
-.lightbox.active .lb-content img { transform: scale(1); }
-.lb-close { position: absolute; top: 30px; right: 40px; font-size: 3rem; color: var(--gold); cursor: pointer; }
+/* LIGHTBOX MEDINA */
+.lightbox-medina { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.5s; }
+.lightbox-medina.ativa { display: flex; opacity: 1; }
+.moldura-medina img { max-width: 90vw; max-height: 80vh; border-radius: 10px; box-shadow: 0 0 40px var(--ouro-medina); transform: scale(0.9); transition: 0.6s var(--transicao); }
+.lightbox-medina.ativa img { transform: scale(1); }
+.fechar-medina { position: absolute; top: 30px; right: 40px; font-size: 3rem; color: var(--ouro-medina); cursor: pointer; }
 
 /* BOTÕES */
-.btn-action, .btn-wa { width: 100%; padding: 20px; border: 1px solid var(--gold); background: transparent; color: var(--gold); letter-spacing: 5px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-.btn-wa { background: var(--gold); color: #000; font-weight: bold; margin-top: 10px; }
-.btn-action:hover { background: var(--gold); color: #000; }
+.botao-medina, .botao-whatsapp-medina { width: 100%; padding: 20px; border: 1px solid var(--ouro-medina); background: transparent; color: var(--ouro-medina); letter-spacing: 5px; cursor: pointer; transition: 0.3s; margin-top: 15px; }
+.botao-whatsapp-medina { background: var(--ouro-medina); color: #000; font-weight: bold; }
+.botao-medina:hover { background: var(--ouro-medina); color: #000; }
