@@ -1,165 +1,88 @@
-/* MEDINA | ARQUITETURA DE INTERFACE SOBERANA
-   DEFINIÇÃO DE LACUNAS E ACABAMENTO TÉCNICO
-   FOCO: FLUIDEZ, ELEGÂNCIA E LEGIBILIDADE
-*/
-
+/* ---------------------------------------------------------
+   ARQUITETURA VISUAL MEDINA - DENSIDADE MÁXIMA
+   --------------------------------------------------------- */
 :root {
     --gold: #d4af37;
-    --emerald-deep: #050a08;
-    --emerald-mid: #1b4332;
-    --white-soft: #f4f4f4;
-    --black-base: #020302;
-    --transition-smooth: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    --emerald: #1b4332;
+    --black: #020302;
+    --glass: rgba(255, 255, 255, 0.03);
+    --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* FUNDAÇÃO DA CASA PRONTA */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
-    background-color: var(--black-base); 
-    color: var(--white-soft); 
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
+    background: var(--black); 
+    color: #fff; 
+    font-family: 'Montserrat', sans-serif; 
     overflow-x: hidden;
 }
 
-/* 1. LACUNA: A ATMOSFERA (NÃO BLOQUEANTE) */
-#canvas-ambient {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1; opacity: 0.4; pointer-events: none;
+#ambient-particles {
+    position: fixed; inset: 0; z-index: -1; opacity: 0.3;
 }
 
-/* 2. LACUNA: O CABEÇALHO (IDENTIDADE DEFINIDA) */
-.header-monolith {
-    padding: 100px 20px 60px;
-    text-align: center;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+/* HEADER IMPACTO */
+.master-header { padding: 80px 20px; text-align: center; }
+.logo-glitch {
+    font-size: 5rem; letter-spacing: 30px; font-weight: 100;
+    color: var(--gold); position: relative;
 }
+.arch-signature { font-size: 0.6rem; letter-spacing: 10px; opacity: 0.5; margin-top: 10px; }
 
-.header-monolith h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    letter-spacing: 25px;
-    font-weight: 100;
-    color: #fff;
-    text-indent: 25px;
-}
-
-.header-monolith p {
-    font-size: 0.7rem;
-    letter-spacing: 8px;
-    color: var(--gold);
-    margin-top: 10px;
-    text-transform: uppercase;
-}
-
-/* 3. LACUNA: OS HANGERS (MÓDULOS DE NAVEGAÇÃO) */
-.wardrobe-nav {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    padding: 50px 20px;
-    flex-wrap: wrap;
-}
-
-.nav-item {
-    cursor: pointer;
-    padding-bottom: 5px;
-    position: relative;
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    opacity: 0.6;
-    transition: var(--transition-smooth);
-}
-
-.nav-item:hover, .nav-item.active {
-    opacity: 1;
-    color: var(--gold);
-}
-
-.nav-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; width: 0; height: 1px;
-    background: var(--gold);
-    transition: var(--transition-smooth);
-}
-
-.nav-item:hover::after, .nav-item.active::after {
-    width: 100%;
-}
-
-/* 4. LACUNA: O PORTFÓLIO (MATERIALIZAÇÃO DA RAIZ) */
-.material-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.work-card {
-    background: #080a08;
+/* CALCULADORA C3X4.0_MAE */
+.glass-panel {
+    background: var(--glass);
     border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: var(--transition-smooth);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto 100px;
+}
+.hub-content { display: grid; grid-template-columns: 300px 1fr; gap: 40px; }
+.input-box { margin-bottom: 20px; }
+.input-box label { display: block; font-size: 0.5rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; }
+input, select {
+    width: 100%; background: #000; border: 1px solid var(--gold);
+    padding: 12px; color: #fff; border-radius: 8px;
 }
 
-.work-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--gold);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+/* GALERIA ESTILO CELULAR */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px; padding: 20px;
 }
-
-.image-container {
-    height: 350px;
-    overflow: hidden;
-    position: relative;
+.photo-card {
+    height: 400px; border-radius: 20px; overflow: hidden;
+    cursor: pointer; position: relative; transition: var(--transition);
 }
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.7);
-    transition: var(--transition-smooth);
+.photo-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.6); transition: var(--transition);
 }
+.photo-card:hover img { filter: brightness(1); transform: scale(1.1); }
 
-.work-card:hover img {
-    filter: brightness(1);
-    transform: scale(1.05);
+/* LIGHTBOX (EXPANSÃO SUAVE) */
+.lightbox-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+    display: none; align-items: center; justify-content: center;
+    z-index: 10000; animation: fadeIn 0.5s;
 }
-
-.card-label {
-    padding: 20px;
-    text-align: center;
+.lightbox-img { 
+    max-width: 90%; max-height: 80%; border-radius: 10px;
+    transform: scale(0.8); transition: 0.5s var(--transition);
 }
+.lightbox-overlay.active { display: flex; }
+.lightbox-overlay.active .lightbox-img { transform: scale(1); }
 
-.card-label h4 {
-    font-size: 0.6rem;
-    letter-spacing: 3px;
-    font-weight: 400;
-    color: var(--gold);
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* 5. WHATSAPP (BOTÃO DE CONVERSÃO HUMANA) */
-.wa-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 100;
-    background: linear-gradient(135deg, var(--emerald-mid), var(--emerald-deep));
-    border: 1px solid var(--gold);
-    padding: 15px 25px;
-    border-radius: 50px;
-    text-decoration: none;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.wa-float:hover {
-    transform: scale(1.05);
+/* WHATSAPP */
+.wa-bridge {
+    position: fixed; bottom: 30px; right: 30px;
+    background: linear-gradient(135deg, var(--emerald), #000);
+    border: 1px solid var(--gold); padding: 15px 25px;
+    border-radius: 50px; text-decoration: none; color: #fff;
+    display: flex; align-items: center; gap: 15px; z-index: 1000;
 }
