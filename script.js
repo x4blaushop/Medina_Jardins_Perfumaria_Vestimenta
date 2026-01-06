@@ -1,115 +1,114 @@
 /**
- * MEDINA KERNEL v12.0 - APRIMORADO E MESCLADO
- * ARQUITETO: JOSÉ PATRICK CASTRO SOARES
+ * HABITAÇÃO MEDINA - KERNEL DE OPERAÇÃO
+ * DESENVOLVIDO PARA JOSÉ PATRICK CASTRO SOARES
  */
 
-const MedinaOS = {
-    // 1. DADOS DE PRECIFICAÇÃO E RAIZ
-    DNA: {
-        path: "jardins/",
+const ModeloMedina = {
+    config: {
+        raiz: "jardins/",
         total: 20,
-        prices: { service: 0, qty: 0, months: 0, total: 0 }
+        unidade: "Mês(es)"
     },
 
     init: function() {
-        this.igniteParticles();
-        this.materializeGallery();
-        this.setupAnalytics();
-        this.bindEvents();
-        console.log("HABITAÇÃO MEDINA: ESTABILIZADA E PRONTA PARA VENDA.");
+        this.fluxoAtmosferico();
+        this.construirGaleria();
+        this.ativarAnalytics();
+        this.escutarEventos();
+        console.log("HABITAÇÃO MEDINA PRONTA PARA MATERIALIZAÇÃO.");
     },
 
-    // 2. MATERIALIZAÇÃO DA GALERIA COM EXPANSÃO
-    materializeGallery: function() {
-        const grid = document.getElementById('gallery-grid');
-        for (let i = 1; i <= this.DNA.total; i++) {
-            const file = (i === 19) ? 'jardins19_valores.jpg' : `jardins${i}.jpg`;
-            const card = document.createElement('div');
-            card.className = 'asset-card';
-            card.innerHTML = `<img src="${this.DNA.path}${file}" alt="Obra ${i}" loading="lazy">`;
+    // MATERIALIZAÇÃO DA GALERIA COM EXPANSÃO SUAVE
+    construirGaleria: function() {
+        const grade = document.getElementById('grade-medina');
+        for (let i = 1; i <= this.config.total; i++) {
+            const arquivo = (i === 19) ? 'jardins19_valores.jpg' : `jardins${i}.jpg`;
+            const div = document.createElement('div');
+            div.className = 'foto-medina';
+            div.innerHTML = `<img src="${this.config.raiz}${arquivo}" loading="lazy" alt="Medina ${i}">`;
             
-            card.onclick = () => {
-                const lb = document.getElementById('medina-lightbox');
-                const lbImg = document.getElementById('lb-img');
-                lbImg.src = `${this.DNA.path}${file}`;
-                lb.classList.add('active');
+            div.onclick = () => {
+                const lb = document.getElementById('expansor-medina');
+                const img = document.getElementById('imagem-expandida');
+                img.src = `${this.config.raiz}${arquivo}`;
+                lb.classList.add('ativa');
             };
-            grid.appendChild(card);
+            grade.appendChild(div);
         }
     },
 
-    // 3. SISTEMA DE GRÁFICOS (CHART.JS)
-    setupAnalytics: function() {
-        const ctx = document.getElementById('main-analytics-chart').getContext('2d');
-        this.chart = new Chart(ctx, {
+    // MOTOR ANALÍTICO DO MODELO C3X4.0_MAE
+    ativarAnalytics: function() {
+        const ctx = document.getElementById('chart-medina').getContext('2d');
+        this.medinaChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'],
+                labels: ['Início', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'],
                 datasets: [{
-                    label: 'Projeção de Gasto',
+                    label: 'Projeção de Investimento Medina',
                     data: [0, 0, 0, 0, 0, 0],
                     borderColor: '#d4af37',
-                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    backgroundColor: 'rgba(212, 175, 55, 0.05)',
                     fill: true,
-                    tension: 0.4
+                    tension: 0.4,
+                    borderWidth: 2
                 }]
             },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
         });
     },
 
-    // 4. LÓGICA DE CÁLCULO E WHATSAPP
-    processSimulation: function() {
-        const price = parseFloat(document.getElementById('calc-category').value);
-        const qty = parseFloat(document.getElementById('calc-qty').value) || 0;
-        const months = parseInt(document.getElementById('calc-range').value);
+    // CÁLCULO E RELATÓRIO DO MODELO
+    executarCalculo: function() {
+        const preco = parseFloat(document.getElementById('categoria-medina').value);
+        const qtd = parseFloat(document.getElementById('volume-medina').value) || 0;
+        const meses = parseInt(document.getElementById('tempo-medina').value);
         
-        const total = price * qty * months;
-        const monthly = total / months;
+        const total = preco * qtd * meses;
+        const mensal = total / meses;
 
-        // Atualiza UI
-        document.getElementById('res-total').innerText = `R$ ${total.toLocaleString('pt-BR')}`;
-        document.getElementById('res-monthly').innerText = `R$ ${monthly.toLocaleString('pt-BR')}`;
+        document.getElementById('valor-total').innerText = `R$ ${total.toLocaleString('pt-BR')}`;
+        document.getElementById('valor-mensal').innerText = `R$ ${mensal.toLocaleString('pt-BR')}`;
         
-        const summary = `PROJETO SELECIONADO: R$ ${price}/unidade \nVOLUME: ${qty} \nDURAÇÃO: ${months} Mes(es) \nINVESTIMENTO TOTAL: R$ ${total.toLocaleString('pt-BR')}`;
-        document.getElementById('tech-summary').innerText = summary;
+        const textoRelatorio = `HABITAÇÃO MEDINA - MODELO DE GESTÃO \n---------------------------------- \nCATEGORIA: R$ ${preco}/un \nVOLUME: ${qtd} \nPERÍODO: ${meses} ${this.config.unidade} \nINVESTIMENTO TOTAL: R$ ${total.toLocaleString('pt-BR')}`;
+        document.getElementById('resumo-medina').innerText = textoRelatorio;
 
-        // Atualiza Gráfico
-        const projection = Array.from({length: 6}, (_, i) => monthly * (i + 1));
-        this.chart.data.datasets[0].data = projection;
-        this.chart.update();
+        // Atualizar Gráfico Medina
+        const projeção = Array.from({length: 6}, (_, i) => mensal * (i + 1));
+        this.medinaChart.data.datasets[0].data = projeção;
+        this.medinaChart.update();
 
-        // Prepara Mensagem WA
-        document.getElementById('wa-send').onclick = () => {
-            const msg = encodeURIComponent(`*HABITAÇÃO MEDINA - PROPOSTA DE NEGÓCIO*%0A%0AArquiteto José Patrick, gerei uma simulação:%0A${summary.replace(/\n/g, '%0A')}`);
-            window.open(`https://wa.me/5511996369611?text=${msg}`, '_blank');
+        // Configurar Envio WhatsApp
+        document.getElementById('enviar-medina').onclick = () => {
+            const mensagem = encodeURIComponent(`*MODELO MEDINA - SOLICITAÇÃO*%0A%0AArquiteto José Patrick, gerei uma simulação na Habitação:%0A${textoRelatorio.replace(/\n/g, '%0A')}`);
+            window.open(`https://wa.me/5511996369611?text=${mensagem}`, '_blank');
         };
     },
 
-    bindEvents: function() {
-        document.getElementById('calc-trigger').onclick = () => this.processSimulation();
-        document.getElementById('calc-range').oninput = (e) => {
-            document.getElementById('months-out').innerText = e.target.value;
+    escutarEventos: function() {
+        document.getElementById('processar-medina').onclick = () => this.executarCalculo();
+        document.getElementById('tempo-medina').oninput = (e) => {
+            document.getElementById('label-tempo').innerText = `${e.target.value} Mês(es)`;
         };
-        document.querySelector('.lb-close').onclick = () => {
-            document.getElementById('medina-lightbox').classList.remove('active');
+        document.querySelector('.fechar-medina').onclick = () => {
+            document.getElementById('expansor-medina').classList.remove('ativa');
         };
     },
 
-    igniteParticles: function() {
-        const canvas = document.getElementById('lux-engine');
-        const ctx = canvas.getContext('2d');
-        let pts = [];
-        const setup = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-        setup();
-        for(let i=0; i<60; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, v:Math.random()*0.5});
-        const draw = () => {
-            ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(212,175,55,0.2)";
-            pts.forEach(p => { p.y-=p.v; if(p.y<0) p.y=canvas.height; ctx.beginPath(); ctx.arc(p.x,p.y,1,0,Math.PI*2); ctx.fill(); });
-            requestAnimationFrame(draw);
+    fluxoAtmosferico: function() {
+        const c = document.getElementById('lux-medina');
+        const ctx = c.getContext('2d');
+        let p = [];
+        const redim = () => { c.width = window.innerWidth; c.height = window.innerHeight; };
+        redim(); window.onresize = redim;
+        for(let i=0; i<70; i++) p.push({x:Math.random()*c.width, y:Math.random()*c.height, s:Math.random()*0.4});
+        const anim = () => {
+            ctx.clearRect(0,0,c.width,c.height); ctx.fillStyle = "rgba(212,175,55,0.2)";
+            p.forEach(i => { i.y-=i.s; if(i.y<0) i.y=c.height; ctx.beginPath(); ctx.arc(i.x,i.y,1,0,Math.PI*2); ctx.fill(); });
+            requestAnimationFrame(anim);
         };
-        draw();
+        anim();
     }
 };
 
-window.onload = () => MedinaOS.init();
+window.onload = () => ModeloMedina.init();
