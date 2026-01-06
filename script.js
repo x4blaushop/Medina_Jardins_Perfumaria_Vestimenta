@@ -1,99 +1,74 @@
 /**
- * MEDINA OS - KERNEL DE FUNÇÃO E MATERIALIZAÇÃO
- * ARQUITETO: JOSÉ PATRICK CASTRO SOARES
- * ESTADO: ESTABILIZADO NA RAIZ
+ * MEDINA OS KERNEL - MATERIALIZAÇÃO COMPLETA
  */
-
-const MedinaSystem = {
-    // 1. DEFINIÇÃO DE DADOS (RAIZ IMUTÁVEL)
-    data: {
-        path: "jardins/",
-        total: 20,
-        descriptions: {
-            1: "Poda Técnica e Alinhamento Visual",
-            2: "Design de Vasos para Interiores",
-            19: "Tabela de Valores e Consultoria",
-            20: "Projeto Finalizado - Legado Medina"
-        }
-    },
-
-    // 2. FUNÇÃO DE MATERIALIZAÇÃO (PREENCHENDO AS LACUNAS)
+const MedinaOS = {
+    // 1. MATERIALIZAR GALERIA DA RAIZ
     materialize: function() {
-        const grid = document.getElementById('portfolio-grid');
-        if (!grid) return;
-
-        console.log("Materializando registros de jardinagem...");
-
-        for (let i = 1; i <= this.data.total; i++) {
+        const engine = document.getElementById('gallery-engine');
+        for (let i = 1; i <= 20; i++) {
             const fileName = (i === 19) ? 'jardins19_valores.jpg' : `jardins${i}.jpg`;
-            const title = this.data.descriptions[i] || `Registro de Obra ${i.toString().padStart(2, '0')}`;
-
-            const card = `
-                <div class="work-card">
-                    <div class="image-container">
-                        <img src="${this.data.path}${fileName}" alt="${title}" loading="lazy" onerror="this.src='jardins/jardins.jpg'">
-                    </div>
-                    <div class="card-label">
-                        <h4>${title.toUpperCase()}</h4>
-                    </div>
-                </div>
-            `;
-            grid.innerHTML += card;
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.innerHTML = `<img src="jardins/${fileName}" alt="Obra ${i}">`;
+            
+            // Efeito de Expansão (Lightbox)
+            card.addEventListener('click', () => {
+                const lb = document.getElementById('lightbox');
+                const lbImg = document.getElementById('lightbox-img');
+                lbImg.src = `jardins/${fileName}`;
+                lb.classList.add('active');
+            });
+            engine.appendChild(card);
         }
     },
 
-    // 3. FUNÇÃO DE ATMOSFERA (INTERATIVIDADE SUAVE)
-    setupAtmosphere: function() {
-        const canvas = document.getElementById('canvas-ambient');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+    // 2. GESTÃO DE GRÁFICOS (C3X4.0_MAE)
+    initAnalytics: function() {
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        let chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6'],
+                datasets: [{
+                    label: 'Investimento Acumulado',
+                    data: [0, 0, 0, 0, 0, 0],
+                    borderColor: '#d4af37',
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
 
-        const init = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
+        document.getElementById('add-data').addEventListener('click', () => {
+            const val = document.getElementById('calc-type').value;
+            const qty = document.getElementById('calc-qty').value;
+            const months = document.getElementById('calc-range').value;
+            const total = val * qty * months;
+            
+            document.getElementById('total-result').innerText = `R$ ${total.toLocaleString()}`;
+            
+            // Atualiza gráfico com projeção
+            chart.data.datasets[0].data = Array.from({length: 6}, (_, i) => (total/months) * (i+1));
+            chart.update();
+        });
 
-        window.addEventListener('resize', init);
-        init();
-
-        for (let i = 0; i < 50; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 2,
-                v: Math.random() * 0.5 + 0.1
-            });
-        }
-
-        const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(212, 175, 55, 0.3)';
-            particles.forEach(p => {
-                p.y -= p.v;
-                if (p.y < 0) p.y = canvas.height;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(draw);
-        };
-        draw();
+        document.getElementById('calc-range').addEventListener('input', (e) => {
+            document.getElementById('range-val').innerText = `${e.target.value} Mês(es)`;
+        });
     },
 
-    // 4. DIAGNÓSTICO (A CASA ESTÁ LIMPA?)
-    runDiagnostic: function() {
-        console.group("Diagnóstico Medina");
-        console.log("1. Elements: Estrutura organizada e sem conflitos.");
-        console.log("2. Network: Independência total de bibliotecas externas.");
-        console.log("3. Console: Silêncio operacional garantido.");
-        console.groupEnd();
+    // 3. FECHAR LIGHTBOX
+    initLightbox: function() {
+        document.getElementById('lightbox').addEventListener('click', function() {
+            this.classList.remove('active');
+        });
     }
 };
 
-// INICIALIZAÇÃO SOBERANA
 document.addEventListener('DOMContentLoaded', () => {
-    MedinaSystem.setupAtmosphere();
-    MedinaSystem.materialize();
-    MedinaSystem.runDiagnostic();
+    MedinaOS.materialize();
+    MedinaOS.initAnalytics();
+    MedinaOS.initLightbox();
 });
