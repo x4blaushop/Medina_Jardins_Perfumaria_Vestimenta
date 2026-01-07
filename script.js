@@ -1,171 +1,99 @@
-/* ============================================================================
-   MEDINA_SOVEREIGN_ENGINE_V15.0 - MOTOR DE MATERIALIZAÇÃO
-   ARQUITETO PROPRIETÁRIO: JOSÉ PATRICK CASTRO SOARES
-   ESTABILIZAÇÃO GERAL DO DNA: 2026
-   ============================================================================ */
+/* MEDINA_SOVEREIGN_CSS_V15.0 - ARQUITETO JOSÉ PATRICK */
+:root {
+    --p-gold: #d4af37;
+    --p-gold-glow: rgba(212, 175, 55, 0.15);
+    --p-black-void: #020302;
+    --p-carbon: #0a0a0a;
+    --p-white-pure: #ffffff;
+    --a-transition-slow: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --a-transition-med: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --s-gutter: 60px;
+    --s-radius-lg: 30px;
+}
 
-const MEDINA_SYSTEM = {
-    owner: "José Patrick Castro Soares",
-    assets: [
-        { id: "DNA-01", title: "PRECISION PODA", file: "manutencao_cerca_viva_precision.jpg", group: "JARDINAGEM" },
-        { id: "DNA-02", title: "ESTRUTURAL SOLO", file: "preparacao_solo_plantio.jpg", group: "JARDINAGEM" },
-        { id: "DNA-03", title: "CANTEIRO MOREIA", file: "limpeza_canteiro_moreia.jpg", group: "JARDINAGEM" },
-        { id: "DNA-04", title: "ESSÊNCIA NATURA", file: "ornamentacao_vaso_essencia.jpg", group: "PERFUMARIA" },
-        { id: "DNA-05", title: "ARMADURA SOCIAL", file: "identidade_visual_medina_jardim.jpg", group: "VESTIMENTA" }
-    ],
-    chart: null,
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
-    init() {
-        this.iniciarLuxEngine();
-        this.renderizarGaleria();
-        this.configurarListeners();
-        this.processarInvestimento();
-        this.biometriaSimulada();
-        console.log("[SISTEMA]: DNA CARREGADO COM SUCESSO.");
-    },
+body {
+    background: var(--p-black-void);
+    color: var(--p-white-pure);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    cursor: crosshair;
+}
 
-    /* --- MOTOR DE PARTÍCULAS (BELEZA E HARMONIA) --- */
-    iniciarLuxEngine() {
-        const canvas = document.getElementById('lux-engine-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+/* Grade Industrial */
+body::before {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(18, 18, 18, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(18, 18, 18, 0.3) 1px, transparent 1px);
+    background-size: 30px 30px; z-index: 1000; pointer-events: none; opacity: 0.5;
+}
 
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-        window.addEventListener('resize', resize);
-        resize();
+#lux-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = "rgba(212, 175, 55, 0.3)";
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+.header-industrial { padding: var(--s-gutter); display: flex; justify-content: space-between; align-items: center; }
 
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
+.brand-logo {
+    font-size: 3rem; font-weight: 900; letter-spacing: 20px; color: transparent;
+    -webkit-text-stroke: 1px var(--p-gold); text-transform: uppercase;
+}
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-    },
+.biometric-module {
+    padding: 15px 30px; border: 1px solid var(--p-gold); background: rgba(255,255,255,0.02);
+    position: relative; overflow: hidden; cursor: pointer;
+}
 
-    /* --- CALCULADORA DE PROJEÇÃO SOBERANA --- */
-    processarInvestimento() {
-        const formula = document.getElementById('formula-input').value;
-        const meses = parseInt(document.getElementById('tempo-dna').value);
-        const log = document.getElementById('terminal-log');
-        const displayTotal = document.getElementById('valor-total-final');
+.scanner-line {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: var(--p-gold); box-shadow: 0 0 15px var(--p-gold);
+    animation: scan 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        try {
-            const labels = Array.from({length: meses}, (_, i) => `CICLO ${i + 1}`);
-            const dataY = labels.map((_, i) => math.evaluate(formula, {x: i + 1}));
-            const total = dataY[dataY.length - 1];
+@keyframes scan { 0%, 100% { top: 0%; } 50% { top: 100%; } }
 
-            displayTotal.innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            
-            // Lógica de Alerta Visual
-            if (total > 10000) {
-                displayTotal.style.color = "#ff0000";
-                log.innerText = `[ALERTA]: INVESTIMENTO DE ALTO IMPACTO DETECTADO.\nTOTAL: R$ ${total.toFixed(2)}\nREVISÃO RECOMENDADA.`;
-            } else {
-                displayTotal.style.color = "#d4af37";
-                log.innerText = `[LOG]: MATERIALIZAÇÃO ESTÁVEL. TOTAL: R$ ${total.toFixed(2)}`;
-            }
+.terminal-section { padding: var(--s-gutter); max-width: 1800px; margin: 0 auto; }
 
-            this.atualizarGrafico(labels, dataY);
-        } catch (e) {
-            log.innerText = "[ERRO]: FALHA NA SINTAXE DO DNA MATEMÁTICO.";
-        }
-    },
+.section-container {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
+    background: var(--p-carbon); padding: 50px; border-radius: var(--s-radius-lg);
+    border: 1px solid rgba(255,255,255,0.05);
+}
 
-    atualizarGrafico(labels, data) {
-        const ctx = document.getElementById('grafico-investimento-medina').getContext('2d');
-        if (this.chart) this.chart.destroy();
+.medina-input {
+    width: 100%; padding: 20px; background: #000; border: 1px solid #222;
+    color: #fff; margin-top: 10px; border-left: 5px solid var(--p-gold);
+}
 
-        this.chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'PROJEÇÃO DE ATIVOS',
-                    data: data,
-                    borderColor: '#d4af37',
-                    backgroundColor: 'rgba(212, 175, 55, 0.05)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: { 
-                    y: { grid: { color: '#111' }, ticks: { color: '#d4af37' } },
-                    x: { ticks: { color: '#444' } }
-                },
-                plugins: { legend: { display: false } }
-            }
-        });
-    },
+.medina-btn {
+    width: 100%; padding: 20px; background: transparent; border: 1px solid var(--p-gold);
+    color: var(--p-gold); font-weight: 900; letter-spacing: 5px; cursor: pointer;
+    transition: var(--a-transition-med); margin-top: 20px;
+}
 
-    /* --- GESTÃO DE GALERIA E LIGHTBOX --- */
-    renderizarGaleria() {
-        const grid = document.getElementById('grid-medina-assets');
-        grid.innerHTML = this.assets.map(asset => `
-            <div class="asset-item" onclick="MEDINA_SYSTEM.abrirLightbox('img/${asset.file}', '${asset.id}')">
-                <img src="img/${asset.file}" alt="${asset.title}">
-                <div class="asset-overlay">
-                    <span class="asset-id">${asset.id}</span>
-                    <h3>${asset.title}</h3>
-                </div>
-            </div>
-        `).join('');
-    },
+.medina-btn:hover { background: var(--p-gold); color: #000; }
 
-    abrirLightbox(src, id) {
-        const lb = document.getElementById('visualizador-medina');
-        document.getElementById('imagem-alvo').src = src;
-        document.getElementById('asset-id-display').innerText = id;
-        lb.style.display = 'flex';
-    },
+.chart-container { height: 350px; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
 
-    configurarListeners() {
-        document.getElementById('executar-projeto').addEventListener('click', () => this.processarInvestimento());
-        document.getElementById('tempo-dna').addEventListener('input', (e) => {
-            document.getElementById('meses-valor').innerText = e.target.value;
-        });
-        document.querySelector('.close-lightbox').addEventListener('click', () => {
-            document.getElementById('visualizador-medina').style.display = 'none';
-        });
-    },
+.card-value { font-size: 3rem; color: var(--p-gold); font-weight: 900; }
 
-    biometriaSimulada() {
-        document.getElementById('biometric-access-trigger').addEventListener('click', () => {
-            alert("SISTEMA RECONHECEU DNA: JOSÉ PATRICK CASTRO SOARES. ACESSO SOBERANO.");
-        });
-    }
-};
+.asset-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
+}
 
-document.addEventListener('DOMContentLoaded', () => MEDINA_SYSTEM.init());
+.asset-item {
+    height: 400px; background: #000; overflow: hidden; position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.asset-item img {
+    width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.5);
+    transition: var(--a-transition-slow);
+}
+
+.asset-item:hover img { filter: grayscale(0) brightness(1); transform: scale(1.05); }
+
+.terminal-log-output {
+    margin-top: 30px; padding: 20px; background: #050505;
+    border-left: 5px solid var(--p-gold); font-family: monospace; color: #666;
+}
+
+.gold-highlight { color: var(--p-gold); }
