@@ -1,99 +1,95 @@
-/* MEDINA_SOVEREIGN_CSS_V15.0 - ARQUITETO JOSÉ PATRICK */
-:root {
-    --p-gold: #d4af37;
-    --p-gold-glow: rgba(212, 175, 55, 0.15);
-    --p-black-void: #020302;
-    --p-carbon: #0a0a0a;
-    --p-white-pure: #ffffff;
-    --a-transition-slow: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-    --a-transition-med: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    --s-gutter: 60px;
-    --s-radius-lg: 30px;
-}
+/* MEDINA_SOVEREIGN_ENGINE_V15.0 - ARQUITETO JOSÉ PATRICK */
+const MEDINA = {
+    chart: null,
+    
+    init() {
+        this.luxEngine();
+        this.renderGaleria();
+        this.calc();
+        this.events();
+    },
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    luxEngine() {
+        const c = document.getElementById('lux-engine-canvas');
+        const ctx = c.getContext('2d');
+        let pts = [];
+        const resize = () => { c.width = window.innerWidth; c.height = window.innerHeight; };
+        window.onresize = resize; resize();
+        for(let i=0; i<100; i++) pts.push({x:Math.random()*c.width, y:Math.random()*c.height, s:Math.random()*2});
+        const anim = () => {
+            ctx.clearRect(0,0,c.width,c.height);
+            ctx.fillStyle = "rgba(212, 175, 55, 0.1)";
+            pts.forEach(p => {
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+                p.y -= 0.3; if(p.y < 0) p.y = c.height;
+            });
+            requestAnimationFrame(anim);
+        };
+        anim();
+    },
 
-body {
-    background: var(--p-black-void);
-    color: var(--p-white-pure);
-    font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
-    cursor: crosshair;
-}
+    renderGaleria() {
+        const grid = document.getElementById('asset-grid');
+        // Sequência baseada no seu GitHub: jardins.jpg + jardins1 até jardins18 + jardins19_valores
+        const nomes = ['jardins.jpg'];
+        for(let i=1; i<=18; i++) nomes.push(`jardins${i}.jpg`);
+        nomes.push('jardins19_valores.jpg');
 
-/* Grade Industrial */
-body::before {
-    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(18, 18, 18, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(18, 18, 18, 0.3) 1px, transparent 1px);
-    background-size: 30px 30px; z-index: 1000; pointer-events: none; opacity: 0.5;
-}
+        grid.innerHTML = nomes.map(f => `
+            <div class="asset-item">
+                <img src="jardins/${f}" alt="DNA Medina" onerror="this.parentElement.style.display='none'">
+                <div style="position:absolute; bottom:15px; left:15px; font-size:0.6rem; color:#d4af37;">ID: ${f.toUpperCase()}</div>
+            </div>
+        `).join('');
+    },
 
-#lux-engine-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
+    calc() {
+        const formula = document.getElementById('formula-input').value;
+        const meses = parseInt(document.getElementById('tempo-dna').value);
+        const ctx = document.getElementById('grafico-medina').getContext('2d');
+        const log = document.getElementById('terminal-log');
 
-.header-industrial { padding: var(--s-gutter); display: flex; justify-content: space-between; align-items: center; }
+        try {
+            const labels = Array.from({length: meses}, (_, i) => `M${i+1}`);
+            const dataY = labels.map((_, i) => math.evaluate(formula, {x: i+1}));
+            const total = dataY[dataY.length - 1];
 
-.brand-logo {
-    font-size: 3rem; font-weight: 900; letter-spacing: 20px; color: transparent;
-    -webkit-text-stroke: 1px var(--p-gold); text-transform: uppercase;
-}
+            document.getElementById('total-display').innerText = `R$ ${total.toLocaleString('pt-BR')}`;
+            log.innerText = `[LOG]: MATERIALIZAÇÃO CONCLUÍDA. PROJEÇÃO FINAL: R$ ${total.toFixed(2)}`;
 
-.biometric-module {
-    padding: 15px 30px; border: 1px solid var(--p-gold); background: rgba(255,255,255,0.02);
-    position: relative; overflow: hidden; cursor: pointer;
-}
+            if(this.chart) this.chart.destroy();
+            this.chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: dataY, borderColor: '#d4af37', backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                        fill: true, tension: 0.4, borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { 
+                        y: { grid: { color: '#1a1a1a' }, ticks: { color: '#d4af37' } },
+                        x: { ticks: { color: '#444' } }
+                    }
+                }
+            });
+        } catch (e) { log.innerText = "[ERRO]: DNA MATEMÁTICO INVÁLIDO."; }
+    },
 
-.scanner-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-    background: var(--p-gold); box-shadow: 0 0 15px var(--p-gold);
-    animation: scan 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
+    events() {
+        document.getElementById('executar-projeto').onclick = () => this.calc();
+        document.getElementById('tempo-dna').oninput = (e) => {
+            document.getElementById('meses-valor').innerText = e.target.value;
+            this.calc();
+        };
+        document.getElementById('biometric-trigger').onclick = () => {
+            document.getElementById('auth-status').innerText = "BIO_ID: DNA_SAPEADO";
+            document.getElementById('auth-status').style.color = "#00ff00";
+        };
+    }
+};
 
-@keyframes scan { 0%, 100% { top: 0%; } 50% { top: 100%; } }
-
-.terminal-section { padding: var(--s-gutter); max-width: 1800px; margin: 0 auto; }
-
-.section-container {
-    display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
-    background: var(--p-carbon); padding: 50px; border-radius: var(--s-radius-lg);
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.medina-input {
-    width: 100%; padding: 20px; background: #000; border: 1px solid #222;
-    color: #fff; margin-top: 10px; border-left: 5px solid var(--p-gold);
-}
-
-.medina-btn {
-    width: 100%; padding: 20px; background: transparent; border: 1px solid var(--p-gold);
-    color: var(--p-gold); font-weight: 900; letter-spacing: 5px; cursor: pointer;
-    transition: var(--a-transition-med); margin-top: 20px;
-}
-
-.medina-btn:hover { background: var(--p-gold); color: #000; }
-
-.chart-container { height: 350px; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
-
-.card-value { font-size: 3rem; color: var(--p-gold); font-weight: 900; }
-
-.asset-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
-}
-
-.asset-item {
-    height: 400px; background: #000; overflow: hidden; position: relative;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.asset-item img {
-    width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.5);
-    transition: var(--a-transition-slow);
-}
-
-.asset-item:hover img { filter: grayscale(0) brightness(1); transform: scale(1.05); }
-
-.terminal-log-output {
-    margin-top: 30px; padding: 20px; background: #050505;
-    border-left: 5px solid var(--p-gold); font-family: monospace; color: #666;
-}
-
-.gold-highlight { color: var(--p-gold); }
+window.onload = () => MEDINA.init();
