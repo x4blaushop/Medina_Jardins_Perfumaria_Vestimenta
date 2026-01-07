@@ -1,41 +1,30 @@
 /* ============================================================================
-   MEDINA_SENSORY_ENGINE_V15.0 - MATERIALIZAÇÃO DE LÓGICA COMPLEXA
+   MEDINA_SOVEREIGN_ENGINE_V15.0 - MOTOR DE MATERIALIZAÇÃO
    ARQUITETO PROPRIETÁRIO: JOSÉ PATRICK CASTRO SOARES
    ESTABILIZAÇÃO GERAL DO DNA: 2026
    ============================================================================ */
 
-const MEDINA_CORE = {
+const MEDINA_SYSTEM = {
     owner: "José Patrick Castro Soares",
-    version: "C3X4.0_MAE",
-    status: "SOVEREIGN_MODE",
-    
-    // Categorização de Ativos (Inovação e Beleza)
     assets: [
-        { id: "J01", group: "Jardinagem", type: "Precision", title: "MANUTENÇÃO CERCA VIVA", file: "manutencao_cerca_viva_precision.jpg", description: "Poda técnica com estabilização de crescimento linear." },
-        { id: "J02", group: "Jardinagem", type: "Estrutural", title: "PREPARAÇÃO DE SOLO", file: "preparacao_solo_plantio.jpg", description: "Reequilíbrio de pH e oxigenação para novos ciclos." },
-        { id: "J03", group: "Jardinagem", type: "Restauração", title: "LIMPEZA DE CANTEIRO", file: "limpeza_canteiro_moreia.jpg", description: "Remoção de ruído orgânico e harmonia de canteiros." },
-        { id: "P01", group: "Perfumaria", type: "Essência", title: "CURADORIA NATURA ELITE", file: "ornamentacao_vaso_essencia.jpg", description: "Alocação de fragrâncias soberanas integrada ao ambiente." },
-        { id: "V01", group: "Vestimenta", type: "Armadura", title: "IDENTIDADE VISUAL V15", file: "identidade_visual_medina_jardim.jpg", description: "Materialização da autoridade através da estética industrial." }
+        { id: "DNA-01", title: "PRECISION PODA", file: "manutencao_cerca_viva_precision.jpg", group: "JARDINAGEM" },
+        { id: "DNA-02", title: "ESTRUTURAL SOLO", file: "preparacao_solo_plantio.jpg", group: "JARDINAGEM" },
+        { id: "DNA-03", title: "CANTEIRO MOREIA", file: "limpeza_canteiro_moreia.jpg", group: "JARDINAGEM" },
+        { id: "DNA-04", title: "ESSÊNCIA NATURA", file: "ornamentacao_vaso_essencia.jpg", group: "PERFUMARIA" },
+        { id: "DNA-05", title: "ARMADURA SOCIAL", file: "identidade_visual_medina_jardim.jpg", group: "VESTIMENTA" }
     ],
-
-    // Motor de Projeção Gráfica
     chart: null,
 
     init() {
-        console.log("%c MEDINA SOBERANO - DNA CARREGADO ", "background: #d4af37; color: #000; font-weight: bold;");
-        this.materializarGaleria();
         this.iniciarLuxEngine();
-        this.configurarBiometria();
-        this.executarCalculoProjecao();
-        
-        // Listeners de Expansão
-        document.getElementById('executar-projeto').addEventListener('click', () => this.executarCalculoProjecao());
-        document.getElementById('tempo-dna').addEventListener('input', (e) => {
-            document.getElementById('meses-valor').innerText = e.target.value;
-            this.executarCalculoProjecao(); // Atualização em tempo real
-        });
+        this.renderizarGaleria();
+        this.configurarListeners();
+        this.processarInvestimento();
+        this.biometriaSimulada();
+        console.log("[SISTEMA]: DNA CARREGADO COM SUCESSO.");
     },
 
+    /* --- MOTOR DE PARTÍCULAS (BELEZA E HARMONIA) --- */
     iniciarLuxEngine() {
         const canvas = document.getElementById('lux-engine-canvas');
         const ctx = canvas.getContext('2d');
@@ -52,58 +41,66 @@ const MEDINA_CORE = {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.color = Math.random() > 0.5 ? '#d4af37' : '#ffffff';
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.001;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
             }
             draw() {
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = "rgba(212, 175, 55, 0.3)";
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        const animate = () => {
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (particles.length < 100) particles.push(new Particle());
-            particles.forEach((p, i) => {
-                p.update();
-                p.draw();
-                if (p.size <= 0.2) particles.splice(i, 1);
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
-        };
+        }
         animate();
     },
 
-    executarCalculoProjecao() {
-        const formulaInput = document.getElementById('formula-input').value;
+    /* --- CALCULADORA DE PROJEÇÃO SOBERANA --- */
+    processarInvestimento() {
+        const formula = document.getElementById('formula-input').value;
         const meses = parseInt(document.getElementById('tempo-dna').value);
         const log = document.getElementById('terminal-log');
-        
+        const displayTotal = document.getElementById('valor-total-final');
+
         try {
             const labels = Array.from({length: meses}, (_, i) => `CICLO ${i + 1}`);
-            const dataY = labels.map((_, i) => math.evaluate(formulaInput, {x: i + 1}));
+            const dataY = labels.map((_, i) => math.evaluate(formula, {x: i + 1}));
             const total = dataY[dataY.length - 1];
 
-            document.getElementById('valor-total-final').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            displayTotal.innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
             
-            this.renderizarGrafico(labels, dataY);
-            log.innerText = `[LOG]: MATERIALIZAÇÃO SOBERANA EXECUTADA.\n[FÓRMULA]: ${formulaInput}\n[TOTAL]: R$ ${total.toFixed(2)}\n[STATUS]: SISTEMA ESTÁVEL.`;
-            
-        } catch (err) {
-            log.innerText = `[ALERTA]: ERRO NA SINTAXE DO DNA MATEMÁTICO. AGUARDANDO CORREÇÃO DO ARQUITETO.`;
+            // Lógica de Alerta Visual
+            if (total > 10000) {
+                displayTotal.style.color = "#ff0000";
+                log.innerText = `[ALERTA]: INVESTIMENTO DE ALTO IMPACTO DETECTADO.\nTOTAL: R$ ${total.toFixed(2)}\nREVISÃO RECOMENDADA.`;
+            } else {
+                displayTotal.style.color = "#d4af37";
+                log.innerText = `[LOG]: MATERIALIZAÇÃO ESTÁVEL. TOTAL: R$ ${total.toFixed(2)}`;
+            }
+
+            this.atualizarGrafico(labels, dataY);
+        } catch (e) {
+            log.innerText = "[ERRO]: FALHA NA SINTAXE DO DNA MATEMÁTICO.";
         }
     },
 
-    renderizarGrafico(labels, data) {
+    atualizarGrafico(labels, data) {
         const ctx = document.getElementById('grafico-investimento-medina').getContext('2d');
         if (this.chart) this.chart.destroy();
 
@@ -112,14 +109,11 @@ const MEDINA_CORE = {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'ALOCAÇÃO DE CAPITAL',
+                    label: 'PROJEÇÃO DE ATIVOS',
                     data: data,
                     borderColor: '#d4af37',
-                    borderWidth: 3,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#020302',
-                    pointBorderColor: '#d4af37',
                     backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                    borderWidth: 2,
                     fill: true,
                     tension: 0.4
                 }]
@@ -127,108 +121,51 @@ const MEDINA_CORE = {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#d4af37', font: { family: 'Courier New' } } },
-                    x: { grid: { display: false }, ticks: { color: '#555', font: { family: 'Courier New' } } }
-                }
+                scales: { 
+                    y: { grid: { color: '#111' }, ticks: { color: '#d4af37' } },
+                    x: { ticks: { color: '#444' } }
+                },
+                plugins: { legend: { display: false } }
             }
         });
     },
 
-    materializarGaleria() {
+    /* --- GESTÃO DE GALERIA E LIGHTBOX --- */
+    renderizarGaleria() {
         const grid = document.getElementById('grid-medina-assets');
         grid.innerHTML = this.assets.map(asset => `
-            <div class="asset-item" onclick="MEDINA_CORE.abrirLightbox('${asset.file}', '${asset.title}')">
+            <div class="asset-item" onclick="MEDINA_SYSTEM.abrirLightbox('img/${asset.file}', '${asset.id}')">
                 <img src="img/${asset.file}" alt="${asset.title}">
                 <div class="asset-overlay">
                     <span class="asset-id">${asset.id}</span>
-                    <span class="asset-group">${asset.group}</span>
                     <h3>${asset.title}</h3>
                 </div>
             </div>
         `).join('');
     },
 
-    configurarBiometria() {
-        const trigger = document.getElementById('biometric-access-trigger');
-        trigger.addEventListener('click', () => {
-            const status = document.querySelector('.auth-status');
-            status.innerText = "BIO_ID: DNA_RECONHECIDO";
-            status.style.color = "#00ff00";
-            alert("ACESSO SOBERANO CONFIRMADO: JOSÉ PATRICK");
+    abrirLightbox(src, id) {
+        const lb = document.getElementById('visualizador-medina');
+        document.getElementById('imagem-alvo').src = src;
+        document.getElementById('asset-id-display').innerText = id;
+        lb.style.display = 'flex';
+    },
+
+    configurarListeners() {
+        document.getElementById('executar-projeto').addEventListener('click', () => this.processarInvestimento());
+        document.getElementById('tempo-dna').addEventListener('input', (e) => {
+            document.getElementById('meses-valor').innerText = e.target.value;
+        });
+        document.querySelector('.close-lightbox').addEventListener('click', () => {
+            document.getElementById('visualizador-medina').style.display = 'none';
+        });
+    },
+
+    biometriaSimulada() {
+        document.getElementById('biometric-access-trigger').addEventListener('click', () => {
+            alert("SISTEMA RECONHECEU DNA: JOSÉ PATRICK CASTRO SOARES. ACESSO SOBERANO.");
         });
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => MEDINA_CORE.init());
-/* ============================================================================
-   MÓDULO DE ALERTA DE CAPITAL - C3X4.0_MAE
-   LOGICA: SE VALOR > 10.000 -> ESTADO DE ALERTA (RED_DNA)
-   ============================================================================ */
-
-function processarProjecao() {
-    const formula = document.getElementById('formula-input').value;
-    const meses = parseInt(document.getElementById('tempo-dna').value);
-    const ctx = document.getElementById('grafico-investimento-medina').getContext('2d');
-    const log = document.getElementById('terminal-log');
-    const valorDisplay = document.getElementById('valor-total-final');
-    const btnMaterializar = document.getElementById('executar-projeto');
-
-    try {
-        const labels = Array.from({length: meses}, (_, i) => `CICLO ${i + 1}`);
-        const dataY = labels.map((_, i) => math.evaluate(formula, {x: i + 1}));
-        const total = dataY[dataY.length - 1];
-
-        // --- GESTÃO DE ESTADO SOBERANO (ALERTA) ---
-        const LIMITE_ALERTA = 10000;
-        let corSistema = '#d4af37'; // Ouro Padrão
-        let corFundo = 'rgba(212, 175, 55, 0.1)';
-
-        if (total > LIMITE_ALERTA) {
-            corSistema = '#ff0000'; // Alerta Vermelho
-            corFundo = 'rgba(255, 0, 0, 0.2)';
-            log.innerText = `[ALERTA]: INVESTIMENTO DE ALTO IMPACTO DETECTADO.\n[TOTAL]: R$ ${total.toFixed(2)}\n[STATUS]: REVISÃO DO ARQUITETO NECESSÁRIA.`;
-            btnMaterializar.style.borderColor = "#ff0000";
-            btnMaterializar.style.color = "#ff0000";
-            valorDisplay.style.color = "#ff0000";
-        } else {
-            log.innerText = `[LOG]: MATERIALIZAÇÃO ESTÁVEL.\n[TOTAL]: R$ ${total.toFixed(2)}\n[STATUS]: DENTRO DOS PARÂMETROS DE OURO.`;
-            btnMaterializar.style.borderColor = "#d4af37";
-            btnMaterializar.style.color = "#d4af37";
-            valorDisplay.style.color = "#d4af37";
-        }
-
-        document.getElementById('valor-total-final').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-
-        if (medinaChart) medinaChart.destroy();
-
-        medinaChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'ALOCAÇÃO DE CAPITAL',
-                    data: dataY,
-                    borderColor: corSistema,
-                    backgroundColor: corFundo,
-                    borderWidth: 3,
-                    pointBackgroundColor: corSistema,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { 
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: corSistema } },
-                    x: { grid: { display: false }, ticks: { color: '#444' } }
-                }
-            }
-        });
-    } catch (e) {
-        log.innerText = "[ERROR]: DNA MATEMÁTICO INCOMPLETO.";
-    }
-}
+document.addEventListener('DOMContentLoaded', () => MEDINA_SYSTEM.init());
