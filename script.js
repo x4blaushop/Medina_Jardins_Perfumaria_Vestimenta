@@ -162,3 +162,73 @@ const MEDINA_CORE = {
 };
 
 document.addEventListener('DOMContentLoaded', () => MEDINA_CORE.init());
+/* ============================================================================
+   MÓDULO DE ALERTA DE CAPITAL - C3X4.0_MAE
+   LOGICA: SE VALOR > 10.000 -> ESTADO DE ALERTA (RED_DNA)
+   ============================================================================ */
+
+function processarProjecao() {
+    const formula = document.getElementById('formula-input').value;
+    const meses = parseInt(document.getElementById('tempo-dna').value);
+    const ctx = document.getElementById('grafico-investimento-medina').getContext('2d');
+    const log = document.getElementById('terminal-log');
+    const valorDisplay = document.getElementById('valor-total-final');
+    const btnMaterializar = document.getElementById('executar-projeto');
+
+    try {
+        const labels = Array.from({length: meses}, (_, i) => `CICLO ${i + 1}`);
+        const dataY = labels.map((_, i) => math.evaluate(formula, {x: i + 1}));
+        const total = dataY[dataY.length - 1];
+
+        // --- GESTÃO DE ESTADO SOBERANO (ALERTA) ---
+        const LIMITE_ALERTA = 10000;
+        let corSistema = '#d4af37'; // Ouro Padrão
+        let corFundo = 'rgba(212, 175, 55, 0.1)';
+
+        if (total > LIMITE_ALERTA) {
+            corSistema = '#ff0000'; // Alerta Vermelho
+            corFundo = 'rgba(255, 0, 0, 0.2)';
+            log.innerText = `[ALERTA]: INVESTIMENTO DE ALTO IMPACTO DETECTADO.\n[TOTAL]: R$ ${total.toFixed(2)}\n[STATUS]: REVISÃO DO ARQUITETO NECESSÁRIA.`;
+            btnMaterializar.style.borderColor = "#ff0000";
+            btnMaterializar.style.color = "#ff0000";
+            valorDisplay.style.color = "#ff0000";
+        } else {
+            log.innerText = `[LOG]: MATERIALIZAÇÃO ESTÁVEL.\n[TOTAL]: R$ ${total.toFixed(2)}\n[STATUS]: DENTRO DOS PARÂMETROS DE OURO.`;
+            btnMaterializar.style.borderColor = "#d4af37";
+            btnMaterializar.style.color = "#d4af37";
+            valorDisplay.style.color = "#d4af37";
+        }
+
+        document.getElementById('valor-total-final').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+
+        if (medinaChart) medinaChart.destroy();
+
+        medinaChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'ALOCAÇÃO DE CAPITAL',
+                    data: dataY,
+                    borderColor: corSistema,
+                    backgroundColor: corFundo,
+                    borderWidth: 3,
+                    pointBackgroundColor: corSistema,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: corSistema } },
+                    x: { grid: { display: false }, ticks: { color: '#444' } }
+                }
+            }
+        });
+    } catch (e) {
+        log.innerText = "[ERROR]: DNA MATEMÁTICO INCOMPLETO.";
+    }
+}
