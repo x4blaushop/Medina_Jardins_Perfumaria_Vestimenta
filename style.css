@@ -1,70 +1,126 @@
-/* --- ADICIONAR AO BLOCO 08: GALERIA DE ASSETS --- */
-.asset-item {
+/* --- BLOCO 12: MOTOR DE PROFUNDIDADE E VIDRO SOBERANO --- */
+.config-panel, .analytics-panel {
     position: relative;
-    height: 450px;
-    border: 1px solid rgba(212, 175, 55, 0.1);
-    transition: var(--a-transition-slow);
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: var(--a-blur-standard);
+    -webkit-backdrop-filter: var(--a-blur-standard);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
-.asset-overlay {
+.config-panel::before {
+    content: "";
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 30px;
-    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
-    opacity: 0.8;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--p-gold-glow) 0%, transparent 70%);
+    opacity: 0.3;
+    pointer-events: none;
+    animation: deriva-de-luz 15s infinite alternate ease-in-out;
+}
+
+@keyframes deriva-de-luz {
+    0% { transform: translate(-10%, -10%); }
+    100% { transform: translate(10%, 10%); }
+}
+
+/* Efeito de Vidro nas Cards de Valor */
+.value-card {
+    position: relative;
+    border-radius: var(--s-radius-sm);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: inset 0 1px 1px rgba(212, 175, 55, 0.1);
+    backdrop-filter: blur(5px);
+}
+/* --- BLOCO 13: DINÂMICA DE INTERAÇÃO E REATIVIDADE --- */
+.medina-btn {
+    position: relative;
+    padding: 20px 40px;
+    background: transparent;
+    border: 1px solid var(--p-gold);
+    color: var(--p-gold);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    cursor: pointer;
+    overflow: hidden;
     transition: var(--a-transition-med);
 }
 
-.asset-item:hover .asset-overlay {
-    opacity: 1;
-    padding-bottom: 40px;
+.medina-btn::after {
+    content: "MATERIALIZAR";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--p-gold);
+    color: var(--p-black-void);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--a-transition-med);
 }
 
-.asset-id {
-    display: block;
-    font-size: 0.7rem;
-    color: var(--p-gold);
-    letter-spacing: 3px;
-    margin-bottom: 5px;
+.medina-btn:hover::after {
+    left: 0;
 }
 
-.asset-group {
-    font-size: 0.6rem;
-    color: #888;
-    text-transform: uppercase;
+.medina-btn:active {
+    transform: scale(0.98);
+    filter: brightness(1.2);
 }
 
-.asset-item h3 {
-    font-size: 1.2rem;
-    font-weight: 900;
-    color: var(--p-white-pure);
-    margin-top: 5px;
+/* Scanner de Foco no Input */
+.input-field {
+    position: relative;
+    margin-bottom: 30px;
 }
 
-/* --- BLOCO DE EXPANSÃO: EFEITO DE SCANNER NO INPUT --- */
-.medina-input {
-    border-left: 5px solid var(--p-gold-muted);
-    font-weight: 700;
+.input-field::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--p-gold);
+    box-shadow: 0 0 10px var(--p-gold);
+    transition: var(--a-transition-med);
 }
 
-.medina-input:focus {
-    border-left-color: var(--p-gold);
+.input-field:focus-within::after {
+    width: 100%;
 }
 
-/* --- RESPONSIVIDADE PARA CELULAR (INDEPENDÊNCIA) --- */
-@media (max-width: 768px) {
-    .section-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 20px;
-    }
-    .brand-logo {
-        font-size: 2rem;
-        letter-spacing: 10px;
-    }
-    .chart-container {
-        height: 300px;
-    }
+/* Efeito Hover na Galeria DNA */
+.asset-item {
+    border: 1px solid transparent;
+}
+
+.asset-item:hover {
+    border-color: var(--p-gold-muted);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.1);
+    z-index: 5;
+}
+
+/* Estilização da Range (Barra de Tempo) Soberana */
+.medina-range {
+    -webkit-appearance: none;
+    height: 2px;
+    background: var(--p-industrial-gray);
+    outline: none;
+}
+
+.medina-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--p-gold);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--p-gold);
 }
