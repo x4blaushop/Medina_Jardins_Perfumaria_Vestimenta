@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="José Patrick Castro Soares">
     <meta name="owner" content="José Patrick Castro Soares">
-    <meta name="copyright" content="Copyright 2026 - José Patrick Castro Soares">
-    <title>Medina/jardins/perfumaria/vestuário | TERMINAL SOBERANO</title>
+    <title>BASE-JOSE PATRICK | TERMINAL SOBERANO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     
     <style>
         :root {
@@ -29,173 +27,114 @@
             overflow-x: hidden;
         }
 
-        #lux-engine-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.2;
-        }
-
         .header-industrial {
-            border-bottom: 1px solid var(--gold);
-            padding: 20px;
+            border-bottom: 2px solid var(--gold);
+            padding: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
         }
 
         .brand-logo {
             font-weight: 900;
-            letter-spacing: 15px;
+            letter-spacing: 12px;
             color: var(--gold);
             margin: 0;
+            font-size: 1.8rem;
         }
 
-        /* BANNER DE SOBERANIA INJETADO */
-        .sovereign-identification {
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(0,0,0,1) 100%);
-            border-bottom: 2px solid var(--gold);
-            padding: 60px 20px;
+        /* SELO DE SOBERANIA EXPLICITADO */
+        .sovereign-badge {
+            background: var(--gold);
+            color: black;
+            padding: 10px 30px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
             text-align: center;
-        }
-
-        .id-banner h2 {
-            font-weight: 900;
-            font-size: 2.2rem;
-            letter-spacing: 8px;
-            margin: 0;
-            color: var(--gold);
-        }
-
-        .status-badge {
-            display: inline-block;
-            background: var(--gold);
-            color: black;
-            padding: 5px 20px;
-            font-weight: 900;
-            margin: 15px 0;
             clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+            margin: 20px auto;
+            max-width: fit-content;
         }
 
-        .base-note {
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            color: #888;
-        }
-
-        /* TERMINAL E INPUTS */
-        .terminal-section {
+        .blueprint-info {
+            text-align: center;
             padding: 40px 20px;
-            max-width: 1200px;
-            margin: auto;
+            border-bottom: 1px solid #222;
         }
 
-        .config-panel {
-            background: var(--dark-gray);
-            padding: 30px;
-            border-left: 5px solid var(--gold);
-            margin-bottom: 30px;
-        }
-
-        .medina-input, .medina-range {
-            width: 100%;
-            background: #000;
-            border: 1px solid #333;
+        .base-label {
             color: var(--gold);
-            padding: 10px;
-            margin-top: 10px;
-            font-family: monospace;
+            font-weight: 100;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: block;
         }
 
-        .medina-btn {
-            background: var(--gold);
-            color: black;
-            border: none;
-            padding: 15px 30px;
-            font-weight: 900;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: 0.3s;
+        .terminal-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: var(--dark-gray);
+            border-left: 3px solid var(--gold);
         }
 
-        .medina-btn:hover {
-            filter: brightness(1.2);
-            letter-spacing: 2px;
-        }
-
-        .terminal-log-output {
+        .terminal-output {
             background: #000;
             color: var(--terminal-green);
-            padding: 15px;
+            padding: 20px;
             font-family: monospace;
-            font-size: 0.8rem;
-            border: 1px solid #222;
+            font-size: 0.9rem;
+            border: 1px solid #333;
+            min-height: 100px;
         }
 
-        .footer-industrial {
+        footer {
             text-align: center;
-            padding: 40px;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
+            padding: 50px;
             color: #444;
-            border-top: 1px solid #222;
-        }
-
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+            letter-spacing: 2px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-    <canvas id="lux-engine-canvas"></canvas>
 
     <header class="header-industrial">
         <h1 class="brand-logo">MEDINA</h1>
-        <div id="biometric-trigger" style="text-align: right;">
-            <div style="color: var(--gold); font-size: 0.6rem; letter-spacing: 2px;">BIO_AUTH_REQUIRED</div>
-            <div style="font-weight: 900; font-size: 0.8rem;">ARQUITETO: JOSÉ PATRICK</div>
+        <div class="owner-tag" style="text-align: right;">
+            <div style="font-size: 0.6rem; color: var(--gold);">BLUEPRINT_ORIGIN</div>
+            <div style="font-weight: 900;">JOSÉ PATRICK</div>
         </div>
     </header>
 
-    <section class="sovereign-identification">
-        <div class="id-banner">
-            <h2>AUTORIA DE JOSÉ PATRICK</h2>
-            <div class="status-badge">[ EM PROCESSO DE CRIAÇÃO ]</div>
-            <p class="base-note">BLUEPRINT TÉCNICO: PROPRIEDADE INTELECTUAL PROTEGIDA</p>
+    <main>
+        <div class="blueprint-info">
+            <span class="base-label">Identificador de Propriedade</span>
+            <div class="sovereign-badge">BASE-JOSE PATRICK</div>
+            <p style="color: #888; letter-spacing: 1px; margin-top: 20px;">
+                PRODUTO TÉCNICO EM DESENVOLVIMENTO | ARQUITETURA DE ALOCAÇÃO
+            </p>
         </div>
-    </section>
 
-    <section class="terminal-section">
-        <div class="config-panel">
-            <h2 style="color: var(--gold); letter-spacing: 5px;">SISTEMA DE ALOCAÇÃO</h2>
-            <div class="input-field">
-                <label>FÓRMULA DE INVESTIMENTO</label>
-                <input type="text" id="formula-input" value="1500 + (x * 1150)" class="medina-input">
+        <section class="terminal-container">
+            <h3 style="color: var(--gold); margin-top: 0;">LOG DO SISTEMA</h3>
+            <div class="terminal-output">
+                > [SISTEMA]: DNA Identificado.<br>
+                > [ORIGEM]: https://x4blaushop.github.io/Medina_Jardins_Perfumaria_Vestimenta/<br>
+                > [STATUS]: Soberania de José Patrick confirmada.<br>
+                > [Aviso]: Uso indevido por terceiros resultará em falha crítica de licença.
             </div>
-            <button id="executar-projeto" class="medina-btn">MATERIALIZAR DNA NO GITHUB</button>
-        </div>
-        <div id="terminal-log" class="terminal-log-output">> SISTEMA EM SILÊNCIO: AGUARDANDO COMANDO DO DONO...</div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="footer-industrial">
-        ESTADO SOBERANO: 2026 | DESENVOLVIDO POR JOSÉ PATRICK CASTRO SOARES | O BLUEPRINT ORIGINAL
+    <footer>
+        BASE-JOSE PATRICK © 2026 | ARQUITETO JOSÉ PATRICK CASTRO SOARES | TODOS OS DIREITOS RESERVADOS.
     </footer>
 
-    <script>
-        document.getElementById('executar-projeto').addEventListener('click', function() {
-            const log = document.getElementById('terminal-log');
-            log.innerText = "> INICIANDO VALIDAÇÃO DE AUTORIA...";
-            
-            setTimeout(() => {
-                log.innerText = "> DNA IDENTIFICADO: JOSÉ PATRICK CASTRO SOARES";
-                log.style.color = "#d4af37";
-                alert("Blueprint Materializado. A soberania da página foi confirmada como propriedade de José Patrick.");
-            }, 1500);
-        });
-    </script>
 </body>
 </html>
