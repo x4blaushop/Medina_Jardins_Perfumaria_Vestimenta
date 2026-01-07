@@ -1,12 +1,10 @@
 /* MEDINA_SOVEREIGN_CSS_V15.0 - ARQUITETO JOSÉ PATRICK */
 :root {
     --p-gold: #d4af37;
-    --p-gold-glow: rgba(212, 175, 55, 0.15);
     --p-black-void: #020302;
     --p-carbon: #0a0a0a;
     --p-white-pure: #ffffff;
     --a-transition-slow: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
-    --a-transition-med: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     --s-gutter: 60px;
     --s-radius-lg: 30px;
 }
@@ -18,10 +16,9 @@ body {
     color: var(--p-white-pure);
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
-    cursor: crosshair;
 }
 
-/* Grade Industrial */
+/* Grade de Fundo Soberana */
 body::before {
     content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-image: linear-gradient(rgba(18, 18, 18, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(18, 18, 18, 0.3) 1px, transparent 1px);
@@ -33,7 +30,7 @@ body::before {
 .header-industrial { padding: var(--s-gutter); display: flex; justify-content: space-between; align-items: center; }
 
 .brand-logo {
-    font-size: 3rem; font-weight: 900; letter-spacing: 20px; color: transparent;
+    font-size: 3.5rem; font-weight: 900; letter-spacing: 25px; color: transparent;
     -webkit-text-stroke: 1px var(--p-gold); text-transform: uppercase;
 }
 
@@ -45,10 +42,10 @@ body::before {
 .scanner-line {
     position: absolute; top: 0; left: 0; width: 100%; height: 2px;
     background: var(--p-gold); box-shadow: 0 0 15px var(--p-gold);
-    animation: scan 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    animation: scan 4s infinite linear;
 }
 
-@keyframes scan { 0%, 100% { top: 0%; } 50% { top: 100%; } }
+@keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
 
 .terminal-section { padding: var(--s-gutter); max-width: 1800px; margin: 0 auto; }
 
@@ -60,40 +57,29 @@ body::before {
 
 .medina-input {
     width: 100%; padding: 20px; background: #000; border: 1px solid #222;
-    color: #fff; margin-top: 10px; border-left: 5px solid var(--p-gold);
+    color: #fff; margin-top: 10px; border-left: 5px solid var(--p-gold); font-weight: 700;
 }
 
 .medina-btn {
     width: 100%; padding: 20px; background: transparent; border: 1px solid var(--p-gold);
     color: var(--p-gold); font-weight: 900; letter-spacing: 5px; cursor: pointer;
-    transition: var(--a-transition-med); margin-top: 20px;
+    transition: 0.4s; margin-top: 20px;
 }
 
-.medina-btn:hover { background: var(--p-gold); color: #000; }
+.medina-btn:hover { background: var(--p-gold); color: #000; box-shadow: 0 0 30px var(--p-gold); }
 
-.chart-container { height: 350px; background: rgba(0,0,0,0.2); margin-bottom: 20px; }
+.chart-container { height: 350px; background: rgba(0,0,0,0.2); }
 
-.card-value { font-size: 3rem; color: var(--p-gold); font-weight: 900; }
+.card-value { font-size: 3.5rem; color: var(--p-gold); font-weight: 900; text-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
 
-.asset-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
-}
+.asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
 
-.asset-item {
-    height: 400px; background: #000; overflow: hidden; position: relative;
-    border: 1px solid rgba(255,255,255,0.05);
-}
+.asset-item { height: 450px; background: #000; overflow: hidden; position: relative; border: 1px solid rgba(212, 175, 55, 0.1); }
 
-.asset-item img {
-    width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.5);
-    transition: var(--a-transition-slow);
-}
+.asset-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.4); transition: var(--a-transition-slow); }
 
-.asset-item:hover img { filter: grayscale(0) brightness(1); transform: scale(1.05); }
+.asset-item:hover img { filter: grayscale(0) brightness(1.1); transform: scale(1.08); }
 
-.terminal-log-output {
-    margin-top: 30px; padding: 20px; background: #050505;
-    border-left: 5px solid var(--p-gold); font-family: monospace; color: #666;
-}
+.terminal-log-output { margin-top: 30px; padding: 25px; background: #050505; border-left: 5px solid var(--p-gold); font-family: monospace; color: #555; }
 
 .gold-highlight { color: var(--p-gold); }
