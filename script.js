@@ -1,70 +1,60 @@
-// Categorização de Produtos - DNA Medina Jardim & Essências
-const products = [
-    // --- NÚCLEO DE JARDINAGEM ---
-    {
-        name: "Manutenção de Cerca Viva",
-        category: "jardinagem",
-        image: "manutencao_cerca_viva_precision.jpg", // Nome corrigido
-        description: "Podas técnicas e manutenção de cercas vivas com precisão."
-    },
-    {
-        name: "Preparação de Solo",
-        category: "jardinagem",
-        image: "preparacao_solo_plantio.jpg",
-        description: "Tratamento e preparação técnica para novos plantios."
-    },
-    {
-        name: "Limpeza de Canteiros (Moreia)",
-        category: "jardinagem",
-        image: "limpeza_canteiro_moreia.jpg",
-        description: "Remoção de pragas e limpeza detalhada de áreas ornamentais."
-    },
-    {
-        name: "Design de Buchinhos",
-        category: "jardinagem",
-        image: "design_paisagistico_linear.jpg",
-        description: "Formatação geométrica e harmônica de arbustos."
-    },
-
-    // --- ESSÊNCIAS SOBERANAS (NATURA & AVON) ---
-    {
-        name: "Ornamentação e Fragrância",
-        category: "perfumaria",
-        image: "ornamentacao_vaso_essencia.jpg",
-        description: "A união entre a beleza das flores e as melhores essências Natura."
-    },
-    {
-        name: "Jardim Vertical & Estética",
-        category: "perfumaria",
-        image: "jardim_vertical_harmonico.jpg",
-        description: "Consultoria em beleza e perfumaria integrada ao ambiente."
-    },
-
-    // --- REGISTROS DE IDENTIDADE ---
-    {
-        name: "Identidade Visual Profissional",
-        category: "vestimenta",
-        image: "identidade_visual_medina_jardim.jpg",
-        description: "Apresentação e autoridade no mercado de serviços."
-    }
+// DNA de Ativos - Organização e Harmonia
+const assets = [
+    { id: "J01", title: "Cerca Viva Precision", file: "manutencao_cerca_viva_precision.jpg", cat: "Jardinagem" },
+    { id: "J02", title: "Preparação Solo", file: "preparacao_solo_plantio.jpg", cat: "Jardinagem" },
+    { id: "P01", title: "Essência Natura", file: "ornamentacao_vaso_essencia.jpg", cat: "Perfumaria" },
+    { id: "V01", title: "Armadura Social", file: "identidade_visual_medina_jardim.jpg", cat: "Vestimenta" }
 ];
 
-// Função de Renderização com Harmonia
-function renderProducts() {
-    const container = document.getElementById('products-container');
-    if (!container) return;
+let medinaChart = null;
 
-    container.innerHTML = products.map(product => `
-        <div class="product-card" data-category="${product.category}">
-            <img src="img/${product.image}" alt="${product.name}" loading="lazy">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <a href="https://wa.me/5511999999999?text=Olá Medina, quero um orçamento para ${product.name}" target="_blank" class="btn-orcamento">
-                Solicitar Orçamento
-            </a>
+function materializarSistema() {
+    renderGaleria();
+    configurarGrafico();
+    
+    document.getElementById('executar-projeto').addEventListener('click', configurarGrafico);
+    document.getElementById('tempo-dna').addEventListener('input', (e) => {
+        document.getElementById('meses-valor').innerText = e.target.value;
+    });
+}
+
+function renderGaleria() {
+    const grid = document.getElementById('grid-medina-assets');
+    grid.innerHTML = assets.map(asset => `
+        <div class="asset-card">
+            <img src="img/${asset.file}" alt="${asset.title}">
+            <div class="asset-info"><span>${asset.id}</span><p>${asset.title}</p></div>
         </div>
     `).join('');
 }
 
-// Inicialização do Sistema
-document.addEventListener('DOMContentLoaded', renderProducts);
+function configurarGrafico() {
+    const formula = document.getElementById('formula-input').value;
+    const meses = parseInt(document.getElementById('tempo-dna').value);
+    const ctx = document.getElementById('grafico-investimento-medina').getContext('2d');
+
+    try {
+        const labels = Array.from({length: meses}, (_, i) => `Mês ${i + 1}`);
+        const data = labels.map((_, i) => math.evaluate(formula, {x: i + 1}));
+
+        if (medinaChart) medinaChart.destroy();
+
+        medinaChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Projeção de Capital (R$)',
+                    data: data,
+                    borderColor: '#c5a059',
+                    backgroundColor: 'rgba(197, 160, 89, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+    } catch (e) { console.log("Aguardando fórmula válida..."); }
+}
+
+document.addEventListener('DOMContentLoaded', materializarSistema);
